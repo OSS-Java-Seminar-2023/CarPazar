@@ -53,3 +53,6 @@ Your TradeAway Wishlist is like your secret shopping helper. Whether you are loo
 ### Favourite Categories
 
 TradeAway's Favorite Categories feature is your key to a more personalized and convenient shopping experience. We understand that your interests are diverse, and that's why we've created this feature to help you easily explore the things you love most on our platform. Users can filter their categories of interest and turn on notifications if they want to receive updates about new listings, special promotions, or price changes within those selected categories.
+
+### Database 
+![Snimka zaslona 2023-10-23 173832](https://github.com/OSS-Java-Seminar-2023/TradeAway/assets/147553144/14d93e51-f3c7-4220-87d8-529f69807ae8)
