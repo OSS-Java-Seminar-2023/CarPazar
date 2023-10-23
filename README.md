@@ -3,7 +3,9 @@
 ## Devs
 
 **[Ante Aljinović](https://github.com/aljinovic-ante)**
+
 **[Josip Brnas]()**
+
 **[Ante Kljaković Gašpić](https://github.com/wsp83)**
 
 ## Introduction
