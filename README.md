@@ -1,5 +1,11 @@
 # TradeAway
 
+## Devs
+
+**[Ante Aljinović](https://github.com/aljinovic-ante)**
+**[Josip Brnas]()**
+**[Ante Kljaković Gašpić](https://github.com/wsp83)**
+
 ## Introduction
 
 TradeAway is an application designed to assist users in selling used items or buying them from other users. This application created primarily in Java focuses on creating an user-friendly trading environment.
