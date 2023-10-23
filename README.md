@@ -4,7 +4,7 @@
 
 **[Ante Aljinović](https://github.com/aljinovic-ante)**
 
-**[Josip Brnas]()**
+**[Josip Brnas](https://github.com/Jole56)**
 
 **[Ante Kljaković Gašpić](https://github.com/wsp83)**
 
