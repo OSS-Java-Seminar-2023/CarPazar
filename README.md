@@ -28,7 +28,7 @@ Each listing has requirements:
   - listing description
   - quantity
 
-If quantity is larger than one, listing itself has user reviews section, where buyers can rate the product itself, apart from rating the seller on their profile.
+//If quantity is larger than one, listing itself has user reviews section, where buyers can rate the product itself, apart from rating the seller on their profile. (optional)
 
 ### Sponspored Ads
 
@@ -38,3 +38,10 @@ To display a select listing above others in the same (sub)category / search resu
 
 Typing in a search bar will filter out all the listing in the same (sub)category according to their title. If a search is done outside of a category, recommended categories will show up, based on the quantity of results falling within the same categories.
 
+### Wishlist
+
+Your TradeAway Wishlist is like your secret shopping helper. Whether you are looking for ideas, keeping track of gift possibilities, or just staying organized with your interests, our Wishlist makes online shopping more fun and simple.
+
+### Favourite Categories
+
+TradeAway's Favorite Categories feature is your key to a more personalized and convenient shopping experience. We understand that your interests are diverse, and that's why we've created this feature to help you easily explore the things you love most on our platform. Users can filter their categories of interest and turn on notifications if they want to receive updates about new listings, special promotions, or price changes within those selected categories.
