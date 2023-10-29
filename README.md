@@ -36,7 +36,7 @@ With a Premium Listing, your item will be front and center, catching the eye of 
 ### Ratings
 
 Each seller has a rating ranging between 1.0 and 5.0. We highly recommend leaving a review on the seller's profile after purchase, to help create a safer shopping environment.
-Reviews must contain a rating, but the reason is optional.
+Reviews must contain a rating, but the reason is optional. As previously mentioned, actively engaging in reviews can potentially elevate your standard profile to a premium one if you currently don't have a premium profile.
 
 ### Listings
 
@@ -50,10 +50,6 @@ Each listing has requirements:
   - quantity
 
 //If quantity is larger than one, listing itself has user reviews section, where buyers can rate the product itself, apart from rating the seller on their profile. (optional)
-
-### Sponspored Ads
-
-To display a select listing above others in the same (sub)category / search results, seller is able to purchase a sponsoring for their listing, at a price based on the duration of said sponsoring.
 
 ### Search Bar
 
