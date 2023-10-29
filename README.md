@@ -20,6 +20,20 @@ Each user needs to create a profile in order to do anything except browsing. Tra
 
 In order to create a listing, users must fully complete their profile information.
 
+### Premium Profile
+
+Premium profiles enjoy increased exposure for their listings, leading to faster sales and a higher volume of potential buyers.
+Ideal for sellers seeking maximum visibility for their items, such as power sellers, businesses, or individuals with a large inventory of items to sell.
+Premium profiles help users gain a competitive edge and stand out in a crowded marketplace, ensuring their listings are seen by more users.
+By offering a premium profile level, TradeAway encourages users to upgrade for increased visibility, potentially leading to more sellers considering this option to boost their sales and reach on the platform.
+
+Premium profiles may be acquired through the accumulation of positive reviews by consistently offering excellent service or by reviewing a lot of items that you've bought. This rewards sellers for providing exceptional service and maintaining a high level of trust among the TradeAway community.
+
+### Premium listing
+
+Are you in a hurry to sell an item, but don't have a Premium Profile? Don't worry! Our Premium Listing feature is here to the rescue. It provides a one-time advertisement that will undoubtedly skyrocket your item's exposure and visibility within the TradeAway community.
+With a Premium Listing, your item will be front and center, catching the eye of potential buyers instantly. No more waiting in line – your item takes the lead!
+
 ### Ratings
 
 Each seller has a rating ranging between 1.0 and 5.0. We highly recommend leaving a review on the seller's profile after purchase, to help create a safer shopping environment.
@@ -53,6 +67,13 @@ Your TradeAway Wishlist is like your secret shopping helper. Whether you are loo
 ### Favourite Categories
 
 TradeAway's Favorite Categories feature is your key to a more personalized and convenient shopping experience. We understand that your interests are diverse, and that's why we've created this feature to help you easily explore the things you love most on our platform. Users can filter their categories of interest and turn on notifications if they want to receive updates about new listings, special promotions, or price changes within those selected categories.
+
+### Forum
+
+Are you on the hunt for something truly unique or specific that you can't seem to find on our site? The TradeAway Forum is your ultimate destination. Here, you can connect with a passionate community of users who might just have what you're looking for, even if they weren't initially planning to sell it.
+Find the Unfindable: The Forum is your secret treasure for those elusive items that might not appear in regular listings. Whether it's a rare collectible, a vintage item, or a niche product, the Forum is where it might just pop up.
+Engage with Like-minded Collectors: Join conversations, discussions, and threads about your interests. Connect with fellow enthusiasts who share your passions, and tap into their knowledge and networks.
+Seek Recommendations and Advice: Can't decide between two products? Not sure how to care for a specific item? The Forum is the place to ask for advice and receive valuable insights from experienced users.
 
 ### Database 
 ![Snimka zaslona 2023-10-23 173832](https://github.com/OSS-Java-Seminar-2023/TradeAway/assets/147553144/14d93e51-f3c7-4220-87d8-529f69807ae8)
