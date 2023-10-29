@@ -28,7 +28,7 @@ Premium profiles help users gain a competitive edge and stand out in a crowded m
 
 Premium profiles may be acquired through the accumulation of positive reviews by consistently offering excellent service or by reviewing a lot of items that you've bought. This rewards sellers for providing exceptional service and maintaining a high level of trust among the TradeAway community.
 
-### Premium listing
+### Premium Listing
 
 Are you in a hurry to sell an item, but don't have a Premium Profile? Don't worry! Our Premium Listing feature is here to the rescue. It provides a one-time advertisement that will undoubtedly skyrocket your item's exposure and visibility within the TradeAway community.
 With a Premium Listing, your item will be front and center, catching the eye of potential buyers instantly. No more waiting in line – your item takes the lead!
