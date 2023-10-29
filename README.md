@@ -25,7 +25,6 @@ In order to create a listing, users must fully complete their profile informatio
 Premium profiles enjoy increased exposure for their listings, leading to faster sales and a higher volume of potential buyers.
 Ideal for sellers seeking maximum visibility for their items, such as power sellers, businesses, or individuals with a large inventory of items to sell.
 Premium profiles help users gain a competitive edge and stand out in a crowded marketplace, ensuring their listings are seen by more users.
-By offering a premium profile level, TradeAway encourages users to upgrade for increased visibility, potentially leading to more sellers considering this option to boost their sales and reach on the platform.
 
 Premium profiles may be acquired through the accumulation of positive reviews by consistently offering excellent service or by reviewing a lot of items that you've bought. This rewards sellers for providing exceptional service and maintaining a high level of trust among the TradeAway community.
 
