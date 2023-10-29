@@ -68,7 +68,6 @@ TradeAway's Favorite Categories feature is your key to a more personalized and c
 Are you on the hunt for something truly unique or specific that you can't seem to find on our site? The TradeAway Forum is your ultimate destination. Here, you can connect with a passionate community of users who might just have what you're looking for, even if they weren't initially planning to sell it.
 Find the Unfindable: The Forum is your secret treasure for those elusive items that might not appear in regular listings. Whether it's a rare collectible, a vintage item, or a niche product, the Forum is where it might just pop up.
 Engage with Like-minded Collectors: Join conversations, discussions, and threads about your interests. Connect with fellow enthusiasts who share your passions, and tap into their knowledge and networks.
-Seek Recommendations and Advice: Can't decide between two products? Not sure how to care for a specific item? The Forum is the place to ask for advice and receive valuable insights from experienced users.
 
 ### Database 
 ![Snimka zaslona 2023-10-23 173832](https://github.com/OSS-Java-Seminar-2023/TradeAway/assets/147553144/14d93e51-f3c7-4220-87d8-529f69807ae8)
