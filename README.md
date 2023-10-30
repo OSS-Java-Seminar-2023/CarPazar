@@ -78,4 +78,5 @@ Find the Unfindable: The Forum is your secret treasure for those elusive cars th
 Engage with Like-minded Enthusiasts: Join conversations, discussions, and threads about your car interests. Connect with fellow car enthusiasts who share your passions and tap into their knowledge and networks.
 
 ### Database 
-![Snimka zaslona 2023-10-23 173832](https://github.com/OSS-Java-Seminar-2023/TradeAway/assets/147553144/14d93e51-f3c7-4220-87d8-529f69807ae8)
+![carpazar](https://github.com/OSS-Java-Seminar-2023/CarPazar/assets/147553144/fbec060a-2328-4407-9e0b-abe169888311)
+
