@@ -17,7 +17,7 @@ CarPazar is an application designed to assist users in selling and buying cars f
 
 ### User Profiles
 
-Each user needs to create a profile in order to do anything except browsing. CarPazar profiles consist of a username, email, phone number, profile picture, and the user's full name. Profiles can be created without some of these details, but limited profiles have restricted functionality. Limited accounts are permitted to see seller's contact information and leave reviews on the seller's profile (after a successful car purchase).
+Each user needs to create a profile in order to do anything except browsing. CarPazar profiles consist of a username, email, phone number, profile picture, and the user's full name. Profiles can be created without some of these details, but limited profiles have restricted functionality. Limited accounts are permitted to see seller's contact information and leave reviews on the seller's profile.
 
 In order to create a car listing, users must fully complete their profile information.
 
@@ -45,7 +45,6 @@ Listings are divided into a variety of categories and subcategories, all of whic
 
 
 Each car listing has specific requirements:
-
   - At least one picture
   - Price
   - Listing title
