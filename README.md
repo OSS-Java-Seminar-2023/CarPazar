@@ -46,13 +46,13 @@ Listings are divided into a variety of categories and subcategories, all of whic
 
 Each car listing has specific requirements:
 
--At least one picture
--Price
--Listing title
--Listing description
--Key details about the car
--Contact information of the seller
--Mileage, year, make, and model of the car
+  - At least one picture
+  - Price
+  - Listing title
+  - Listing description
+  - Key details about the car
+  - Contact information of the seller
+  - Mileage, year, make, and model of the car
 
 
 ### Search Bar
