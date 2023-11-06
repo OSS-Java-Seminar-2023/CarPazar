@@ -69,15 +69,7 @@ Your CarPazar Wishlist is like your secret car shopping helper. Whether you are 
 CarPazar's Favorite Car Categories feature is your key to a more personalized and convenient car shopping experience. We understand that your car interests are diverse, and that's why we've created this feature to help you easily explore the cars you love most on our platform. Users can filter their categories of interest and turn on notifications if they want to receive updates about new car listings, special promotions, or price changes within those selected categories.
 
 
-### Forum
-
-Are you on the hunt for something truly unique or specific that you can't seem to find on our site? The CarPazar Forum is your ultimate destination. Here, you can connect with a passionate community of users who might just have the car you're looking for, even if they weren't initially planning to sell it.
-
-Find the Unfindable: The Forum is your secret treasure for those elusive cars that might not appear in regular listings. Whether it's a rare collectible, a vintage car, or a niche model, the Forum is where it might just pop up.
-
-Engage with Like-minded Enthusiasts: Join conversations, discussions, and threads about your car interests. Connect with fellow car enthusiasts who share your passions and tap into their knowledge and networks.
-
 ### Database 
-![carpazar](https://github.com/OSS-Java-Seminar-2023/CarPazar/assets/147553144/60db5f34-089d-4024-91b3-ff7dee893eea)
+![carpazar_db_schema](https://github.com/OSS-Java-Seminar-2023/CarPazar/assets/147037900/8195b9aa-c436-4177-af8a-ab77c9b72824)
 
 
