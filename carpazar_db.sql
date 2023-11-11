@@ -1,6 +1,6 @@
 
 CREATE TABLE user(
-	id varchar(36) NOT NULL,
+    id varchar(36) NOT NULL,
     user_rating varchar(255),
     user_name varchar(255) NOT NULL,
     email varchar(255) NOT NULL,
@@ -10,10 +10,10 @@ CREATE TABLE user(
 );
 
 CREATE TABLE listing(
-	id varchar(36),
+    id varchar(36),
     user_id varchar(36) NOT NULL,
     category varchar(255) NOT NULL,
-	date_of_post date NOT NULL,
+    date_of_post date NOT NULL,
     title varchar(255) NOT NULL,
     description varchar(255) NOT NULL,
     price int NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE listing(
 );
 
 CREATE TABLE specification(
-	id varchar(36),
+    id varchar(36),
     brand varchar(255) NOT NULL,
     model varchar(255) NOT NULL,
     engine_power int NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE specification(
 );
 
 CREATE TABLE review(
-	id varchar(36),
+    id varchar(36),
     review varchar(255),
     user_id varchar(36),
     PRIMARY KEY (id),
@@ -51,16 +51,16 @@ CREATE TABLE review(
 );
 
 CREATE TABLE chat(
-	id varchar(36),
+    id varchar(36),
     listing_id varchar(36) NOT NULL,
     buyer_id varchar(36) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (listing_id) REFERENCES listing(id),
-	FOREIGN KEY (buyer_id) REFERENCES user(id)
+    FOREIGN KEY (buyer_id) REFERENCES user(id)
 );
 
 CREATE TABLE message(
-	id varchar(36),
+    id varchar(36),
     chat_id varchar(36) NOT NULL,
     message_content varchar(255) NOT NULL,
     message_datetime datetime NOT NULL,
