@@ -12,7 +12,7 @@
 	<artifactId>carPazar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>carPazar</name>
-	<description>placeholder</description>
+	<description>CarPazar is an application designed to assist users in selling and buying cars from other users.</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
