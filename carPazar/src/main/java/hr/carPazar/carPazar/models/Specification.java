@@ -83,7 +83,8 @@ public class Specification {
     @Column(name = "extra_features")
     private Integer extraFeatures;
 
-    @OneToOne(mappedBy = "specification")
+    @OneToOne
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Listing listing;
 
 }

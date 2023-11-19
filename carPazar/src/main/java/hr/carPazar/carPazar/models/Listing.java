@@ -41,8 +41,7 @@ public class Listing {
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    private Specification specification;
+    @OneToOne(mappedBy = "listing", cascade = CascadeType.ALL)
+    private Specifications specifications;
 
 }
