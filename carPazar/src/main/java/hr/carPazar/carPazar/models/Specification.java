@@ -1,4 +1,4 @@
-package hr.carPazar.carPazar.models;
+ package hr.carPazar.carPazar.models;
 
 import javax.persistence.*;
 import lombok.Data;
@@ -82,5 +82,8 @@ public class Specification {
 
     @Column(name = "extra_features")
     private Integer extraFeatures;
+
+    @OneToOne(mappedBy = "specification")
+    private Listing listing;
 
 }
