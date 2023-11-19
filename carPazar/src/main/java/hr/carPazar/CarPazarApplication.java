@@ -1,4 +1,4 @@
-package hr.carPazar.carPazar;
+package hr.carPazar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
