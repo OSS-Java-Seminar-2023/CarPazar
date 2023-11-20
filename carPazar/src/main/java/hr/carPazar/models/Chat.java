@@ -2,6 +2,9 @@ package hr.carPazar.models;
 
 import javax.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -11,9 +14,9 @@ import java.util.UUID;
 public class Chat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @UuidGenerator
     @Column(name = "id")
-    private UUID id;
+    private String id;
 
     @Column(name = "listing_id", nullable = false)
     private UUID listingId;

@@ -2,6 +2,7 @@ package hr.carPazar.models;
 
 import javax.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 import java.time.Year;
@@ -13,9 +14,9 @@ import java.time.LocalDate;
 public class Specification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @UuidGenerator
     @Column(name = "id")
-    private UUID id;
+    private String id;
 
     @Column(name = "brand", nullable = false, length = 32)
     private String brand;

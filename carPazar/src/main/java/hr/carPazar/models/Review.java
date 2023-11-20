@@ -2,6 +2,7 @@ package hr.carPazar.models;
 
 import javax.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -11,9 +12,9 @@ import java.util.UUID;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @UuidGenerator
     @Column(name = "id")
-    private UUID id;
+    private String id;
 
     @Column(name = "review", nullable = false, columnDefinition = "text")
     private String review;
