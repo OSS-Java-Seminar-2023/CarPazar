@@ -4,7 +4,6 @@ import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.UUID;
 import java.time.Year;
 import java.time.LocalDate;
 

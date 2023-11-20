@@ -4,7 +4,7 @@ import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.UUID;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,8 +17,9 @@ public class Listing {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private User userId;
 
     @Column(name = "listing_datetime", nullable = false)
     private LocalDateTime listingDatetime;
@@ -37,10 +38,6 @@ public class Listing {
 
     @Column(name = "is_sold", nullable = false)
     private Boolean isSold;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private User user;
 
     @OneToOne(mappedBy = "listing", cascade = CascadeType.ALL)
     private Specification specifications;

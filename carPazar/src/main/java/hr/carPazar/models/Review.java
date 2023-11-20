@@ -4,7 +4,6 @@ import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.UUID;
 
 @Entity
 @Table(name = "review")
@@ -19,14 +18,13 @@ public class Review {
     @Column(name = "review", nullable = false, columnDefinition = "text")
     private String review;
 
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user;
 
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private User user;
+
 
 }
