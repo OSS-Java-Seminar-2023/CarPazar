@@ -1,6 +1,6 @@
 package hr.carPazar.controllers;
 
-import hr.carPazar.repositories.ReviewService.java
+import hr.carPazar.services.ReviewService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,4 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
+
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 }

@@ -42,6 +42,6 @@ public class Listing {
     private User user;
 
     @OneToOne(mappedBy = "listing", cascade = CascadeType.ALL)
-    private Specifications specifications;
+    private Specification specifications;
 
 }

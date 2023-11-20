@@ -1,7 +1,6 @@
 package hr.carPazar.controllers;
 
-import hr.carPazar.repositories.MessageService.java
-
+import hr.carPazar.services.MessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,4 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MessageController {
     @Autowired
     private MessageService messageService;
+
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
+    }
 }

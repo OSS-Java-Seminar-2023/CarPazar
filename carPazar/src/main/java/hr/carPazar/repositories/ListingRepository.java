@@ -1,7 +1,7 @@
 package hr.carPazar.repositories;
 
-import hr.carPazar.models.Listing.java;
-import java.Util.UUID;
+import hr.carPazar.models.Listing;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

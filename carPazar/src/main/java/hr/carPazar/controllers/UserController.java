@@ -1,7 +1,6 @@
 package hr.carPazar.controllers;
 
-import hr.carPazar.repositories.UserService.java
-
+import hr.carPazar.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,4 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 }
