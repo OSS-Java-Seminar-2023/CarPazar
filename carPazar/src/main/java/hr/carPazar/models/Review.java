@@ -1,13 +1,15 @@
 package hr.carPazar.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 
+@Setter
+@Getter
 @Entity
-@Table(name = "review")
-@Data
 public class Review {
 
     @Id

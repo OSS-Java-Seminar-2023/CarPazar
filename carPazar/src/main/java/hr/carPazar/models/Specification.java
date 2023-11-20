@@ -1,15 +1,17 @@
 package hr.carPazar.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Year;
 import java.time.LocalDate;
 
+@Setter
+@Getter
 @Entity
-@Table(name = "specification")
-@Data
 public class Specification {
 
     @Id
