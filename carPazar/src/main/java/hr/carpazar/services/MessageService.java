@@ -1,6 +1,6 @@
-package hr.carPazar.services;
+package hr.carpazar.services;
 
-import hr.carPazar.repositories.MessageRepository;
+import hr.carpazar.repositories.MessageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 

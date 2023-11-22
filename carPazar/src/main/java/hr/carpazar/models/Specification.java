@@ -1,9 +1,7 @@
-package hr.carPazar.models;
+package hr.carpazar.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Year;
@@ -87,6 +85,6 @@ public class Specification {
 
     @OneToOne
     @JoinColumn(name = "id", referencedColumnName = "id")
-    private Listing listing;
+    private hr.carpazar.models.Listing listing;
 
 }

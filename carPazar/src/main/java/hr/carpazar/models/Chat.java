@@ -1,6 +1,6 @@
-package hr.carPazar.models;
-import lombok.Getter;
-import lombok.Setter;
+package hr.carpazar.models;
+
+import lombok.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -16,7 +16,7 @@ public class Chat {
 
     @ManyToOne
     @JoinColumn(name = "listing_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Listing listingId;
+    private hr.carpazar.models.Listing listingId;
 
     @ManyToOne
     @JoinColumn(name = "buyer_id", referencedColumnName = "id", insertable = false, updatable = false)

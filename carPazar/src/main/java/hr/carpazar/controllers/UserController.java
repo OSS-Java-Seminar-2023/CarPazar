@@ -1,10 +1,9 @@
-package hr.carPazar.controllers;
+package hr.carpazar.controllers;
 
-import hr.carPazar.services.UserService;
+import hr.carpazar.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -14,6 +13,11 @@ public class UserController {
     @GetMapping(path="/hello")
     public String hello(){
         return "hello world";
+    }
+
+    @GetMapping(path="/login")
+    public String temp(){
+        return "login placeholder";
     }
 
     //public UserController(UserService userService) {

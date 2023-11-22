@@ -1,6 +1,6 @@
-package hr.carPazar.repositories;
+package hr.carpazar.repositories;
 
-import hr.carPazar.models.Listing;
+import hr.carpazar.models.Listing;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 

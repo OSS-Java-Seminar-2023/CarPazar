@@ -1,6 +1,6 @@
-package hr.carPazar.controllers;
+package hr.carpazar.controllers;
 
-import hr.carPazar.services.SpecificationService;
+import hr.carpazar.services.SpecificationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
