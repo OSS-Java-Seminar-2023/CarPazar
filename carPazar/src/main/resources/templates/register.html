@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <title>Register to CarPazar</title>
+
+    <script>
+        function nextStep(showId, hideId){
+            document.getElementById(hideId).style.display = "none";
+            document.getElementById(showId).style.display = "block";
+        }
+        function hideStep2(){
+            document.getElementById('step2').style.display = "none";
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var nextButton = document.getElementById('nextButton');
+            var requiredFields = document.querySelectorAll('#step1 [required]');
+
+            nextButton.addEventListener('click', function () {
+                var allFieldsValid = Array.from(requiredFields).every(function (field) {
+                    return field.checkValidity();
+            });
+
+            if (allFieldsValid) {
+                nextStep('step2', 'step1');
+            } else {
+                alert('Please fill in all required fields.');
+            }
+            });
+        });
+    </script>
+
+</head>
+<body onload="hideStep2()">
+<div id="form-div">
+    <form>
+        <div class="step" id="step1">
+            <label for="firstName">First name<span class="required">*</span>:</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+
+            <label for="surname">Last name<span class="required">*</span>:</label>
+            <input type="text" id="surname" name="surname" placeholder="Enter your last name" required>
+
+            <label for="birthDate">Date of birth<span class="required">*</span>:</label>
+            <input type="date" id="birthDate" name="birthDate" required>
+
+            <label for="phoneNumber">Phone number:</label>
+            <select>
+                <option value="+385" selected disabled>+385</option>
+            </select>
+            <input type="number" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
+
+            <button type="button" id="nextButton">Next</button>
+        </div>
+
+        <div class="step" id="step2">
+            <label for="email">E-mail<span class="required">*</span>:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your e-mail" required>
+
+            <label for="username">Username<span class="required">*</span>:</label>
+            <input type="text" id="username" name="username" placeholder="Choose an username" required>
+
+            <label for="password">Password<span class="required">*</span>:</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+
+            <label for="password2">Confirm password<span class="required">*</span>:</label>
+            <input type="password" id="password2" name="password2" placeholder="Repeat password" required>
+
+            <button type="button" id="backButton" onclick="nextStep('step1', 'step2')">Back</button>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+</body>
+</html>

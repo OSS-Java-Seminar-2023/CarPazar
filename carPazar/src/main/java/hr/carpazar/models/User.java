@@ -3,6 +3,7 @@ package hr.carpazar.models;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
+import java.sql.Date;
 
 
 @Setter
@@ -33,4 +34,12 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
 
+    @Column(name = "hashed_password")
+    private String hashedPassword;
+
+    @Column(name = "is_admin")
+    private Boolean isAdmin;
+
+    @Column(name = "birth_date")
+    private Date birthDate;
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class UserController {
     @Autowired
     private UserService userService;
@@ -16,13 +16,13 @@ public class UserController {
     }
 
     @GetMapping(path="/login")
-    public String temp(){
-        return "login placeholder";
+    public String openLoginForm(){
+        return "login";
     }
 
     @GetMapping(path="/register")
-    public String temp_reg(){
-        return "register placeholder";
+    public String openRegistrationForm(){
+        return "register";
     }
 
     //public UserController(UserService userService) {
