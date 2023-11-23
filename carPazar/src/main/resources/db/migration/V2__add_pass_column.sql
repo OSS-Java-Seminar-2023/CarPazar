@@ -1,0 +1,2 @@
+ALTER TABLE user
+ADD COLUMN hashed_password VARBINARY(128);

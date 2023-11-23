@@ -20,6 +20,11 @@ public class UserController {
         return "login placeholder";
     }
 
+    @GetMapping(path="/register")
+    public String temp_reg(){
+        return "register placeholder";
+    }
+
     //public UserController(UserService userService) {
        /* this.userService = userService;
     }*/
