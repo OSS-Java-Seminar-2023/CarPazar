@@ -75,3 +75,21 @@ select {
     color: red;
     font-weight: bold;
 }
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color:#000000;
+    color:#ffffff;
+    font-family: 'Roboto';
+    padding: 5px;
+}
+
+.link{
+color:#ffffff;
+}
+

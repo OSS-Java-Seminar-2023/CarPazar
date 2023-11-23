@@ -1,5 +1,6 @@
 package hr.carpazar.controllers;
 
+import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,10 @@ import java.util.Hashtable;
 public class UserController {
     @Autowired
     private UserService userService;
+    @GetMapping(path="/home")
+    public String home(){
+        return "home";
+    }
 
     @GetMapping(path="/login")
     public String openLoginForm(){
@@ -26,7 +31,7 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping("/home")       // post sa registera salje tu, mozda bi trebalo slat na login (samo prominit path postmappinga i trazit ponovni login)
+    @PostMapping("/login")       // post sa registera salje tu, mozda bi trebalo slat na login (samo prominit path postmappinga i trazit ponovni login)
     public String isSuccess(
         @RequestParam String firstName,
         @RequestParam String surname,
