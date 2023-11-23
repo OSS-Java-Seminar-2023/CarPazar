@@ -10,6 +10,25 @@
     <title>Register to CarPazar</title>
 
     <script>
+        function validateAge() {
+          var birthDateInput = document.getElementById('birthDate');
+          var birthDate = new Date(birthDateInput.value);
+          var today = new Date();
+          var minAge = 18;
+
+          var age = today.getFullYear() - birthDate.getFullYear();
+          var monthDiff = today.getMonth() - birthDate.getMonth();
+
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+          }
+
+          if (age < minAge) {
+            alert('You must be at least 18 years old.');
+            return false;
+          }
+          return true;
+        }
         function nextStep(showId, hideId){
             document.getElementById(hideId).style.display = "none";
             document.getElementById(showId).style.display = "block";
@@ -27,19 +46,29 @@
                     return field.checkValidity();
             });
 
-            if (allFieldsValid) {
+            if (allFieldsValid && validateAge()) {
                 nextStep('step2', 'step1');
             } else {
                 alert('Please fill in all required fields.');
             }
             });
         });
+        function checkPass(){
+            var password = document.getElementById('password').value;
+            var password2 = document.getElementById('password2').value;
+            if (password2 != password)
+            {
+                alert('Passwords do not match!');
+                return false;
+            }
+            return true;
+        }
     </script>
 
 </head>
 <body onload="hideStep2()">
 <div id="form-div">
-    <form action="../home" method="POST">
+    <form id="registerForm" action="../login" method="POST" onsubmit="return checkPass()">
         <div class="step" id="step1">
             <label for="firstName">First name<span class="required">*</span>:</label>
             <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
@@ -50,13 +79,21 @@
             <label for="birthDate">Date of birth<span class="required">*</span>:</label>
             <input type="date" id="birthDate" name="birthDate" required>
 
-            <label for="phoneNumber">Phone number:</label>
+        <!--    <label for="phoneNumber">Phone number:</label>
             <select>
                 <option value="+385" selected disabled>+385</option>
             </select>
-            <input type="number" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
+            <input type="number" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">-->
 
-            <button type="button" id="nextButton">Next</button>
+            <label for="phoneNumber">Phone number<span class="required">*</span>:</label>
+            <select id="phonePrefix" name="phonePrefix" required>
+                <option value="+385">+385</option>
+            </select>
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required minlength="9">
+
+            <h5 class="requiredField">* This field is required!</h5>
+            <hr>
+            <button type="button" id="nextButton" onclick="validateAge()">Next</button>
         </div>
 
         <div class="step" id="step2">
@@ -67,15 +104,19 @@
             <input type="text" id="username" name="username" placeholder="Choose an username" required>
 
             <label for="password">Password<span class="required">*</span>:</label>
-            <input type="password" id="password" name="password" placeholder="Create a password" required>
+            <input type="password" id="password" name="password" placeholder="Create a password" required minlength="8">
 
             <label for="password2">Confirm password<span class="required">*</span>:</label>
             <input type="password" id="password2" name="password2" placeholder="Repeat password" required>
 
+            <h5 class="requiredField">* This field is required!</h5>
+            <hr>
             <button type="button" id="backButton" onclick="nextStep('step1', 'step2')">Back</button>
             <input type="submit" value="Submit">
+
         </div>
     </form>
+
 </div>
 </body>
 </html>
