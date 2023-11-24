@@ -2,19 +2,23 @@ package hr.carpazar.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
 import java.sql.Date;
+import java.util.UUID;
 
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class User {
 
     @Id
-    @UuidGenerator
+    @Builder.Default
     @Column(name = "id")
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "user_rating")
     private Integer userRating;
@@ -28,8 +32,9 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Builder.Default
     @Column(name = "is_premium", nullable = false)
-    private Boolean isPremium;
+    private Boolean isPremium = false;
 
     @Column(name = "full_name")
     private String fullName;
@@ -37,8 +42,9 @@ public class User {
     @Column(name = "hashed_password")
     private String hashedPassword;
 
+    @Builder.Default
     @Column(name = "is_admin")
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
 
     @Column(name = "birth_date")
     private Date birthDate;

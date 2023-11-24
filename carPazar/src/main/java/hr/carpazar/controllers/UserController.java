@@ -6,16 +6,14 @@ import hr.carpazar.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import hr.carpazar.services.HashService;
-
-import java.util.Date;
-import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Map;
 
 @Controller
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserService userService = new UserService();
+
     @GetMapping(path="/home")
     public String home(){
         return "home";
@@ -31,8 +29,8 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping("/login")       // post sa registera salje tu, mozda bi trebalo slat na login (samo prominit path postmappinga i trazit ponovni login)
-    public String isSuccess(
+    @PostMapping("/login")
+    public String registrationCheck(
         @RequestParam String firstName,
         @RequestParam String surname,
         @RequestParam String birthDate,
@@ -41,20 +39,33 @@ public class UserController {
         @RequestParam String username,
         @RequestParam String password
     ){
-        Dictionary<String, String> postParams = new Hashtable<>();
+        Map<String, String> postParams = new Hashtable<>();
         postParams.put("firstName", firstName);
         postParams.put("surname", surname);
         postParams.put("birthDate", birthDate);
-        postParams.put("phoneNumber", phoneNumber.toString());
+        if(phoneNumber != null)
+            postParams.put("phoneNumber", phoneNumber.toString());
+        else
+            postParams.put("phoneNumber", "");
         postParams.put("email", email);
         postParams.put("username", username);
         postParams.put("password", HashService.generateSHA512(password));
 
-        System.out.println(postParams.toString());  // umisto printanja insertat u db
+        User user = UserService.createUser(postParams);
+
+        //  vamo napravit provjeru da ne postoji e-mail, username vec u bazi. id cak nije ni potribno jer je uuid
+
+        userService.registerUser(user);
+
+        System.out.println(HashService.comparePasswords("VGFX1234", HashService.generateSHA512("VGFX1234")));  // test usporedbe sifri
 
         return "home";
     }
 
+    @PostMapping(path="/home")      // handleanje logina
+    public String tempMethod(){
+        return "home";
+    }
     //public UserController(UserService userService) {
        /* this.userService = userService;
     }*/

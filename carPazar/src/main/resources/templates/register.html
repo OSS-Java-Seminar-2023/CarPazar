@@ -12,13 +12,13 @@
 
     <script>
         function validateAge() {
-          var birthDateInput = document.getElementById('birthDate');
-          var birthDate = new Date(birthDateInput.value);
-          var today = new Date();
-          var minAge = 18;
+          let birthDateInput = document.getElementById('birthDate');
+          let birthDate = new Date(birthDateInput.value);
+          let today = new Date();
+          const minAge = 18;
 
-          var age = today.getFullYear() - birthDate.getFullYear();
-          var monthDiff = today.getMonth() - birthDate.getMonth();
+          let age = today.getFullYear() - birthDate.getFullYear();
+          let monthDiff = today.getMonth() - birthDate.getMonth();
 
           if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
             age--;
@@ -81,11 +81,11 @@
                 <label for="birthDate">Date of birth<span class="required">*</span>:</label>
                 <input type="date" id="birthDate" name="birthDate" required>
 
-                <label for="phoneNumber">Phone number<span class="required">*</span>:</label>
+                <label for="phoneNumber">Phone number:</label>
                 <select id="phonePrefix" name="phonePrefix" required>
                     <option value="+385">+385</option>
                 </select>
-                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required minlength="9">
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" minlength="9">
 
                 <h5 class="requiredField">* This field is required!</h5>
                 <hr>
