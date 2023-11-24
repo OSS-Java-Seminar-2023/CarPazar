@@ -51,3 +51,6 @@ function checkPass(){
             }
             return true;
 }
+ function showAlert() {
+        alert('Button clicked!');
+    }
