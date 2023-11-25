@@ -32,4 +32,27 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public Boolean isExistingCheck(User user){
+        return !(userRepository.countByUserName(user.getUserName()) == 0 &&
+                userRepository.countByEmail(user.getEmail()) == 0 &&
+                userRepository.countById(user.getId()) == 0);
+    }
+
+    public User fetchUserByUsername(String username){
+        return userRepository.findByUserName(username).get(0);
+    }
+
+    public User fetchUserByEmail(String email){
+        return userRepository.findByEmail(email).get(0);
+    }
+
+    public String preparePasswordComparing(String usernameFieldText, String passwordFieldText){
+        User dbUser = null;
+        if (usernameFieldText.contains("@"))
+           dbUser = fetchUserByEmail(usernameFieldText);
+        else
+            dbUser = fetchUserByUsername(usernameFieldText);
+        return dbUser.getHashedPassword();
+    }
+
 }

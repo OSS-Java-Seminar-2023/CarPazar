@@ -1,8 +1,10 @@
 package hr.carpazar.services;
 
+import org.springframework.stereotype.Service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Service
 public class HashService {
     public static String generateSHA512(String plainPassword){
         try{
@@ -30,5 +32,4 @@ public class HashService {
         String userInputHashed = generateSHA512(userInput);
         return userInputHashed.equals(hashedPassword);
     }
-
 }

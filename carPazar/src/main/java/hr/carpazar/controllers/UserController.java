@@ -53,20 +53,23 @@ public class UserController {
 
         User user = UserService.createUser(postParams);
 
-        //  vamo napravit provjeru da ne postoji e-mail, username vec u bazi. id cak nije ni potribno jer je uuid
-
-        userService.registerUser(user);
-
-        System.out.println(HashService.comparePasswords("VGFX1234", HashService.generateSHA512("VGFX1234")));  // test usporedbe sifri
+        if (userService.isExistingCheck(user))
+            System.out.println("handleanje postojeceg korisnika");  //  <--- handleat existing info
+        else
+            userService.registerUser(user);
 
         return "home";
     }
 
-    @PostMapping(path="/home")      // handleanje logina
-    public String tempMethod(){
+    @PostMapping(path="/home")
+    public String loginValidation(@RequestParam String username, @RequestParam String password){
+        Boolean temp = false;
+        String dbHashedPassword = userService.preparePasswordComparing(username, password);
+        if (HashService.comparePasswords(password, dbHashedPassword))
+            temp = true;
+        else                                                                    //      <---   handleat successful login I ONEMOGUCIT "@" PRI REGISTRACIJI u username fieldu
+            temp = false;
+        System.out.println("Password match: " + temp);
         return "home";
     }
-    //public UserController(UserService userService) {
-       /* this.userService = userService;
-    }*/
 }
