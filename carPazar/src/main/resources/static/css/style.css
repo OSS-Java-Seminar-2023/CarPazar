@@ -7,7 +7,6 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #000000;
     font-family: 'Roboto';
 }
 
@@ -80,19 +79,52 @@ select {
 }
 
 
+
 .navbar {
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
-    background-color:#000000;
+    height: 9vh;
+    background-color:#3C91B6;
     color:#ffffff;
-    font-family: 'Roboto';
-    padding: 5px;
+    padding: 3px;
+    box-sizing: border-box;
+
 }
 
-.link{
-color:#ffffff;
+a {
+    text-decoration: none;
+    font-size:1.5em
+}
+.navbar a{
+    color: turquoise;
+    position: relative;
+    padding-bottom: 0.7rem;
+}
+a::after{
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: turquoise;
+    transition: all 0.3s ease;
+}
+a:hover::after{
+    width: 100%;
 }
 
+.left-section a {
+    margin-right: 20px;
+
+}
+
+.center-section h1 {
+    margin-right: 125px;
+}
