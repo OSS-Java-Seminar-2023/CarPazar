@@ -9,7 +9,8 @@
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Log in to CarPazar</title>
 </head>
-<body>
+<body class="logreg_body">
+    <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div id="form-div">
         <form action="../home" method="POST">
             <label for="username">E-mail/Username:</label>
