@@ -29,6 +29,9 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping(path="/user")
+    public String openUserPage() {return "user";};
+
     @PostMapping("/login")
     public String registrationCheck(
         @RequestParam String firstName,

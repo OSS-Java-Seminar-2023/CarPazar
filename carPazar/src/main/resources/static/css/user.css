@@ -1,0 +1,91 @@
+
+.user_body{
+    padding-top:7vh;
+    text-decoration:none;
+}
+
+.user_left_side{
+        background-color:#1c0c52;
+        width:25%;
+        float:left;
+        display:block;
+        justify-content:center;
+        align-items:center;
+        outline: 2px solid purple;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+        text-decoration:none;
+
+}
+
+.user_right_side{
+        background-color:white;
+        width:74%;
+        float:right;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        outline: 2px solid grey;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+         text-decoration:none;
+
+}
+
+.user_a {
+    text-decoration: none;
+    font-size:1.5em
+}
+
+
+h4{
+    font-family: 'Courier', monospace;
+    font-size: 26px;
+    line-height: 1.6;
+    text-align:center;
+    color:white;
+    text-decoration:none;
+
+}
+
+ul {
+    list-style: none;
+    padding-left:50px;
+    display: flex;
+    flex-direction: column;
+    text-decoration:none;
+
+}
+
+hr{
+    color:white;
+}
+
+.user_left_side > ul > li{
+    list-style-type: disc;
+    color: white;
+    margin-right: 8px;
+    text-decoration:none;
+
+
+}
+
+
+
+
+.user_left_side > ul > li > a{
+    color:white;
+    text-decoration:none;
+
+
+}
+
+.user_left_side > ul > li > a:hover{
+    color:#ad70db;
+    background-color:#1c0c52;
+    text-decoration:none;
+
+}
+
+
+
