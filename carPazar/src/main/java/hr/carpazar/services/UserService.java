@@ -20,15 +20,16 @@ public class UserService {
     private UserRepository userRepository;
 
     public static User createUser(Map<String, String> userData){
-        User user = User.builder().
-                fullName(userData.get("firstName") + " " + userData.get("surname")).
-                birthDate(Date.valueOf(userData.get("birthDate"))).
-                phoneNumber(userData.get("phoneNumber")).
-                userName(userData.get("username")).
-                email(userData.get("email")).
-                hashedPassword(userData.get("password")).build();
+        User user = new User();
+        user.setFullName(userData.get("firstName") + " " + userData.get("surname"));
+        user.setBirthDate(Date.valueOf(userData.get("birthDate")));
+        user.setPhoneNumber(userData.get("phoneNumber"));
+        user.setUserName(userData.get("username"));
+        user.setEmail(userData.get("email"));
+        user.setHashedPassword(userData.get("password"));
 
         return user;
+
     }
     public static User createUserFromDto(UserDto userDto) {
         Map<String, String> postParams = new Hashtable<>();
