@@ -71,7 +71,7 @@ function checkPass(){
 
     <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div id="form-div">
-        <form id="registerForm" action="../login" method="POST" onsubmit="return checkPass()">
+        <form id="registerForm" action="../register" method="POST" onsubmit="return checkPass()">
             <div class="step" id="step1">
                 <label for="firstName">First name<span class="required">*</span>:</label>
                 <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>

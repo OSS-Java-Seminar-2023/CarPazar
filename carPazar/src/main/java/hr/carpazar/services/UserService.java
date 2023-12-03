@@ -1,10 +1,13 @@
 package hr.carpazar.services;
 
+import hr.carpazar.Dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.UserRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Hashtable;
 import java.util.Map;
 import java.sql.Date;
 
@@ -27,6 +30,24 @@ public class UserService {
 
         return user;
     }
+    public static User createUserFromDto(UserDto userDto) {
+        Map<String, String> postParams = new Hashtable<>();
+        postParams.put("firstName", userDto.getFirstName());
+        postParams.put("surname", userDto.getSurname());
+        postParams.put("birthDate", userDto.getBirthDate());
+        if (userDto.getPhoneNumber() != null) {
+            postParams.put("phoneNumber", userDto.getPhoneNumber().toString());
+        } else {
+            postParams.put("phoneNumber", "");
+        }
+        postParams.put("email", userDto.getEmail());
+        postParams.put("username", userDto.getUsername());
+        postParams.put("password", HashService.generateSHA512(userDto.getPassword()));
+
+        return createUser(postParams);
+    }
+
+
 
     public void registerUser(User user){
         userRepository.save(user);

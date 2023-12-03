@@ -1,5 +1,6 @@
 package hr.carpazar.controllers;
 
+import hr.carpazar.Dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.UserService;
@@ -32,29 +33,9 @@ public class UserController {
     @GetMapping(path="/user")
     public String openUserPage() {return "user";};
 
-    @PostMapping("/login")
-    public String registrationCheck(
-        @RequestParam String firstName,
-        @RequestParam String surname,
-        @RequestParam String birthDate,
-        @RequestParam(required = false) Integer phoneNumber,
-        @RequestParam String email,
-        @RequestParam String username,
-        @RequestParam String password
-    ){
-        Map<String, String> postParams = new Hashtable<>();
-        postParams.put("firstName", firstName);
-        postParams.put("surname", surname);
-        postParams.put("birthDate", birthDate);
-        if(phoneNumber != null)
-            postParams.put("phoneNumber", phoneNumber.toString());
-        else
-            postParams.put("phoneNumber", "");
-        postParams.put("email", email);
-        postParams.put("username", username);
-        postParams.put("password", HashService.generateSHA512(password));
-
-        User user = UserService.createUser(postParams);
+    @PostMapping(path="/register")
+    public String registrationCheck(@ModelAttribute UserDto userDto){
+        User user = UserService.createUserFromDto(userDto);
 
         if (userService.isExistingCheck(user))
             System.out.println("handleanje postojeceg korisnika");  //  <--- handleat existing info
@@ -64,7 +45,7 @@ public class UserController {
         return "home";
     }
 
-    @PostMapping(path="/home")
+    @PostMapping(path="/login")
     public String loginValidation(@RequestParam String username, @RequestParam String password){
         Boolean temp = false;
         String dbHashedPassword = userService.preparePasswordComparing(username, password);
