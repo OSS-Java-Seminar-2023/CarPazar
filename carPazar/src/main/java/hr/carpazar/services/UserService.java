@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.sql.Date;
 
@@ -27,9 +28,7 @@ public class UserService {
         user.setUserName(userData.get("username"));
         user.setEmail(userData.get("email"));
         user.setHashedPassword(userData.get("password"));
-
         return user;
-
     }
     public static User createUserFromDto(UserDto userDto) {
         Map<String, String> postParams = new Hashtable<>();
@@ -59,7 +58,6 @@ public class UserService {
                 userRepository.countByEmail(user.getEmail()) == 0 &&
                 userRepository.countById(user.getId()) == 0);
     }
-
     public User fetchUserByUsername(String username){
         return userRepository.findByUserName(username).get(0);
     }

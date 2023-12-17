@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Optional;
+import org.springframework.ui.Model;
 
 @Controller
 public class UserController {
@@ -31,7 +33,24 @@ public class UserController {
     }
 
     @GetMapping(path="/user")
-    public String openUserPage() {return "user";};
+    public String openUserPage(Model model) {
+        String usernameToFetch = "sad";
+        Optional<User> userOptional = Optional.ofNullable(userService.fetchUserByUsername(usernameToFetch));
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            model.addAttribute("FirstNameFromDatabase", user.getFullName().split(" ")[0]);
+            model.addAttribute("LastNameFromDatabase", user.getFullName().split(" ")[1]);
+            model.addAttribute("BirthDateFromDatabase", user.getBirthDate());
+            model.addAttribute("PhoneNumFromDatabase", user.getPhoneNumber());
+            model.addAttribute("usernameFromDatabase", user.getUserName());
+            model.addAttribute("emailFromDatabase", user.getEmail());
+        } else {
+            //error?
+        }
+
+        return "user";
+    };
 
     @PostMapping(path="/register")
     public String registrationCheck(@ModelAttribute UserDto userDto){
@@ -51,7 +70,7 @@ public class UserController {
         String dbHashedPassword = userService.preparePasswordComparing(username, password);
         if (HashService.comparePasswords(password, dbHashedPassword))
             temp = true;
-        else                                                                    //      <---   handleat successful login I ONEMOGUCIT "@" PRI REGISTRACIJI u username fieldu
+        else                                                        //  <--- handleat successful login I ONEMOGUCIT "@" PRI REGISTRACIJI u username fieldu
             temp = false;
         System.out.println("Password match: " + temp);
         return "home";

@@ -15,7 +15,6 @@
         border-radius: 10px;
         transition: background-color 0.3s ease;
         text-decoration:none;
-
 }
 
 .user_right_side{
@@ -28,8 +27,42 @@
         outline: 2px solid grey;
         border-radius: 10px;
         transition: background-color 0.3s ease;
-         text-decoration:none;
+        text-decoration:none;
+        color:white;
+        height:100vh;
+}
 
+.div1{
+
+     background-color:#1c0c52;
+     width:50%;
+     float:left;
+     display:block;
+     justify-content:center;
+     align-items:center;
+     outline: 2px solid purple;
+     border-radius: 10px;
+     transition: background-color 0.3s ease;
+     text-decoration:none;
+     flex-direction: column;
+     color:white;
+     height:100vh;
+}
+
+.div2{
+     background-color:#1c0c52;
+     width:50%;
+     float:right;
+     display:block;
+     justify-content:center;
+     align-items:center;
+     outline: 2px solid green;
+     border-radius: 10px;
+     transition: background-color 0.3s ease;
+     text-decoration:none;
+     flex-direction: column;
+     color:white;
+     height:100vh;
 }
 
 .user_a {
@@ -39,13 +72,11 @@
 
 
 h4{
-    font-family: 'Courier', monospace;
+    font-family: 'Tahoma', sans-serif;
     font-size: 26px;
     line-height: 1.6;
     text-align:center;
     color:white;
-    text-decoration:none;
-
 }
 
 ul {
@@ -54,7 +85,6 @@ ul {
     display: flex;
     flex-direction: column;
     text-decoration:none;
-
 }
 
 hr{
@@ -66,25 +96,17 @@ hr{
     color: white;
     margin-right: 8px;
     text-decoration:none;
-
-
 }
-
-
-
 
 .user_left_side > ul > li > a{
     color:white;
     text-decoration:none;
-
-
 }
 
 .user_left_side > ul > li > a:hover{
     color:#ad70db;
     background-color:#1c0c52;
     text-decoration:none;
-
 }
 
 
