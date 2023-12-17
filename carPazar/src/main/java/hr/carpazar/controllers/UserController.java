@@ -47,7 +47,7 @@ public class UserController {
             model.addAttribute("emailFromDatabase", user.getEmail());
         } else {
             //error?
-            System.out.println("A sta si ovo napravija jeben te pijana");
+            System.out.println("A sta si ovo napravija volin te pijana");
         }
 
         return "user";
