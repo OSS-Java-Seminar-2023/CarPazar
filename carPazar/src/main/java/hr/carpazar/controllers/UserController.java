@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping(path="/user")
     public String openUserPage(Model model) {
-        String usernameToFetch = "debagrlebili";
+        String usernameToFetch = "novi123";
         Optional<User> userOptional = Optional.ofNullable(userService.fetchUserByUsername(usernameToFetch));
 
         if (userOptional.isPresent()) {
@@ -53,6 +53,30 @@ public class UserController {
         return "user";
     };
 
+    @PostMapping(path = "/login")
+    public String loginValidation(@RequestParam String username, @RequestParam String password, Model model) {
+        try {
+            String dbHashedPassword = userService.preparePasswordComparing(username, password);
+
+            if (dbHashedPassword == null) {
+                System.out.println("User doesn't exist");
+                model.addAttribute("alert", "User does not exist!");
+                return "login";
+            }
+
+            if (HashService.comparePasswords(password, dbHashedPassword)) {
+                return "home";
+            } else {
+                model.addAttribute("alert", "Wrong password! Try again!");
+                return "login";
+            }
+        } catch (Exception e) {
+            System.out.println("Error during login: " + e.getMessage());
+            model.addAttribute("alert", "User doesn't exist!");
+            return "login";
+        }
+    }
+
     @PostMapping(path="/register")
     public String registrationCheck(@ModelAttribute UserDto userDto){
         User user = UserService.createUserFromDto(userDto);
@@ -62,18 +86,6 @@ public class UserController {
         else
             userService.registerUser(user);
 
-        return "home";
-    }
-
-    @PostMapping(path="/login")
-    public String loginValidation(@RequestParam String username, @RequestParam String password){
-        Boolean temp = false;
-        String dbHashedPassword = userService.preparePasswordComparing(username, password);
-        if (HashService.comparePasswords(password, dbHashedPassword))
-            temp = true;
-        else                                                        //  <--- handleat successful login I ONEMOGUCIT "@" PRI REGISTRACIJI u username fieldu
-            temp = false;
-        System.out.println("Password match: " + temp);
         return "home";
     }
 }

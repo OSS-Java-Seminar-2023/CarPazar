@@ -14,6 +14,10 @@
     <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div id="form-div">
         <form action="../login" method="POST">
+            <div th:if="${alert}" class="alert">
+                <p th:text="${alert}"></p>
+            </div>
+
             <label for="username">E-mail/Username:</label>
             <input type="text" id="username" name="username" placeholder="Enter e-mail or username" required>
 

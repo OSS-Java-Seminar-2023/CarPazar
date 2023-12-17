@@ -62,17 +62,23 @@ public class UserService {
         return userRepository.findByUserName(username).get(0);
     }
 
-    public User fetchUserByEmail(String email){
-        return userRepository.findByEmail(email).get(0);
+    public String preparePasswordComparing(String usernameFieldText, String passwordFieldText) {
+        User dbUser;
+        if (usernameFieldText.contains("@")) {
+            dbUser = fetchUserByEmail(usernameFieldText);
+        } else {
+            dbUser = fetchUserByUsername(usernameFieldText);
+        }
+
+        if (dbUser != null) {
+            return dbUser.getHashedPassword();
+        } else {
+            return null;
+        }
     }
 
-    public String preparePasswordComparing(String usernameFieldText, String passwordFieldText){
-        User dbUser = null;
-        if (usernameFieldText.contains("@"))
-           dbUser = fetchUserByEmail(usernameFieldText);
-        else
-            dbUser = fetchUserByUsername(usernameFieldText);
-        return dbUser.getHashedPassword();
+    public User fetchUserByEmail(String email){
+        return userRepository.findByEmail(email).get(0);
     }
 
 }
