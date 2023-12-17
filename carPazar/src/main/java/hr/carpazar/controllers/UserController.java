@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping(path="/user")
     public String openUserPage(Model model) {
-        String usernameToFetch = "sad";
+        String usernameToFetch = "debagrlebili";
         Optional<User> userOptional = Optional.ofNullable(userService.fetchUserByUsername(usernameToFetch));
 
         if (userOptional.isPresent()) {
@@ -47,6 +47,7 @@ public class UserController {
             model.addAttribute("emailFromDatabase", user.getEmail());
         } else {
             //error?
+            System.out.println("A sta si ovo napravija jeben te pijana");
         }
 
         return "user";
