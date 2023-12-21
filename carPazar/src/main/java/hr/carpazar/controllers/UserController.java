@@ -39,19 +39,23 @@ public class UserController {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            model.addAttribute("FirstNameFromDatabase", user.getFullName().split(" ")[0]);
-            model.addAttribute("LastNameFromDatabase", user.getFullName().split(" ")[1]);
-            model.addAttribute("BirthDateFromDatabase", user.getBirthDate());
-            model.addAttribute("PhoneNumFromDatabase", user.getPhoneNumber());
-            model.addAttribute("usernameFromDatabase", user.getUserName());
-            model.addAttribute("emailFromDatabase", user.getEmail());
+            UserDto userDTO = new UserDto();
+
+            String[] names = user.getFullName().split(" ");
+            userDTO.setFirstName(names[0]);
+            userDTO.setSurname(names[1]);
+            userDTO.setBirthDate(String.valueOf(user.getBirthDate()));
+            userDTO.setPhoneNumber(Integer.valueOf(user.getPhoneNumber()));
+            userDTO.setUsername(user.getUserName());
+            userDTO.setEmail(user.getEmail());
+
+            model.addAttribute("userDTO", userDTO);
         } else {
-            //error?
-            System.out.println("A sta si ovo napravija volin te pijana");
+            System.out.println("User not found");
         }
 
         return "user";
-    };
+    }
 
     @PostMapping(path = "/login")
     public String loginValidation(@RequestParam String username, @RequestParam String password, Model model) {

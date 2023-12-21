@@ -43,35 +43,35 @@
     <div class="user_right_side">
 
         <div class="div1">
-            <label for="firstName">First name<span class="required"></span>:</label>
-            <input type="text" id="firstName" name="firstName" th:placeholder="${FirstNameFromDatabase}" required><br>
+            <label for="firstName">First name:</label>
+            <input type="text" id="firstName" name="firstName" th:placeholder="${userDTO.firstName}" required><br>
 
-            <label for="surname">Last name<span class="required"></span>:</label>
-            <input type="text" id="surname" name="surname" th:placeholder="${LastNameFromDatabase}" required><br>
+            <label for="surname">Last name:</label>
+            <input type="text" id="surname" name="surname" th:placeholder="${userDTO.surname}" required><br>
 
-            <label for="birthDate">Date of birth<span class="required"></span>:</label>
-            <input type="date" id="birthDate" name="birthDate" th:placeholder="${BirthDateFromDatabase}" required><br>
+            <label for="birthDate">Date of birth:</label>
+            <input type="date" id="birthDate" name="birthDate" th:placeholder="${userDTO.birthDate}" required><br>
 
             <label for="phoneNumber">Phone number:</label>
             <select id="phonePrefix" name="phonePrefix" required>
                 <option value="+385">+385</option>
             </select>
-            <input type="tel" id="phoneNumber" name="phoneNumber" th:placeholder="${PhoneNumFromDatabase}" minlength="9"><br>
-        </div>
+            <input type="tel" id="phoneNumber" name="phoneNumber" th:placeholder="${userDTO.phoneNumber}" minlength="9"><br>
 
-        <div class="div2">
-            <label for="email">E-mail<span class="required"></span>:</label>
-            <input type="email" id="email" name="email" th:placeholder="${emailFromDatabase}" required><br>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" th:placeholder="${userDTO.email}" required><br>
 
-            <label for="username">Username<span class="required"></span>:</label>
-            <input type="text" id="username" name="username" th:placeholder="${usernameFromDatabase}" required><br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" th:placeholder="${userDTO.username}" required><br>
 
-            <label for="password">Password<span class="required"></span>:</label>
-            <input type="password" id="password" name="password" placeholder="" required minlength="8"><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8"><br>
 
-            <label for="password2">Confirm password<span class="required"></span>:</label>
+            <label for="password2">Confirm password:</label>
             <input type="password" id="password2" name="password2" placeholder="Repeat password" required><br>
         </div>
+    </div>
+
 
     </div>
 
