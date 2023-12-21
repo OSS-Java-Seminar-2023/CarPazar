@@ -105,3 +105,28 @@ hr {
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+button, input[type="submit"] {
+    background-color: #0275d8; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 15px; /* Top/bottom and left/right padding */
+    margin-top: 10px; /* Margin at the top */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor changes to a hand icon when hovering over the button */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    font-size: 1rem; /* Font size */
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #0256c2; /* Slightly darker blue on hover */
+}
+
+button:active, input[type="submit"]:active {
+    background-color: #0247a0; /* Even darker blue when the button is clicked */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the child elements (the button) */
+}

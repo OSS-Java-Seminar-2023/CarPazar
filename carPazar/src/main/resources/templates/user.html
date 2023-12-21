@@ -41,8 +41,7 @@
 
 
     <div class="user_right_side">
-
-        <div class="div1">
+        <form action="placeholder for now" method="post" class="div1">
             <label for="firstName">First name:</label>
             <input type="text" id="firstName" name="firstName" th:placeholder="${userDTO.firstName}" required><br>
 
@@ -69,7 +68,11 @@
 
             <label for="password2">Confirm password:</label>
             <input type="password" id="password2" name="password2" placeholder="Repeat password" required><br>
-        </div>
+
+            <div class="button-container">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
     </div>
 
 
