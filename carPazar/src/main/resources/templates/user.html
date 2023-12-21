@@ -37,6 +37,8 @@
             <li><a class="user_a" href="#">Submit A Request</a></li>
             <li><a class="user_a" href="#">Submit A Report</a></li>
         </ul>
+        <hr>
+        <li><button type="button" class="pass_btn">Change password</button></li>
     </div>
 
 
@@ -62,13 +64,6 @@
 
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" th:value="${userDTO.username}" required><br>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="8"><br>
-
-            <label for="password2">Confirm password:</label>
-            <input type="password" id="password2" name="password2" required><br>
-
 
             <div class="button-container">
                 <button type="submit">Submit</button>
