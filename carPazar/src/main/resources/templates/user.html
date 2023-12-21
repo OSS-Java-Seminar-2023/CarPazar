@@ -43,13 +43,13 @@
     <div class="user_right_side">
         <form action="placeholder for now" method="post" class="div1">
             <label for="firstName">First name:</label>
-            <input type="text" id="firstName" name="firstName" th:placeholder="${userDTO.firstName}" required><br>
+            <input type="text" id="firstName" name="firstName" th:value="${userDTO.firstName}" required><br>
 
             <label for="surname">Last name:</label>
-            <input type="text" id="surname" name="surname" th:placeholder="${userDTO.surname}" required><br>
+            <input type="text" id="surname" name="surname" th:value="${userDTO.surname}" required><br>
 
             <label for="birthDate">Date of birth:</label>
-            <input type="date" id="birthDate" name="birthDate" th:placeholder="${userDTO.birthDate}" required><br>
+            <input type="date" id="birthDate" name="birthDate" th:value="${userDTO.birthDate}" required><br>
 
             <label for="phoneNumber">Phone number:</label>
             <select id="phonePrefix" name="phonePrefix" required>
@@ -58,16 +58,17 @@
             <input type="tel" id="phoneNumber" name="phoneNumber" th:placeholder="${userDTO.phoneNumber}" minlength="9"><br>
 
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" th:placeholder="${userDTO.email}" required><br>
+            <input type="email" id="email" name="email" th:value="${userDTO.email}" required><br>
 
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" th:placeholder="${userDTO.username}" required><br>
+            <input type="text" id="username" name="username" th:value="${userDTO.username}" required><br>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required minlength="8"><br>
 
             <label for="password2">Confirm password:</label>
-            <input type="password" id="password2" name="password2" placeholder="Repeat password" required><br>
+            <input type="password" id="password2" name="password2" required><br>
+
 
             <div class="button-container">
                 <button type="submit">Submit</button>
