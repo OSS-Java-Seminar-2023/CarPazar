@@ -58,16 +58,16 @@ public class UserService {
                 userRepository.countByEmail(user.getEmail()) == 0 &&
                 userRepository.countById(user.getId()) == 0);
     }
-    public User fetchUserByUsername(String username){
+    public User findByUserName(String username){
         return userRepository.findByUserName(username).get(0);
     }
 
     public String preparePasswordComparing(String usernameFieldText, String passwordFieldText) {
         User dbUser;
         if (usernameFieldText.contains("@")) {
-            dbUser = fetchUserByEmail(usernameFieldText);
+            dbUser = findByEmail(usernameFieldText);
         } else {
-            dbUser = fetchUserByUsername(usernameFieldText);
+            dbUser = findByUserName(usernameFieldText);
         }
 
         if (dbUser != null) {
@@ -77,8 +77,10 @@ public class UserService {
         }
     }
 
-    public User fetchUserByEmail(String email){
+    public User findByEmail(String email){
         return userRepository.findByEmail(email).get(0);
     }
-
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
 }

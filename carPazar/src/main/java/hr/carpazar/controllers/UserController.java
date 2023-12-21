@@ -4,9 +4,17 @@ import hr.carpazar.Dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.UserService;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Optional;
@@ -34,8 +42,8 @@ public class UserController {
 
     @GetMapping(path="/user")
     public String openUserPage(Model model) {
-        String usernameToFetch = "novi123";
-        Optional<User> userOptional = Optional.ofNullable(userService.fetchUserByUsername(usernameToFetch));
+        String usernameToFetch = "debagrlebili";
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(usernameToFetch));
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -51,12 +59,28 @@ public class UserController {
 
             model.addAttribute("userDTO", userDTO);
         } else {
-            System.out.println("User not found");
+            return "Not logged in";
         }
 
         return "user";
     }
 
+    @PostMapping(path="/user/update")
+    public String userUpdate(@ModelAttribute UserDto userDto,Model model) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User existingUser = userService.findByUserName(username);
+        existingUser.setFullName(userDto.getFirstName()+" "+userDto.getSurname());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedDate = dateFormat.parse(userDto.getBirthDate());
+        existingUser.setBirthDate(parsedDate);
+        existingUser.setPhoneNumber(String.valueOf(userDto.getPhoneNumber()));
+        existingUser.setEmail(userDto.getEmail());
+        existingUser.setUserName(userDto.getUsername());
+
+        userService.saveUser(existingUser);
+        return "user";
+    }
     @PostMapping(path = "/login")
     public String loginValidation(@RequestParam String username, @RequestParam String password, Model model) {
         try {
