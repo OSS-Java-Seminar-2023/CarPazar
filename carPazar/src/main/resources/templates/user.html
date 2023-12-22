@@ -9,14 +9,53 @@
     <link rel="stylesheet" th:href="@{css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>User</title>
+    <script>
+        function hideUserInfo() {
+            var element1 = document.getElementsByClassName('div1')[0];
+            var element2 = document.getElementsByClassName('div2')[0];
+            element1.style.display = "none"
+            element2.style.display = ""
+        }
+        function hidePassChange() {
+            var element1 = document.getElementsByClassName('div1')[0];
+            var element2 = document.getElementsByClassName('div2')[0];
+            element1.style.display = ""
+            element2.style.display = "none"
+        }
+
+        function checkPass(){
+            var password = document.getElementById('old_password').value;
+            var password2 = document.getElementById('old_password2').value;
+
+            var password3 = document.getElementById('new_pass').value;
+            var password4 = document.getElementById('new_pass2').value;
+
+            if (password2 != password)
+            {
+                alert('Current password is wrong!');
+                return false;
+            }
+            if (password3 != password4)
+            {
+                alert('New password does not match!');
+                return false;
+            }
+            return true;
+        }
+
+    </script>
     <style>
 
     </style>
 </head>
-<body class="user_body">
+<body class="user_body" onload="hidePassChange()">
     <div th:replace="fragments/navbar :: navbarDiv"></div>
 
+
     <div class="user_left_side">
+        <button type="button" onclick="hideUserInfo()" class="pass_btn">Change password</button>
+        <button type="button" onclick="hidePassChange()" class="pass_btn">Change user information</button>
+        <hr>
         <h4>My Listings</h4>
         <ul>
             <li><a class="user_a" href="#">All Listings</a></li>
@@ -38,12 +77,13 @@
             <li><a class="user_a" href="#">Submit A Report</a></li>
         </ul>
         <hr>
-        <li><button type="button" class="pass_btn">Change password</button></li>
+
+
     </div>
 
 
     <div class="user_right_side">
-        <form action="user/update" method="post" class="div1">
+        <form action="/user/update" method="post" class="div1">
             <label for="firstName">First name:</label>
             <input type="text" id="firstName" name="firstName" th:value="${userDTO.firstName}" required><br>
 
@@ -69,13 +109,29 @@
                 <button type="submit">Submit</button>
             </div>
         </form>
+
+
+        <form action="pass change" method="post" class="div2">
+            <label for="firstName">change pass placeholder:</label>
+
+            <label for="old_password">Current Password<span class="required"></span>:</label>
+            <input type="password" id="old_password" name="old_password" placeholder="Current password" required minlength="8">
+
+            <label for="old_password2">Confirm password<span class="required"></span>:</label>
+            <input type="password" id="old_password2" name="old_password2" placeholder="Repeat password" required>
+
+            <label for="new_pass">New Password<span class="required"></span>:</label>
+            <input type="password" id="new_pass" name="new_pass" placeholder="Create a new password" required minlength="8">
+
+            <label for="new_pass2">Confirm New Password<span class="required"></span>:</label>
+            <input type="password" id="new_pass2" name="new_pass2" placeholder="Repeat password" required>
+
+            <div class="button-container">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
     </div>
-
-
-    </div>
-
-
-
 
 </body>
 </html>
