@@ -10,14 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
 import org.springframework.ui.Model;
 
 @Controller
@@ -41,9 +40,17 @@ public class UserController {
     }
 
     @GetMapping(path="/user")
-    public String openUserPage(Model model) {
-        String usernameToFetch = "debagrlebili";
-        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(usernameToFetch));
+    public String openUserPage(Model model, HttpSession session) {
+        String userId = (String) session.getAttribute("user_id");
+        if (userId == null){
+            return "login";
+        }
+        String username = (String) session.getAttribute("user_username");
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("username", username);
+
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -82,29 +89,32 @@ public class UserController {
         return "user";
     }
     @PostMapping(path = "/login")
-    public String loginValidation(@RequestParam String username, @RequestParam String password, Model model) {
+    public String loginValidation(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
         try {
-            String dbHashedPassword = userService.preparePasswordComparing(username, password);
+            User user=userService.authenticateUser(username,password);
+            session.setAttribute("user_id",user.getId());
+            session.setAttribute("user_username",user.getUserName());
+            return "home";
 
-            if (dbHashedPassword == null) {
-                System.out.println("User doesn't exist");
-                model.addAttribute("alert", "User does not exist!");
+        } catch (RuntimeException e) {
+            if (!Objects.equals(e.getMessage(), "Wrong password!")){
+                model.addAttribute("alert", "User not found!");
+                return "login";
+            }
+            else{
+                model.addAttribute("alert", e.getMessage());
                 return "login";
             }
 
-            if (HashService.comparePasswords(password, dbHashedPassword)) {
-                return "home";
-            } else {
-                model.addAttribute("alert", "Wrong password! Try again!");
-                return "login";
-            }
-        } catch (Exception e) {
-            System.out.println("Error during login: " + e.getMessage());
-            model.addAttribute("alert", "User doesn't exist!");
-            return "login";
         }
     }
-
+    @GetMapping("/logout")
+    public String logout(Model model,HttpSession session){
+/*        String message=(String)session.getAttribute("user_username") + "logged out succesfully!";
+        model.addAttribute("logged_out", message);*/
+        session.invalidate();
+        return "login";
+    }
     @PostMapping(path="/register")
     public String registrationCheck(@ModelAttribute UserDto userDto){
         User user = UserService.createUserFromDto(userDto);

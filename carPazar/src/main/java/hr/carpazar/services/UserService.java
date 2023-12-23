@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.sql.Date;
+import java.util.Optional;
 
 
 @NoArgsConstructor
@@ -61,6 +62,25 @@ public class UserService {
     public User findByUserName(String username){
         return userRepository.findByUserName(username).get(0);
     }
+
+    public User authenticateUser(String username, String password) {
+        String dbHashedPassword = preparePasswordComparing(username, password);
+
+        Optional<User> dbUser;
+        if (username.contains("@")) {
+            dbUser = userRepository.findByEmail(username).stream().findFirst();
+        } else {
+            dbUser = userRepository.findByUserName(username).stream().findFirst();
+        }
+        return dbUser.map(user -> {
+            if (HashService.comparePasswords(password, dbHashedPassword)) {
+                return user;
+            } else {
+                throw new RuntimeException("Wrong password!");
+            }
+        }).orElseThrow(() -> new RuntimeException("User not found!"));
+    }
+
 
     public String preparePasswordComparing(String usernameFieldText, String passwordFieldText) {
         User dbUser;
