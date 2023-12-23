@@ -41,21 +41,48 @@
                 return false;
             }
             return true;
-        }
+        }s
+       function change1() {
+            document.getElementById("button1").classList.add("activeButton");
+            document.getElementById("button1").classList.remove("normalButton");
+
+            document.getElementById("button2").classList.add("normalButton");
+            document.getElementById("button2").classList.remove("activeButton");
+       }
+
+       function change2() {
+            document.getElementById("button2").classList.add("activeButton");
+            document.getElementById("button2").classList.remove("normalButton");
+
+            document.getElementById("button1").classList.add("normalButton");
+            document.getElementById("button1").classList.remove("activeButton");
+       }
+
+
 
     </script>
     <style>
 
     </style>
 </head>
-<body class="user_body" onload="hidePassChange()">
+<body class="user_body" onload="hidePassChange(); change2();">
     <div th:replace="fragments/navbar :: navbarDiv"></div>
 
 
     <div class="user_left_side">
-        <button type="button" onclick="hideUserInfo()" class="pass_btn">Change password</button>
-        <button type="button" onclick="hidePassChange()" class="pass_btn">Change user information</button>
+
+        <button id="button1" onclick="hideUserInfo(); change1();" class="pass_btn">Change password</button>
+        <button id="button2" onclick="hidePassChange(); change2();" class="pass_btn1">Change user information</button>
+
         <hr>
+        <h4>Your CarPazar rating: 5.0</h4>
+        <!--Ovdi bi tribalo ic 5 praznih zvjezdica koje su popunjene onoliko koliki je rating ako je to moguce // ili laksa verzija samo broj npr 3.7-->
+        <hr>
+
+        <h4 class="prem_prof_h">Premium profile enhances visibility of your listings.</h4>
+        <button id="prem_prof" class="prem_prof">Buy Premium Profile</button>
+        <hr>
+
         <h4>My Listings</h4>
         <ul>
             <li><a class="user_a" href="#">All Listings</a></li>
@@ -70,13 +97,7 @@
             <li><a class="user_a" href="#">Notifications</a></li>
         </ul>
         <hr>
-        <h4>User support</h4>
-        <ul>
-            <li><a class="user_a" href="#">Contact Via Email</a></li>
-            <li><a class="user_a" href="#">Submit A Request</a></li>
-            <li><a class="user_a" href="#">Submit A Report</a></li>
-        </ul>
-        <hr>
+        <button id="us_but" class="us_but">User Support</button> <!--button koji otvara chat sa adminon?-->
 
 
     </div>
@@ -84,6 +105,9 @@
 
     <div class="user_right_side">
         <form action="/user/update" method="post" class="div1">
+            <div class="container">
+                <h1 class="ch_pass">User Information</h1>
+            </div>
             <label for="firstName">First name:</label>
             <input type="text" id="firstName" name="firstName" th:value="${userDTO.firstName}" required><br>
 
@@ -105,14 +129,16 @@
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" th:value="${userDTO.username}" required><br>
 
-            <div class="button-container">
-                <button type="submit">Submit</button>
+            <div class="container">
+                <button type="submit" class="submit1">Submit</button>
             </div>
         </form>
 
 
         <form action="pass change" method="post" class="div2">
-            <label for="firstName">change pass placeholder:</label>
+            <div class="container">
+                <h1 class="ch_pass">Change Your Password</h1>
+            </div>
 
             <label for="old_password">Current Password<span class="required"></span>:</label>
             <input type="password" id="old_password" name="old_password" placeholder="Current password" required minlength="8">
@@ -126,8 +152,8 @@
             <label for="new_pass2">Confirm New Password<span class="required"></span>:</label>
             <input type="password" id="new_pass2" name="new_pass2" placeholder="Repeat password" required>
 
-            <div class="button-container">
-                <button type="submit">Submit</button>
+            <div class="container">
+                <button type="submit" class="submit1">Submit</button>
             </div>
         </form>
 

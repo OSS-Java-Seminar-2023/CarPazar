@@ -1,5 +1,5 @@
 .user_body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Monaco', monospace;
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -12,8 +12,8 @@
 }
 
 .user_left_side {
-    width: 20%;
-    padding: 20px;
+    width: 21%;
+    padding: 15px;
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -48,9 +48,10 @@
 
 .user_left_side h4 {
     color: #0275d8;
-    margin-top: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user_left_side > .prem_prof_h {
+    color: purple;
 }
 
 .user_a {
@@ -67,7 +68,7 @@
 ul {
     list-style: none;
     padding: 0;
-    margin-top: 15px;
+    margin-top: 0px;
 }
 
 li {
@@ -116,8 +117,8 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-button, input[type="submit"] {
-    background-color: #0275d8;
+.pass_btn, input[type="submit"] {
+    background-color: blue;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -128,29 +129,145 @@ button, input[type="submit"] {
     font-size: 1rem;
 }
 
-button:hover, input[type="submit"]:hover {
-    background-color: #0256c2;
-}
-
-button:active, input[type="submit"]:active {
-    background-color: #0247a0;
-}
-
-.button-container {
+.pass_btn-container {
     display: flex;
     justify-content: center;
 }
 .pass_btn {
-    background-color: #0275d8;
+    background-color: blue;
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
+    margin-top: 10px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+
+}
+
+.pass_btn1, input[type="submit"] {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+}
+
+.pass_btn1-container {
+    display: flex;
+    justify-content: center;
+}
+.pass_btn1 {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
     font-size: 1rem;
     transition: background-color 0.3s;
 }
 
-.pass_btn:hover {
-    background-color: #0256c2;
+.normalButton {
+
+  color:white;
+  background-color: blue;
+  font-size: 1rem;
+  border: solid;
+  border-color:blue;
+  border-radius: 5px;
+   margin-top: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
+.activeButton {
+  color:blue;
+  background-color: white;
+  font-size: 1rem;
+  border: solid;
+  border-radius: 5px;
+   margin-top: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.normalButton:hover{
+    background-color:#2823c2;
+}
+
+.activeButton:hover{
+    background-color:#c4c7ff;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.submit1{
+    color:white;
+          background-color: blue;
+          font-size: 1rem;
+          border-color:#301934;
+          border: solid;
+          border-radius: 5px;
+           margin-top: 10px;
+          padding: 10px 15px;
+          font-size: 1rem;
+          transition: background-color 0.3s;
+}
+
+.submit1:hover{
+    background-color: #9F2B68;
+    cursor: pointer;
+}
+
+.ch_pass {
+    color: blue;
+    font-size: 24px;
+}
+
+.prem_prof{
+     color:white;
+      background-color: purple;
+      font-size: 1rem;
+      border-color:#301934;
+      border: solid;
+      border-radius: 5px;
+       margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+}
+
+.prem_prof:hover{
+    background-color: #9F2B68;
+    cursor: pointer;
+}
+
+.us_but{
+         color:blue;
+          background-color: white;
+          font-size: 1rem;
+          border-color:white;
+          border: solid;
+          border-radius: 5px;
+           margin-top: 10px;
+          padding: 10px 15px;
+          font-size: 1rem;
+          transition: background-color 0.3s;
+}
+
+.us_but:hover{
+    background-color:#c4c7ff;
+    cursor: pointer;
+}
