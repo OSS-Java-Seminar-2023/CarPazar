@@ -72,6 +72,12 @@ public class UserController {
         return "user";
     }
 
+
+    @GetMapping("otherUser")
+    public String openOtherUserPage() {
+        return "otheruser";
+    }
+
     @PostMapping(path="/user/update")
     public String userUpdate(@ModelAttribute UserDto userDto,Model model) throws ParseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
