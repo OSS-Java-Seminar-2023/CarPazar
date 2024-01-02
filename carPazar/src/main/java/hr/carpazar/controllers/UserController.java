@@ -53,11 +53,19 @@ public class UserController {
 
             User user = userService.findByUserName2(username);
             if (user == null) {
-                return "notFound";
+                return "redirect:/notFound";
             }
 
             if (!username.equals(loggedInUsername)) {
-                model.addAttribute("username", username);
+                model.addAttribute("username", user.getUserName());
+                if(user.getUserRating() == null){
+                    model.addAttribute("rating", "No rating yet");
+                }
+                else{
+                    model.addAttribute("rating", String.valueOf(user.getUserRating()));
+
+                }
+                model.addAttribute("premium", user.getIsPremium());
                 return "otherUser";
             }
         }
@@ -72,15 +80,17 @@ public class UserController {
             UserDto userDTO = new UserDto();
             String[] names = user.getFullName().split(" ");
             userDTO.setFirstName(names[0]);
-            userDTO.setSurname(names.length > 1 ? names[1] : "");
-            userDTO.setBirthDate(String.valueOf(user.getBirthDate()));
+            userDTO.setSurname(names[1]);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = dateFormat.format(user.getBirthDate());
+            userDTO.setBirthDate(formattedDate);
             userDTO.setPhoneNumber(Integer.valueOf(user.getPhoneNumber()));
             userDTO.setUsername(user.getUserName());
             userDTO.setEmail(user.getEmail());
 
             model.addAttribute("userDTO", userDTO);
         } else {
-            return "notFound";
+            return "redirect:/notFound";
         }
 
         return "user";
@@ -96,22 +106,55 @@ public class UserController {
         return "otheruser";
     }
 
-    @PostMapping(path="/user/update")
-    public String userUpdate(@ModelAttribute UserDto userDto,Model model) throws ParseException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User existingUser = userService.findByUserName(username);
-        existingUser.setFullName(userDto.getFirstName()+" "+userDto.getSurname());
+    @PostMapping(path = "/user/update")
+    public String userUpdate(@ModelAttribute UserDto userDto, HttpSession session) throws ParseException {
+        String loggedInUsername = (String) session.getAttribute("user_username");
+        if (loggedInUsername == null) {
+            return "redirect:/login";
+        }
+
+        User existingUser = userService.findByUserName2(loggedInUsername);
+        if (existingUser == null) {
+            return "notFound";
+        }
+
+        existingUser.setFullName(userDto.getFirstName() + " " + userDto.getSurname());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate = dateFormat.parse(userDto.getBirthDate());
         existingUser.setBirthDate(parsedDate);
-        existingUser.setPhoneNumber(String.valueOf(userDto.getPhoneNumber()));
+        existingUser.setPhoneNumber(userDto.getPhoneNumber().toString());
         existingUser.setEmail(userDto.getEmail());
         existingUser.setUserName(userDto.getUsername());
 
         userService.saveUser(existingUser);
-        return "user";
+
+        return "redirect:/login";
     }
+
+    @PostMapping(path = "/user/passwordChange")
+    public String userPasswordChange(@RequestParam("old_password") String oldPassword,
+                                     @RequestParam("old_password2") String oldPassword2,
+                                     @RequestParam("new_pass") String newPassword,
+                                     @RequestParam("new_pass2") String newPassword2,
+                                     HttpSession session ,Model model)
+    {
+        try{
+            String username = (String) session.getAttribute("user_username");
+
+            User currentUser = userService.authenticateUser(username, oldPassword);
+
+            String hashedNewPassword = HashService.generateSHA512(newPassword);
+            currentUser.setHashedPassword(hashedNewPassword);
+            userService.saveUser(currentUser);
+
+            return "redirect:/login";
+        }catch (RuntimeException e){
+            model.addAttribute("alert", e.getMessage());
+            return "redirect:/login";
+        }
+
+    }
+
     @PostMapping(path = "/login")
     public String loginValidation(@RequestParam String username, @RequestParam String password, Model model, HttpServletRequest request) {
         try {

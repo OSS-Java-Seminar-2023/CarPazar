@@ -22,26 +22,45 @@
             element1.style.display = ""
             element2.style.display = "none"
         }
-
         function checkPass(){
-            var password = document.getElementById('old_password').value;
-            var password2 = document.getElementById('old_password2').value;
+                var oldPassword = document.getElementById('old_password').value;
+                var oldPassword2 = document.getElementById('old_password2').value;
+                var newPassword = document.getElementById('new_pass').value;
+                var newPassword2 = document.getElementById('new_pass2').value;
+                var oldPasswordError = document.getElementById('oldPasswordError');
+                var newPasswordError = document.getElementById('newPasswordError');
 
-            var password3 = document.getElementById('new_pass').value;
-            var password4 = document.getElementById('new_pass2').value;
+                if (oldPassword !== oldPassword2) {
+                    oldPasswordError.textContent = 'Current passwords do not match.';
+                    event.preventDefault();
+                    return false;
+                }
+                else {
+                    oldPasswordError.textContent = ' ';
+                }
 
-            if (password2 != password)
-            {
-                alert('Current password is wrong!');
-                return false;
-            }
-            if (password3 != password4)
-            {
-                alert('New password does not match!');
-                return false;
-            }
-            return true;
-        }s
+                if (newPassword !== newPassword2) {
+                    newPasswordError.textContent = 'New passwords do not match.';
+                    event.preventDefault();
+                    return false;
+                }
+                else {
+                    newPasswordError.textContent = ' ';
+                }
+
+                if (newPassword === oldPassword) {
+                    samePasswordError.textContent = 'New password cannot be the same as your old password!';
+                    event.preventDefault();
+                    return false;
+                }
+                else {
+                    samePasswordError.textContent = ' ';
+                }
+
+                return true;
+
+        }
+
        function change1() {
             document.getElementById("button1").classList.add("activeButton");
             document.getElementById("button1").classList.remove("normalButton");
@@ -412,7 +431,14 @@
     text-decoration:none;
 
 }
-
+.alert_login{
+    color:red;
+}
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -472,7 +498,7 @@
             <select id="phonePrefix" name="phonePrefix" required>
                 <option value="+385">+385</option>
             </select>
-            <input type="tel" id="phoneNumber" name="phoneNumber" th:placeholder="${userDTO.phoneNumber}" minlength="9"><br>
+            <input type="tel" id="phoneNumber" name="phoneNumber" th:value="${userDTO.phoneNumber}" minlength="9" required><br>
 
             <label for="email">E-mail:</label>
             <input type="email" id="email" name="email" th:value="${userDTO.email}" required><br>
@@ -486,10 +512,16 @@
         </form>
 
 
-        <form action="pass change" method="post" class="div2">
+        <form action="/user/passwordChange" method="post" class="div2" onsubmit="return checkPass()">
             <div class="container">
                 <h1 class="ch_pass">Change Your Password</h1>
             </div>
+            <div th:if="${alert}" class="alert">
+                <p class="alert_login" th:text="${alert}"></p>
+            </div>
+            <div id="oldPasswordError" class="error-message"></div>
+            <div id="newPasswordError" class="error-message"></div>
+            <div id="samePasswordError" class="error-message"></div>
 
             <label for="old_password">Current Password<span class="required"></span>:</label>
             <input type="password" id="old_password" name="old_password" placeholder="Current password" required minlength="8">

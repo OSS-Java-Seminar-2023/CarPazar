@@ -216,8 +216,13 @@ hr {
     <div class="user_left_side">
         <div class="user_info">
             <span>Username:</span> <h2 th:text="${username}" style="display: inline;">Username</h2>
-            <p>Rating: <!--<span th:text="${user.rating}">-->Rating ovde bi tribale ic zvjezdice ili broj tipa 3.5<!--</span>--></p>
-            <p> <!--th:if="${user.premium}" class="premium_user"-->Premium Member ovde ce bit X ili kvacica</p>
+            <hr>
+            <span>Rating:</span> <span th:text="${rating}">Rating Value</span>
+            <hr>
+
+            <p>Premium Member: <span th:text="${premium ? 'Yes' : 'No'}"></span></p>
+            <hr>
+
             <button id="send_msg" class="send_msg">Send a Message</button>
         </div>
     </div>
