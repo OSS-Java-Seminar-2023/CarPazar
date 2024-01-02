@@ -5,6 +5,7 @@ import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,11 +42,12 @@ public class UserController {
     }
 
     @GetMapping(path = {"/user", "/user/{username}"})
-    public String openUserPage(@PathVariable(name = "username", required = false) Optional<String> usernameOptional, Model model, HttpSession session) {
+    public String openUserPage(@PathVariable(name = "username", required = false) Optional<String> usernameOptional, Model model, HttpSession session, HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         String loggedInUsername = (String) session.getAttribute("user_username");
         String userId = (String) session.getAttribute("user_id");
-        if (userId == null){
-            return "login";
+        if (userId == null || loggedInUsername == null){
+            return "redirect:/login";
         }
 
         if (usernameOptional.isPresent()) {
@@ -177,7 +179,12 @@ public class UserController {
         }
     }
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session,HttpServletRequest request){
+        String loggedInUsername = (String) session.getAttribute("user_username");
+        String userId = (String) session.getAttribute("user_id");
+        if (userId == null || loggedInUsername == null){
+            return "redirect:/login";
+        }
         session.invalidate();
         return "redirect:/login";
     }

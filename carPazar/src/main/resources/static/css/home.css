@@ -12,7 +12,7 @@
     margin: 0 auto;
 }
 
-button{
+.post-button{
     display: block;
     margin: auto;
     padding: 1rem 2rem;
@@ -24,7 +24,41 @@ button{
     transition: all 0.3s ease;
 
 }
-button:hover{
+.post-button:hover{
     background-color: rgb(47, 159, 148);
 
+}
+.search-container{
+
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar{
+    display: flex;
+    align-items: center;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 400px;
+
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-right: 10px;
+    border:none;
+    overflow: hidden;
+}
+
+.search-button{
+    cursor: pointer;
+    margin-right: 5px;
+    border:none;
 }
