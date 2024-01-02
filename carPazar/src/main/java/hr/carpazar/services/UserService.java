@@ -62,6 +62,15 @@ public class UserService {
     public User findByUserName(String username){
         return userRepository.findByUserName(username).get(0);
     }
+    public User findByUserName2(String username) {
+        List<User> users = userRepository.findByUserName(username);
+        if (!users.isEmpty()) {
+            return users.get(0);
+        } else {
+            return null;
+        }
+    }
+
 
     public User authenticateUser(String username, String password) {
         String dbHashedPassword = preparePasswordComparing(username, password);

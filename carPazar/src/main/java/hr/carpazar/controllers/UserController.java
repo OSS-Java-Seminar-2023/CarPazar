@@ -4,6 +4,7 @@ import hr.carpazar.Dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,26 +40,39 @@ public class UserController {
         return "register";
     }
 
-    @GetMapping(path="/user")
-    public String openUserPage(Model model, HttpSession session) {
+    @GetMapping(path = {"/user", "/user/{username}"})
+    public String openUserPage(@PathVariable(name = "username", required = false) Optional<String> usernameOptional, Model model, HttpSession session) {
+        String loggedInUsername = (String) session.getAttribute("user_username");
         String userId = (String) session.getAttribute("user_id");
         if (userId == null){
             return "login";
         }
-        String username = (String) session.getAttribute("user_username");
+
+        if (usernameOptional.isPresent()) {
+            String username = usernameOptional.get();
+
+            User user = userService.findByUserName2(username);
+            if (user == null) {
+                return "notFound";
+            }
+
+            if (!username.equals(loggedInUsername)) {
+                model.addAttribute("username", username);
+                return "otherUser";
+            }
+        }
 
         model.addAttribute("userId", userId);
-        model.addAttribute("username", username);
+        model.addAttribute("username", loggedInUsername);
 
-        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName2(loggedInUsername));
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             UserDto userDTO = new UserDto();
-
             String[] names = user.getFullName().split(" ");
             userDTO.setFirstName(names[0]);
-            userDTO.setSurname(names[1]);
+            userDTO.setSurname(names.length > 1 ? names[1] : "");
             userDTO.setBirthDate(String.valueOf(user.getBirthDate()));
             userDTO.setPhoneNumber(Integer.valueOf(user.getPhoneNumber()));
             userDTO.setUsername(user.getUserName());
@@ -66,12 +80,16 @@ public class UserController {
 
             model.addAttribute("userDTO", userDTO);
         } else {
-            return "Not logged in";
+            return "notFound";
         }
 
         return "user";
     }
 
+    @GetMapping("notFound")
+    public String openNotFound() {
+        return "notFound";
+    }
 
     @GetMapping("otherUser")
     public String openOtherUserPage() {
@@ -95,12 +113,13 @@ public class UserController {
         return "user";
     }
     @PostMapping(path = "/login")
-    public String loginValidation(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
+    public String loginValidation(@RequestParam String username, @RequestParam String password, Model model, HttpServletRequest request) {
         try {
             User user=userService.authenticateUser(username,password);
+            HttpSession session = request.getSession(true);
             session.setAttribute("user_id",user.getId());
             session.setAttribute("user_username",user.getUserName());
-            return "home";
+            return "redirect:/home";
 
         } catch (RuntimeException e) {
             if (!Objects.equals(e.getMessage(), "Wrong password!")){
@@ -115,11 +134,9 @@ public class UserController {
         }
     }
     @GetMapping("/logout")
-    public String logout(Model model,HttpSession session){
-/*        String message=(String)session.getAttribute("user_username") + "logged out succesfully!";
-        model.addAttribute("logged_out", message);*/
+    public String logout(HttpSession session){
         session.invalidate();
-        return "login";
+        return "redirect:/login";
     }
     @PostMapping(path="/register")
     public String registrationCheck(@ModelAttribute UserDto userDto){
