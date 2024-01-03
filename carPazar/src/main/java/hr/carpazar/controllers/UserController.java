@@ -4,6 +4,7 @@ import hr.carpazar.Dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.UserService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -160,12 +161,11 @@ public class UserController {
     @PostMapping(path = "/login")
     public String loginValidation(@RequestParam String username, @RequestParam String password, Model model, HttpServletRequest request) {
         try {
-            User user=userService.authenticateUser(username,password);
+            User user = userService.authenticateUser(username,password);
             HttpSession session = request.getSession(true);
             session.setAttribute("user_id",user.getId());
             session.setAttribute("user_username",user.getUserName());
             return "redirect:/home";
-
         } catch (RuntimeException e) {
             if (!Objects.equals(e.getMessage(), "Wrong password!")){
                 model.addAttribute("alert", "User not found!");
@@ -175,17 +175,11 @@ public class UserController {
                 model.addAttribute("alert", e.getMessage());
                 return "login";
             }
-
         }
     }
     @GetMapping("/logout")
-    public String logout(HttpSession session,HttpServletRequest request){
-        String loggedInUsername = (String) session.getAttribute("user_username");
-        String userId = (String) session.getAttribute("user_id");
-        if (userId == null || loggedInUsername == null){
-            return "redirect:/login";
-        }
-        session.invalidate();
+    public String logout(HttpSession httpSession){
+        httpSession.invalidate();
         return "redirect:/login";
     }
     @PostMapping(path="/register")
