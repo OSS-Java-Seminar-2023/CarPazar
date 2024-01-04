@@ -7,6 +7,7 @@ import hr.carpazar.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -178,7 +179,7 @@ public class UserController {
             HttpSession session = request.getSession(true);
             session.setAttribute("user_id",user.getId());
             session.setAttribute("user_username",user.getUserName());
-            return "redirect:/home";
+            return "home";
         } catch (RuntimeException e) {
             if (!Objects.equals(e.getMessage(), "Wrong password!")){
                 model.addAttribute("alert", "User not found!");
@@ -206,4 +207,53 @@ public class UserController {
 
         return "home";
     }
+
+
+    @GetMapping("/editUser/{username}")
+    public String editUser(@PathVariable("username") String username, Model model) {
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName2(username));
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserDto userDTO = new UserDto();
+            String[] names = user.getFullName().split(" ");
+            userDTO.setFirstName(names[0]);
+            userDTO.setSurname(names[1]);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = dateFormat.format(user.getBirthDate());
+            userDTO.setBirthDate(formattedDate);
+            userDTO.setPhoneNumber(Integer.valueOf(user.getPhoneNumber()));
+            userDTO.setUsername(user.getUserName());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setAdmin(user.getIsAdmin());
+            userDTO.setPremium(user.getIsPremium());
+
+            model.addAttribute("userDTO", userDTO);
+        } else {
+            return "redirect:/notFound";
+        }
+        return "editUser";
+    }
+
+    @PostMapping("/editUser/update")
+    public String updateUser(@ModelAttribute UserDto userDto) throws ParseException {
+        String username = userDto.getUsername();
+        System.out.println(username);
+
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
+
+        if (!userOptional.isPresent()) {
+            return "redirect:/notFound";
+        }
+
+        User user = userOptional.get();
+        user.setIsAdmin(userDto.isAdmin());
+        user.setIsPremium(userDto.isPremium());
+
+        userService.saveUser(user);
+
+        return "redirect:/adminPanel";
+    }
+
+
 }

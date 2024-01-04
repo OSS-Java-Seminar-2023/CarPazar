@@ -20,10 +20,11 @@
         <th>Username</th>
         <th>Email</th>
         <th>Full Name</th>
-        <th>Premium</th>
         <th>Rating</th>
         <th>Phone Number</th>
+        <th>Premium</th>
         <th>Admin</th>
+        <th> </th>
     </tr>
     </thead>
     <tbody>
@@ -32,10 +33,22 @@
         <td data-label="Username" th:text="${user.userName}"></td>
         <td data-label="Email" th:text="${user.email}"></td>
         <td data-label="Full Name" th:text="${user.fullName}"></td>
-        <td data-label="Premium" th:text="${user.isPremium}"></td>
         <td data-label="Rating" th:text="${user.userRating}"></td>
         <td data-label="Phone Number" th:text="${user.phoneNumber}"></td>
-        <td data-label="Admin" th:text="${user.isAdmin}"></td>
+        <td data-label="Premium">
+                    <span th:text="${user.isPremium}"
+                          th:class="${user.isPremium} ? 'text-green' : 'text-red'">
+                    </span>
+        </td>
+        <td data-label="Admin">
+                    <span th:text="${user.isAdmin}"
+                          th:class="${user.isAdmin} ? 'text-green' : 'text-red'">
+                    </span>
+        </td>
+        <td data-label="Edit User">
+            <a th:href="@{/editUser/{username}(username=${user.userName})}" class="edit-button">Edit</a>
+        </td>
+
     </tr>
     </tbody>
 </table>

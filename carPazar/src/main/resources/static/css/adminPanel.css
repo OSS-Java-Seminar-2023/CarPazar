@@ -78,3 +78,31 @@ h3{
     color:#1c5b9e;
     margin-top: 60px;
 }
+
+.text-green {
+    color: green;
+}
+
+.text-red {
+    color: red;
+}
+
+.edit-button {
+    background-color: #1c5b9e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+}
+
+.edit-button:hover {
+    background-color: #08203b;
+}
+

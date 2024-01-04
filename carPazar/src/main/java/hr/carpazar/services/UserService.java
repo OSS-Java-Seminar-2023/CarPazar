@@ -72,6 +72,10 @@ public class UserService {
     public User findByUserName(String username){
         return userRepository.findByUserName(username).get(0);
     }
+
+    public User findById(String id) {
+        return userRepository.findByid(id).get(0);
+    }
     public User findByUserName2(String username) {
         List<User> users = userRepository.findByUserName(username);
         if (!users.isEmpty()) {
