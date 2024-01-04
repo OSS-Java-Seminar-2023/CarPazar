@@ -31,7 +31,7 @@ CREATE TABLE specification(
     shifter_type varchar(32) NOT NULL,
     kilometers_travelled int(11) NOT NULL,
     manufacture_year year(4) NOT NULL,
-    in_traffic_since year(4),
+    in_traffic_since year(4), 
     door_count tinyint(4),
     gear_count tinyint(4),
     location varchar(64) NOT NULL,

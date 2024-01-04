@@ -1,0 +1,2 @@
+ALTER TABLE specification
+MODIFY COLUMN engine_power SMALLINT NOT NULL;

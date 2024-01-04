@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/new_listing.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <title>New Listing</title>
+</head>
+<body onload="hideSteps()">
+    <div th:replace="fragments/navbar :: navbarDiv"></div>
+    
+    <form>
+        <div id="general-info">
+            <label for="title">Title:</label><br>
+            <input type="text" name="title" placeholder="Listing Title" maxlength="64" required><br><br>
+
+            <label for="description">Description:</label><br>
+            <input type="text" name="description" placeholder="Listing Description" maxlength="4096" required><br><br>
+
+            <label for="price">Price:</label><br>
+            <input type="number" name="price" placeholder="Listing Price" min="1" max="2147483647" required>€<br><br>
+        </div>
+
+        <div id="image-upload">
+            <label for="images">Select images for upload</label><br>
+            <input type="file" name="images[]" multiple accept="image/png, image/jpg, image/jpeg, image/bmp" required><br><br>
+        </div>
+
+        <div id="additional-mandatory">
+            <label for="brand">Make:</label><br>
+            <select id="select-brand" required>
+                <option value="" disabled selected>Select a vehicle brand</option>
+            </select><br><br>
+
+            <label for="model">Model:</label><br>
+            <input type="text" name="model" placeholder="Vehicle Model" maxlength="32" required><br><br>
+
+            <label for="engine-power">Engine power:</label><br>
+            <input type="number" name="engine-power" id="engine-power" placeholder="Engine Power" min="0" max="999" required>
+            <select name="power-unit" id="power-unit" required>
+                <option value="hp" selected>hp</option>
+                <option value="kW">kW</option>
+            </select><br><br>
+
+            <label for="engine-type">Engine type:</label><br>
+            <select name="engine-type" required>
+                <option value="" disabled selected>Engine Type</option>
+                <option value="diesel">Diesel</option>
+                <option value="gasoline">Gasoline/Gas</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="electric">EV</option>
+            </select><br><br>
+
+            <label for="shifter-type">Transmission:</label><br>
+            <select name="shifter-type" required>
+                <option value="" selected disabled>Shifter Type</option>
+                <option value="automatic">Automatic</option>
+                <option value="manual">Manual</option>
+            </select><br><br>
+
+            <label for="odometer">Odometer:</label><br>
+            <input type="number" name="odometer" placeholder="Kilometerage" min="0" max="999999" required>km<br><br>
+
+            <label for="manufacture-year">Manufacture year:</label><br>
+            <input type="number" name="manufacture-year" placeholder="Manufacture Year" min="1900" max="2100" required><br><br>
+
+            <label for="registered-until">Registered until:</label><br>
+            <input type="date" id="reg-date" name="registered-until" placeholder="Registration Date" min="1900-01-01" max="2099-12-31" required>
+            <label for="unregistered">Vehicle is unregistered</label>
+            <input type="checkbox" id="reg-checkbox" name="unregistered" onchange="disableRegInput()"><br><br>
+
+            <label for="owner-no">Owner number:</label><br>
+            <input type="number" name="owner-no" placeholder="1st Owner" value="1" min="1", max="9" required><br><br>
+
+            <label for="is-used">Car condition:</label><br>
+            <input type="radio" name="is-used" value="false"><label for="is-used">New</label>
+            <input type="radio" name="is-used" value="true" checked><label for="is-used">Used</label><br><br>
+
+            <label for="location">Location:</label><br>
+            <select name="location" id="select-county" required>
+                <option value="" disabled selected>Location</option>
+            </select>
+        </div>
+
+        <div id="additional-optional">
+            <label for="in-traffic">In traffic since</label><br>
+            <input type="number" name="in-traffic" placeholder="Year" min="1900" max="2100"><br>
+
+            <label for="door-count">Door count:</label><br>
+            <input type="number" name="door-count" placeholder="Door Count" min="1" max="9"><br>
+
+            <label for="gear-count">Gear count:</label><br>
+            <input type="number" name="gear-count" placeholder="Gear Count" min="1" max="19"><br>
+
+            <label for="body-shape">Body shape:</label><br>
+            <select name="body-shape">
+                <option value="" selected>---</option>
+                <option value="coupe">Coupe</option>
+                <option value="limo">Limousine</option>
+                <option value="caravan">Caravan</option>
+                <option value="hatchback">Hatchback</option>
+                <option value="suv">SUV</option>
+                <option value="minivan">Minivan</option>
+                <option value="cabrio">Convertible</option>
+                <option value="van">Van</option>
+            </select><br><br>
+
+            <label for="drive-type">Drive type:</label><br>
+            <select name="drive-type">
+                <option value="" selected>---</option>
+                <option value="fwd">FWD</option>
+                <option value="rwd">RWD</option>
+                <option value="awd">AWD</option>
+            </select><br>
+
+            <label for="consumption">Consumption:</label><br>
+            <input type="number" name="consumption" placeholder="Consumption" min="0" max="99.9"><label for="consumption">L/100km</label><br>
+
+            <label for="ac-type">AC type:</label><br>
+            <select name="ac-type">
+                <option value="" selected>Air Conditioning</option>
+                <option value="automatic">Automatic</option>
+                <option value="dual">Dual</option>
+                <option value="manual">Manual</option>
+            </select><br>
+
+            <label for="seat-count">Seat count:</label><br>
+            <input type="number" name="seat-count" placeholder="Seat Count" min="1" max="99"><br>
+
+            <label for="color">Vehicle color:</label><br>
+            <input type="text" name="color" placeholder="Color" maxlength="32"><br>
+ 
+        </div>
+
+        <div id="additional-checkboxes">
+            <label for="additional-equipment">Additional equipment:</label><br><br>
+
+            <input type="checkbox" value="1" name="additional-equipment"><span>Rear Windshield Wiper</span>
+            <input type="checkbox" value="2" name="additional-equipment"><span>Rain Sensor</span>
+            <input type="checkbox" value="4" name="additional-equipment"><span>Cruise Control</span><br>
+
+            <input type="checkbox" value="8" name="additional-equipment"><span>ABS</span>
+            <input type="checkbox" value="16" name="additional-equipment"><span>Navigation</span>
+            <input type="checkbox" value="32" name="additional-equipment"><span>LED Headlights</span><br>
+
+            <input type="checkbox" value="64" name="additional-equipment"><span>Infotainment Screen</span>
+            <input type="checkbox" value="128" name="additional-equipment"><span>Speed Limiter</span>
+            <input type="checkbox" value="256" name="additional-equipment"><span>Lane Assist</span><br>
+
+            <input type="checkbox" value="512" name="additional-equipment"><span>Aluminium Rims</span>
+            <input type="checkbox" value="1024" name="additional-equipment"><span>Steering Lights</span>
+            <input type="checkbox" value="2048" name="additional-equipment"><span>Fog Lights</span><br><br><br>
+
+
+            <label for="extra-features">Extra features:</label><br><br>
+
+            <input type="checkbox" value="1" name="extra-features"><span>Electrical Window Raising</span>
+            <input type="checkbox" value="2" name="extra-features"><span>Electrical Seat Adjustment</span>
+            <input type="checkbox" value="4" name="extra-features"><span>Electrical Side Mirror Adjustment</span><br>
+
+            <input type="checkbox" value="8" name="extra-features"><span>Side Mirror Heating</span>
+            <input type="checkbox" value="16" name="extra-features"><span>Steering Wheel Adjustment</span>
+            <input type="checkbox" value="32" name="extra-features"><span>Foldable Rear Seats</span><br>
+
+            <input type="checkbox" value="64" name="extra-features"><span>Bluetooth</span>
+            <input type="checkbox" value="128" name="extra-features"><span>Android Auto</span>
+            <input type="checkbox" value="256" name="extra-features"><span>Apple CarPlay</span><br>
+
+            <input type="checkbox" value="512" name="extra-features"><span>Central Armrest</span>
+            <input type="checkbox" value="1024" name="extra-features"><span>Start/Stop System</span>
+            <input type="checkbox" value="2048" name="extra-features"><span>Tyre Pressure Control</span><br>
+
+            <input type="submit">
+        </div>
+
+        <button type="button" onclick="showPrevious()">Back</button>
+        <button type="button" onclick="showNext()">Next</button>
+    </form>
+
+<script>
+    let carList = [
+        "Abarth",
+        "Alfa Romeo",
+        "Aston Martin",
+        "Audi",
+        "Bentley",
+        "BMW",
+        "Bugatti",
+        "Cadillac",
+        "Chevrolet",
+        "Chrysler",
+        "Citroën",
+        "Dacia",
+        "Daewoo",
+        "Daihatsu",
+        "Dodge",
+        "Donkervoort",
+        "DS",
+        "Ferrari",
+        "Fiat",
+        "Fisker",
+        "Ford",
+        "Honda",
+        "Hummer",
+        "Hyundai",
+        "Infiniti",
+        "Iveco",
+        "Jaguar",
+        "Jeep",
+        "Kia",
+        "KTM",
+        "Lada",
+        "Lamborghini",
+        "Lancia",
+        "Land Rover",
+        "Landwind",
+        "Lexus",
+        "Lotus",
+        "Maserati",
+        "Maybach",
+        "Mazda",
+        "McLaren",
+        "Mercedes-Benz",
+        "MG",
+        "Mini",
+        "Mitsubishi",
+        "Morgan",
+        "Nissan",
+        "Opel",
+        "Peugeot",
+        "Porsche",
+        "Renault",
+        "Rolls-Royce",
+        "Rover",
+        "Saab",
+        "Seat",
+        "Skoda",
+        "Smart",
+        "SsangYong",
+        "Subaru",
+        "Suzuki",
+        "Tesla",
+        "Toyota",
+        "Volkswagen",
+        "Volvo"
+    ];
+    let carSelect = document.getElementById("select-brand");
+    carList.forEach(function(car){
+        let option = document.createElement("option");
+        option.value = car;
+        option.text = car;
+        carSelect.add(option);
+    });
+
+    let countyList = [
+        "Bjelovarsko-bilogorska",
+        "Brodsko-posavska",
+        "Dubrovačko-neretvanska",
+        "Istarska",
+        "Karlovačka",
+        "Koprivničko-križevačka",
+        "Krapinsko-zagorska",
+        "Ličko-senjska",
+        "Međimurska",
+        "Osječko-baranjska",
+        "Požeško-slavonska",
+        "Primorsko-goranska",
+        "Sisačko-moslavačka",
+        "Splitsko-dalmatinska",
+        "Šibensko-kninska",
+        "Varaždinska",
+        "Virovitičko-podravska",
+        "Vukovarsko-srijemska",
+        "Zadarska",
+        "Zagrebačka",
+        "Grad Zagreb"
+    ];
+    let countySelect = document.getElementById("select-county");
+    countyList.forEach(function(county){
+        let option = document.createElement("option");
+        option.value = county;
+        option.text = county;
+        countySelect.add(option);
+    });
+
+    function disableRegInput(){
+        let checkbox = document.getElementById("reg-checkbox");
+        let date = document.getElementById("reg-date");
+
+        if(checkbox.checked){
+            date.removeAttribute("required");
+            date.value = null;
+            date.setAttribute("disabled", "true");
+        }
+        else{
+            date.removeAttribute("disabled");
+            date.setAttribute("required", "true");
+        }
+    }
+    
+    let currentDiv = 0;
+    let allFormDivs = document.querySelectorAll("form > div");
+
+    function showPrevious(){
+        if (currentDiv > 0){
+            allFormDivs[currentDiv].style.display = "none";
+            currentDiv--;
+            allFormDivs[currentDiv].style.display = "block";
+        }
+    }
+
+    function showNext(){
+        if (currentDiv < allFormDivs.length - 1){
+            allFormDivs[currentDiv].style.display = "none";
+            currentDiv++;
+            allFormDivs[currentDiv].style.display = "block";
+        }
+    }
+
+    function hideSteps(){
+        for(let i = 1; i < allFormDivs.length; i++)
+            allFormDivs[i].style.display = "none";
+    }
+</script>
+
+</body>
+</html>
