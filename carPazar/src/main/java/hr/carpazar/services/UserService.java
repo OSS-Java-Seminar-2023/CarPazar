@@ -48,7 +48,17 @@ public class UserService {
         return createUser(postParams);
     }
 
+    public Boolean checkIfAdminByUserId(String userId) {
+        User user = userRepository.findByid(userId).get(0);
+        if (user != null && user.getIsAdmin()) {
+            return true;
+        }
+        return false;
+    }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
     public void registerUser(User user){
         userRepository.save(user);

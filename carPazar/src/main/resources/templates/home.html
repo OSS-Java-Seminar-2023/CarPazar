@@ -5,14 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{css/home.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Home</title>
 </head>
 <body class="home_body">
     <div th:replace="fragments/navbar :: navbarDiv"></div>
-    <!--testing is navbar fixed or nah-->
     <div class="image-container">
         <h1 class="home_h1">Welcome to Car Pazar</h1>
         <img th:src="@{images/car.png}" alt="Slika auta brm brm">

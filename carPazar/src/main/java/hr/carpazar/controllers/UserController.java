@@ -25,7 +25,7 @@ import org.springframework.ui.Model;
 @Controller
 public class UserController {
     @Autowired
-    private UserService userService = new UserService();
+    private UserService userService;
 
     @GetMapping(path="/home")
     public String home(){
@@ -42,9 +42,22 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping(path="/adminPanel")
+    public String openAdminPanel(Model model, HttpSession session){
+        String loggedInUsername = (String) session.getAttribute("user_username");
+        String userId = (String) session.getAttribute("user_id");
+        List<User> users=userService.getAllUsers();
+        if(userId == null || !userService.checkIfAdminByUserId(userId)){
+            return "redirect:/notFound";
+        }
+        model.addAttribute("users", users);
+        return "adminPanel";
+    }
+
+
+
     @GetMapping(path = {"/user", "/user/{username}"})
-    public String openUserPage(@PathVariable(name = "username", required = false) Optional<String> usernameOptional, Model model, HttpSession session, HttpServletResponse response) {
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    public String openUserPage(@PathVariable(name = "username", required = false) Optional<String> usernameOptional, Model model, HttpSession session) {
         String loggedInUsername = (String) session.getAttribute("user_username");
         String userId = (String) session.getAttribute("user_id");
         if (userId == null || loggedInUsername == null){

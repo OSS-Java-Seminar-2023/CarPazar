@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/adminPanel.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <title>Admin Panel</title>
+</head>
+<body class="admin_body">
+<div th:replace="fragments/navbar :: navbarDiv"></div>
+<h3>All Users:</h3>
+<table class="users-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Full Name</th>
+        <th>Premium</th>
+        <th>Rating</th>
+        <th>Phone Number</th>
+        <th>Admin</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td data-label="ID" th:text="${user.id}"></td>
+        <td data-label="Username" th:text="${user.userName}"></td>
+        <td data-label="Email" th:text="${user.email}"></td>
+        <td data-label="Full Name" th:text="${user.fullName}"></td>
+        <td data-label="Premium" th:text="${user.isPremium}"></td>
+        <td data-label="Rating" th:text="${user.userRating}"></td>
+        <td data-label="Phone Number" th:text="${user.phoneNumber}"></td>
+        <td data-label="Admin" th:text="${user.isAdmin}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
