@@ -205,7 +205,7 @@ public class UserController {
         else
             userService.registerUser(user);
 
-        return "home";
+        return "login";
     }
 
 
@@ -252,6 +252,16 @@ public class UserController {
 
         userService.saveUser(user);
 
+        return "redirect:/adminPanel";
+    }
+    @PostMapping("/deleteUser/{username}")
+    public String deleteUser(@PathVariable String username) {
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
+        if (!userOptional.isPresent()) {
+            return "redirect:/notFound";
+        }
+        User user = userOptional.get();
+        userService.deleteUserByUsername(user);
         return "redirect:/adminPanel";
     }
 

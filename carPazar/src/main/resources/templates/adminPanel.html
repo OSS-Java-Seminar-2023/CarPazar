@@ -11,48 +11,54 @@
     <title>Admin Panel</title>
 </head>
 <body class="admin_body">
-<div th:replace="fragments/navbar :: navbarDiv"></div>
-<h3>All Users:</h3>
-<table class="users-table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Full Name</th>
-        <th>Rating</th>
-        <th>Phone Number</th>
-        <th>Premium</th>
-        <th>Admin</th>
-        <th> </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td data-label="ID" th:text="${user.id}"></td>
-        <td data-label="Username" th:text="${user.userName}"></td>
-        <td data-label="Email" th:text="${user.email}"></td>
-        <td data-label="Full Name" th:text="${user.fullName}"></td>
-        <td data-label="Rating" th:text="${user.userRating}"></td>
-        <td data-label="Phone Number" th:text="${user.phoneNumber}"></td>
-        <td data-label="Premium">
-                    <span th:text="${user.isPremium}"
-                          th:class="${user.isPremium} ? 'text-green' : 'text-red'">
-                    </span>
-        </td>
-        <td data-label="Admin">
-                    <span th:text="${user.isAdmin}"
-                          th:class="${user.isAdmin} ? 'text-green' : 'text-red'">
-                    </span>
-        </td>
-        <td data-label="Edit User">
-            <a th:href="@{/editUser/{username}(username=${user.userName})}" class="edit-button">Edit</a>
-        </td>
-
-    </tr>
-    </tbody>
-</table>
-
+    <div th:replace="fragments/navbar :: navbarDiv"></div>
+    <h3>All Users:</h3>
+    <table class="users-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Full Name</th>
+            <th>Rating</th>
+            <th>Phone Number</th>
+            <th>Premium</th>
+            <th>Admin</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td data-label="ID" th:text="${user.id}"></td>
+            <td data-label="Username" th:text="${user.userName}"></td>
+            <td data-label="Email" th:text="${user.email}"></td>
+            <td data-label="Full Name" th:text="${user.fullName}"></td>
+            <td data-label="Rating" th:text="${user.userRating}"></td>
+            <td data-label="Phone Number" th:text="${user.phoneNumber}"></td>
+            <td data-label="Premium">
+                        <span th:text="${user.isPremium}"
+                              th:class="${user.isPremium} ? 'text-green' : 'text-red'">
+                        </span>
+            </td>
+            <td data-label="Admin">
+                        <span th:text="${user.isAdmin}"
+                              th:class="${user.isAdmin} ? 'text-green' : 'text-red'">
+                        </span>
+            </td>
+            <td data-label="Edit User">
+                <a th:href="@{/editUser/{username}(username=${user.userName})}" class="edit-button">Edit</a>
+            </td>
+            <td data-label="Delete User">
+                <a href="javascript:void(0);"
+                   th:data-username="${user.userName}"
+                   onclick="openConfirmationDialog(this.getAttribute('data-username'))"
+                   class="delete-button">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <script src="/javaScript/adminPanel.js"></script>
 
 </body>
 </html>

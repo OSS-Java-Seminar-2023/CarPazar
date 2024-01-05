@@ -126,4 +126,8 @@ public class UserService {
     public void saveUser(User user){
         userRepository.save(user);
     }
+
+    public void deleteUserByUsername(User user){
+        userRepository.delete(user);
+    }
 }
