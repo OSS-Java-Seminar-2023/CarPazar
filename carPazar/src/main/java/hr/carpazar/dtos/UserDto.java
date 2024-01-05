@@ -1,4 +1,4 @@
-package hr.carpazar.Dtos;
+package hr.carpazar.dtos;
 
 import lombok.Data;
 

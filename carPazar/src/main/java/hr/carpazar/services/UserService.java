@@ -1,6 +1,6 @@
 package hr.carpazar.services;
 
-import hr.carpazar.Dtos.UserDto;
+import hr.carpazar.dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.UserRepository;
 import lombok.NoArgsConstructor;

@@ -1,16 +1,10 @@
 package hr.carpazar.controllers;
 
-import hr.carpazar.Dtos.UserDto;
+import hr.carpazar.dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.UserService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.aop.scope.ScopedProxyUtils;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +12,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 import org.springframework.ui.Model;
