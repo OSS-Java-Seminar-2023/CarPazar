@@ -271,3 +271,33 @@ hr {
     background-color:#c4c7ff;
     cursor: pointer;
 }
+.user_left_side + .user_listings_right_side {
+    float: left;
+    width:60%;
+    padding: 40px;
+}
+
+.user_left_side + .user_listings_right_side ul {
+    list-style: none;
+    padding: 0;
+}
+
+.user_left_side + .user_listings_right_side li {
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+    padding: 10px;
+    background-color: #fff;
+}
+.user_left_side + .user_listings_right_side li p:first-child{
+    font-weight: bold;
+}
+.user_left_side + .user_listings_right_side li p:last-child{
+    font-weight: bold;
+    color: #168118
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

@@ -1,8 +1,10 @@
 package hr.carpazar.controllers;
 
-import hr.carpazar.dtos.UserDto;
+import hr.carpazar.dtos.*;
+import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
 import hr.carpazar.services.HashService;
+import hr.carpazar.services.ListingService;
 import hr.carpazar.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import org.springframework.ui.Model;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ListingService listingService;
 
     @GetMapping(path="/home")
     public String home(){
@@ -257,6 +261,16 @@ public class UserController {
         userService.deleteUserByUsername(user);
         return "redirect:/adminPanel";
     }
-
-
+    @GetMapping(path="/mylistings")
+    public String viewListings(Model model, HttpSession session)
+    {
+        String userId = (String) session.getAttribute("user_id");
+        List<Listing> userListings = listingService.findByUserId(userId);
+        model.addAttribute("listings",userListings);
+        return "mylistings";
+    }
 }
+
+
+
+

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 
@@ -42,5 +43,6 @@ public class ListingService {
 
     @Autowired
     private ListingRepository listingRepository;
+    public List<Listing> findByUserId(String userId){return listingRepository.findByUserId_Id(userId);}
 
 }

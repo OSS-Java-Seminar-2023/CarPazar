@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/user.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <title>User</title>
+</head>
+<body class="user_body" onload="hidePassChange(); change2();">
+<div th:replace="fragments/navbar :: navbarDiv"></div>
+<div class="user_left_side">
+    <p>Username: <span th:text="${username}"></span></p>
+    <button id="button1" onclick="hideUserInfo(); change1();" class="pass_btn">Change password</button>
+    <button id="button2" onclick="hidePassChange(); change2();" class="pass_btn1">Change user information</button>
+
+    <hr>
+    <h4>Your CarPazar rating: 5.0</h4>
+    <!--Ovdi bi tribalo ic 5 praznih zvjezdica koje su popunjene onoliko koliki je rating ako je to moguce // ili laksa verzija samo broj npr 3.7-->
+    <hr>
+
+    <h4 class="prem_prof_h">Premium profile enhances visibility of your listings.</h4>
+    <button id="prem_prof" class="prem_prof">Buy Premium Profile</button>
+    <hr>
+
+    <h4>My Listings</h4>
+    <ul>
+        <li><a class="user_a" href="../mylistings">All Listings</a></li>
+        <li><a class="user_a" href="#">Active Listings</a></li>
+        <li><a class="user_a" href="#">Inactive Listings</a></li>
+    </ul>
+    <hr>
+    <h4>My Messages</h4>
+    <ul>
+        <li><a class="user_a" href="#">Sent Messages</a></li>
+        <li><a class="user_a" href="#">Unread Messages</a></li>
+        <li><a class="user_a" href="#">Notifications</a></li>
+    </ul>
+    <hr>
+    <button id="us_but" class="us_but">User Support</button> <!--button koji otvara chat sa adminon?-->
+
+
+</div>
+<div class="user_listings_right_side">
+    <ul>
+        <!-- Loop through user's listings and display them -->
+        <li th:each="listing : ${listings}">
+            <p th:text="${listing.title}"></p>
+            <p th:text="${listing.description}"></p>
+            <p th:text="'Cijena: ' + ${listing.price} + ' €'"></p>
+            <!-- Display other listing details -->
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
