@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class Specification {
 
     @Id
-    @UuidGenerator
     @Column(name = "id")
     private String id;
 

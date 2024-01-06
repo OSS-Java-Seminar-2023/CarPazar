@@ -16,7 +16,7 @@ public class Listing {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
 
     @Column(name = "listing_datetime", nullable = false)
@@ -36,6 +36,9 @@ public class Listing {
 
     @Column(name = "is_sold", nullable = false)
     private Boolean isSold;
+
+    @Column(name = "img_directory")
+    private String imgDirectory;
 
     @OneToOne(mappedBy = "listing", cascade = CascadeType.ALL)
     private Specification specifications;

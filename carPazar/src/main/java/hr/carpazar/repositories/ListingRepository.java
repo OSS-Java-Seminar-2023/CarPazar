@@ -9,5 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ListingRepository extends JpaRepository<Listing, UUID>{
 
+
     List<Listing> findByUserId_Id(String id);
+
+    List<Listing> findById(String id);
+
 }
