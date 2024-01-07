@@ -1,3 +1,8 @@
+    let currentDiv = 0;
+    let allFormDivs = document.querySelectorAll("form > div");
+    let backButton = document.getElementById("back-button");
+    let nextButton = document.getElementById("next-button");
+    
     function specsInit(){
         let carList = [
             "Abarth",
@@ -104,6 +109,7 @@
             countySelect.add(option);
         });
 
+        backButton.style.display = "none";
         hideSteps();
     }
 
@@ -123,10 +129,14 @@
         }
     }
 
-    let currentDiv = 0;
-    let allFormDivs = document.querySelectorAll("form > div");
-
     function showPrevious(){
+        if(currentDiv == allFormDivs.length - 1){ 
+            nextButton.style.display = "block";
+        }
+        else if(currentDiv == 1){
+            backButton.style.display = "none";
+        }
+
         if (currentDiv > 0){
             allFormDivs[currentDiv].style.display = "none";
             currentDiv--;
@@ -135,6 +145,13 @@
     }
 
     function showNext(){
+        if(currentDiv == allFormDivs.length - 2){ 
+            nextButton.style.display = "none";
+        }
+        else if(currentDiv == 0){
+            backButton.style.display = "block";
+        }
+
         if (currentDiv < allFormDivs.length - 1){
             allFormDivs[currentDiv].style.display = "none";
             currentDiv++;

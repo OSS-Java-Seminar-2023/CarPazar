@@ -54,11 +54,11 @@ button {
 }
 
 button[type="button"] {
-    background-color: #4CAF50; /* Zelena boja */
+    background-color: #4CAF50;
 }
 
 button[type="submit"] {
-    background-color: #3498db; /* Plava boja */
+    background-color: #3498db;
 }
 
 button:hover {
@@ -80,5 +80,19 @@ button:hover {
 
 #additional-checkboxes span{
     margin-right: 2vw;
+}
+
+article {
+    display: inline-block !important;
+    vertical-align: top !important;
+    width: 48% !important;
+    margin: 0 0.5% !important;
+}
+
+#back-button{
+    float: left;
+}
+#next-button{
+    float: right;
 }
 

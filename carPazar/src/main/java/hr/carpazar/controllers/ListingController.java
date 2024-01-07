@@ -57,18 +57,9 @@ public class ListingController {
         }
 
         listingService.updateImgDirectory(directory, listingUUID);
+        httpSession.setAttribute("listing_id", listingUUID);
 
         return "redirect:/add-info";
-    }
-
-    @GetMapping(path="/add-info")
-    public String openSpecificationForm(){
-        return "new_listing_info";
-    }
-
-    @PostMapping(path = "/add-info")
-    public String addSpecifications(@ModelAttribute int x){  // int x zaminit sa SpecificationDto kad se napravi
-        return "redirect:/home"; // redirect:/listings/<uuid> za pregled objavljenog oglasa
     }
 
     public ListingController(ListingService listingService) {
