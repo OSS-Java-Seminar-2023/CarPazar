@@ -84,3 +84,24 @@ select {
 .alert_login{
     color:red;
 }
+
+.forgot {
+    color: #007bff !important;
+    text-decoration: none !important;
+    font-weight: bold;
+}
+
+.forgot:hover {
+    color: #0056b3 !important;
+    text-decoration: none !important;
+}
+
+.alert_login2{
+    color:green;
+    font-weight: bold;
+}
+
+.alert2{
+    color:green;
+    font-weight: bold;
+}

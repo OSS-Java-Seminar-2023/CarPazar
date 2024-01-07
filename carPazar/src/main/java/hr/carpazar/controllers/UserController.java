@@ -3,6 +3,7 @@ package hr.carpazar.controllers;
 import hr.carpazar.dtos.*;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
+import hr.carpazar.repositories.UserRepository;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.ListingService;
 import hr.carpazar.services.UserService;
@@ -184,6 +185,7 @@ public class UserController {
             }
             else{
                 model.addAttribute("alert", e.getMessage());
+                model.addAttribute("alert_forgot_pass", "Forgot your password?");
                 return "login";
             }
         }
@@ -269,6 +271,26 @@ public class UserController {
         model.addAttribute("listings",userListings);
         return "mylistings";
     }
+
+    @GetMapping(path="/recoverPassword")
+    public String recoverPassword(){
+        return "recover-password";
+    }
+    @PostMapping(path="/recoverPassword")
+    public String dataValidation(@RequestParam String email, Model model) {
+        User user = userService.findByEmail2(email);
+        if (user==null) {
+            model.addAttribute("alert", "User not found!");
+            return "recover-password";
+        }
+        String userId = String.valueOf(user.getId());
+        String link = userId.substring(userId.length() - 12);
+        System.out.println(user.getId());
+        System.out.println(link);
+        model.addAttribute("alert2", "Recovery mail has been sent to your email!");
+        return "recover-password";
+    }
+
 }
 
 

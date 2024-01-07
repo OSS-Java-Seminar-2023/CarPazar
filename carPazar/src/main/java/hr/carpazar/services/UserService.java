@@ -123,6 +123,15 @@ public class UserService {
     public User findByEmail(String email){
         return userRepository.findByEmail(email).get(0);
     }
+
+    public User findByEmail2(String email) {
+        List<User> users = userRepository.findByEmail(email);
+        if (!users.isEmpty()) {
+            return users.get(0);
+        } else {
+            return null;
+        }
+    }
     public void saveUser(User user){
         userRepository.save(user);
     }
