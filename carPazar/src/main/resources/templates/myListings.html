@@ -42,16 +42,20 @@
     <hr>
     <button id="us_but" class="us_but">User Support</button> <!--button koji otvara chat sa adminon?-->
 
-
 </div>
 <div class="user_listings_right_side">
     <ul>
-        <!-- Loop through user's listings and display them -->
         <li th:each="listing : ${listings}">
-            <p th:text="${listing.title}"></p>
-            <p th:text="${listing.description}"></p>
-            <p th:text="'Cijena: ' + ${listing.price} + ' €'"></p>
-            <!-- Display other listing details -->
+            <div class="listing_container">
+                <div class="listing_details">
+                    <p th:text="${listing.title}"></p>
+                    <p th:text="${listing.description}"></p>
+                    <p th:text="'Cijena: ' + ${listing.price} + ' €'"></p>
+                </div>
+                <div class="listing_image">
+                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
+                </div>
+            </div>
         </li>
     </ul>
 </div>

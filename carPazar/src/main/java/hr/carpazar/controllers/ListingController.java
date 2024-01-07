@@ -6,6 +6,8 @@ import hr.carpazar.models.User;
 import hr.carpazar.services.ListingService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -61,6 +66,16 @@ public class ListingController {
 
         return "redirect:/add-info";
     }
+    @GetMapping(path = "/imagesListing/{listingId}")
+    public ResponseEntity<byte[]> getListingImage(@PathVariable String listingId) throws IOException {
+        Path imgPath = Paths.get("C:/CarPazar/listings/"+listingId+"/img_1.jpg");
+        byte[] imgBytes = Files.readAllBytes(imgPath);
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(imgBytes);
+
+    }
+
 
     public ListingController(ListingService listingService) {
         this.listingService = listingService;
