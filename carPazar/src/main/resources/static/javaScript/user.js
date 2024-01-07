@@ -49,6 +49,23 @@
 
         }
 
+        function checkPassNew(){
+                        var newPassword = document.getElementById('new_pass').value;
+                        var newPassword2 = document.getElementById('new_pass2').value;
+                        var newPasswordError = document.getElementById('newPasswordError');
+
+                        if (newPassword !== newPassword2) {
+                            newPasswordError.textContent = 'New passwords do not match.';
+                            event.preventDefault();
+                            return false;
+                        }
+                        else {
+                            newPasswordError.textContent = ' ';
+                        }
+                        return true;
+
+                }
+
        function change1() {
             document.getElementById("button1").classList.add("activeButton");
             document.getElementById("button1").classList.remove("normalButton");

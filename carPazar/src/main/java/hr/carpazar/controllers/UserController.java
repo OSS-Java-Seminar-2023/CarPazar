@@ -7,7 +7,9 @@ import hr.carpazar.repositories.UserRepository;
 import hr.carpazar.services.HashService;
 import hr.carpazar.services.ListingService;
 import hr.carpazar.services.UserService;
+import hr.carpazar.services.EmailService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +22,13 @@ import java.util.*;
 import org.springframework.ui.Model;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
     private ListingService listingService;
+    private final EmailService emailService;
 
     @GetMapping(path="/home")
     public String home(){
@@ -284,13 +288,49 @@ public class UserController {
             return "recover-password";
         }
         String userId = String.valueOf(user.getId());
-        String link = userId.substring(userId.length() - 12);
+        String sublink = userId.substring(userId.length() - 12);
         System.out.println(user.getId());
+        System.out.println(sublink);
+        String link="http://localhost:8080/password-recovery/"+sublink;
         System.out.println(link);
+        emailService.sendRecoveryEmail(user,link);
         model.addAttribute("alert2", "Recovery mail has been sent to your email!");
         return "recover-password";
     }
 
+    @GetMapping(path="/password-recovery/{uuid}")
+    public String passwordRecovery(@PathVariable("uuid") String uuid, Model model) {
+        List<User> users = userService.getAllUsers();
+
+        for (User user : users) {
+            if (user.getId().endsWith(uuid)) {
+                System.out.println(user.getId());
+                User wantedUser= userService.findById(user.getId());
+                String username=wantedUser.getUserName();
+                model.addAttribute("username",username);
+                return "change-password";
+            }
+        }
+
+        return "notFound";
+    }
+
+    @PostMapping(path = "/password-recovery/update")
+    public String passwordChange(@RequestParam("new_pass") String newPassword, @RequestParam("username") String username,
+                                 Model model)
+    {
+        try{
+            User user=userService.findByUserName(username);
+            String hashedNewPassword = HashService.generateSHA512(newPassword);
+            user.setHashedPassword(hashedNewPassword);
+            userService.saveUser(user);
+            return "redirect:/login";
+        }catch (RuntimeException e){
+            model.addAttribute("alert", e.getMessage());
+            return "redirect:/notFound";
+        }
+
+    }
 }
 
 
