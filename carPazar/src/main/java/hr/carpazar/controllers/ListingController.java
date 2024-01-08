@@ -3,6 +3,7 @@ package hr.carpazar.controllers;
 import hr.carpazar.dtos.ListingDto;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
+import hr.carpazar.services.ImageService;
 import hr.carpazar.services.ListingService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ClassPathResource;
@@ -47,18 +48,9 @@ public class ListingController {
         ListingService.createDirectory(directory);
 
         int imageCounter = 1;
-
         for(MultipartFile image: imageList){
-            String fileExtension = ListingService.getFileExtension(image.getOriginalFilename());
-            String newFilename = "img_" + imageCounter + fileExtension;
-
+            ImageService.saveAsPng(image, directory, imageCounter);
             imageCounter++;
-
-            try {
-                image.transferTo(new File(directory + newFilename));
-            } catch (IOException ioException){
-                System.out.println(ioException.getMessage());
-            }
         }
 
         listingService.updateImgDirectory(directory, listingUUID);

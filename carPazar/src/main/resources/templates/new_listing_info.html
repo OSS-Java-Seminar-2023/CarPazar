@@ -120,44 +120,47 @@
         
         <div id="additional-checkboxes">
             <article id="equipment">
-                <label for="additionalEquipment"><h2>Additional equipment:</h2></label>
+                <label for="additional-equipment"><h2>Additional equipment:</h2></label>
             
-                <p><input type="checkbox" value="1" name="additionalEquipment"><span>Rear Windshield Wiper</span></p>
-                <p><input type="checkbox" value="2" name="additionalEquipment"><span>Rain Sensor</span></p>
-                <p><input type="checkbox" value="4" name="additionalEquipment"><span>Cruise Control</span></p>
+                <p><input type="checkbox" value="0" name="additional-equipment" onchange="onChangeEquip()"><span>Rear Windshield Wiper</span></p>
+                <p><input type="checkbox" value="1" name="additional-equipment" onchange="onChangeEquip()"><span>Rain Sensor</span></p>
+                <p><input type="checkbox" value="2" name="additional-equipment" onchange="onChangeEquip()"><span>Cruise Control</span></p>
             
-                <p><input type="checkbox" value="8" name="additionalEquipment"><span>ABS</span></p>
-                <p><input type="checkbox" value="16" name="additionalEquipment"><span>Navigation</span></p>
-                <p><input type="checkbox" value="32" name="additionalEquipment"><span>LED Headlights</span></p>
+                <p><input type="checkbox" value="3" name="additional-equipment" onchange="onChangeEquip()"><span>ABS</span></p>
+                <p><input type="checkbox" value="4" name="additional-equipment" onchange="onChangeEquip()"><span>Navigation</span></p>
+                <p><input type="checkbox" value="5" name="additional-equipment" onchange="onChangeEquip()"><span>LED Headlights</span></p>
             
-                <p><input type="checkbox" value="64" name="additionalEquipment"><span>Infotainment Screen</span></p>
-                <p><input type="checkbox" value="128" name="additionalEquipment"><span>Speed Limiter</span></p>
-                <p><input type="checkbox" value="256" name="additionalEquipment"><span>Lane Assist</span></p>
+                <p><input type="checkbox" value="6" name="additional-equipment" onchange="onChangeEquip()"><span>Infotainment Screen</span></p>
+                <p><input type="checkbox" value="7" name="additional-equipment" onchange="onChangeEquip()"><span>Speed Limiter</span></p>
+                <p><input type="checkbox" value="8" name="additional-equipment" onchange="onChangeEquip()"><span>Lane Assist</span></p>
             
-                <p><input type="checkbox" value="512" name="additionalEquipment"><span>Aluminium Rims</span></p>
-                <p><input type="checkbox" value="1024" name="additionalEquipment"><span>Steering Lights</span></p>
-                <p><input type="checkbox" value="2048" name="additionalEquipment"><span>Fog Lights</span></p>
+                <p><input type="checkbox" value="9" name="additional-equipment" onchange="onChangeEquip()"><span>Aluminium Rims</span></p>
+                <p><input type="checkbox" value="10" name="additional-equipment" onchange="onChangeEquip()"><span>Steering Lights</span></p>
+                <p><input type="checkbox" value="11" name="additional-equipment" onchange="onChangeEquip()"><span>Fog Lights</span></p>
             </article>
         
             <article id="extras">
-                <label for="extraFeatures"><h2>Extra features:</h2></label>
+                <label for="extra-features"><h2>Extra features:</h2></label>
             
-                <p><input type="checkbox" value="1" name="extraFeatures"><span>Electrical Window Raising</span></p>
-                <p><input type="checkbox" value="2" name="extraFeatures"><span>Electrical Seat Adjustment</span></p>
-                <p><input type="checkbox" value="4" name="extraFeatures"><span>Electrical Side Mirror Adjustment</span></p>
+                <p><input type="checkbox" value="0" name="extra-features" onchange="onChangeExtras()"><span>Electrical Window Raising</span></p>
+                <p><input type="checkbox" value="1" name="extra-features" onchange="onChangeExtras()"><span>Electrical Seat Adjustment</span></p>
+                <p><input type="checkbox" value="2" name="extra-features" onchange="onChangeExtras()"><span>Electrical Side Mirror Adjustment</span></p>
             
-                <p><input type="checkbox" value="8" name="extraFeatures"><span>Side Mirror Heating</span></p>
-                <p><input type="checkbox" value="16" name="extraFeatures"><span>Steering Wheel Adjustment</span></p>
-                <p><input type="checkbox" value="32" name="extraFeatures"><span>Foldable Rear Seats</span></p>
+                <p><input type="checkbox" value="3" name="extra-features" onchange="onChangeExtras()"><span>Side Mirror Heating</span></p>
+                <p><input type="checkbox" value="4" name="extra-features" onchange="onChangeExtras()"><span>Steering Wheel Adjustment</span></p>
+                <p><input type="checkbox" value="5" name="extra-features" onchange="onChangeExtras()"><span>Foldable Rear Seats</span></p>
             
-                <p><input type="checkbox" value="64" name="extraFeatures"><span>Bluetooth</span></p>
-                <p><input type="checkbox" value="128" name="extraFeatures"><span>Android Auto</span></p>
-                <p><input type="checkbox" value="256" name="extraFeatures"><span>Apple CarPlay</span></p>
+                <p><input type="checkbox" value="6" name="extra-features" onchange="onChangeExtras()"><span>Bluetooth</span></p>
+                <p><input type="checkbox" value="7" name="extra-features" onchange="onChangeExtras()"><span>Android Auto</span></p>
+                <p><input type="checkbox" value="8" name="extra-features" onchange="onChangeExtras()"><span>Apple CarPlay</span></p>
             
-                <p><input type="checkbox" value="512" name="extraFeatures"><span>Central Armrest</span></p>
-                <p><input type="checkbox" value="1024" name="extraFeatures"><span>Start/Stop System</span></p>
-                <p><input type="checkbox" value="2048" name="extraFeatures"><span>Tyre Pressure Control</span></p>
+                <p><input type="checkbox" value="9" name="extra-features" onchange="onChangeExtras()"><span>Central Armrest</span></p>
+                <p><input type="checkbox" value="10" name="extra-features" onchange="onChangeExtras()"><span>Start/Stop System</span></p>
+                <p><input type="checkbox" value="11" name="extra-features" onchange="onChangeExtras()"><span>Tyre Pressure Control</span></p>
             </article>
+
+            <input type="hidden" name="additionalEquipment" value="0">
+            <input type="hidden" name="extraFeatures" value="0">
         
             <input type="submit">
         </div>
@@ -167,5 +170,6 @@
     </form>
 
     <script src="/javaScript/newListing.js"></script>
+    <script src="/javaScript/calculateCheckbox.js"></script>
 </body>
 </html>

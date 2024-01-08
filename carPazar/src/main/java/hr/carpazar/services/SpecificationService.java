@@ -26,7 +26,7 @@ public class SpecificationService {
         *
         *       uspjesno pise specifikacije u bazu
         *       napravit kalkulaciju extra featurea i tih sranja
-        *       
+        *
         *
         * */
         postParams.put("id", listingid);
