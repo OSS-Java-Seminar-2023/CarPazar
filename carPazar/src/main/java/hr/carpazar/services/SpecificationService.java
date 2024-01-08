@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.Year;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -120,6 +118,75 @@ public class SpecificationService {
 
         if(specificationDto.getExtraFeatures() == null)
             specificationDto.setExtraFeatures(0);
+    }
+
+    public static ArrayList<String> checkboxToStringList(int dec, String inputName){
+        ArrayList<String> extraFeaturesList = new ArrayList<>();
+        ArrayList<String> additionalEquipmentList = new ArrayList<>();
+        ArrayList<Character> binaryList = new ArrayList<>();
+        ArrayList<String> checkedContent = new ArrayList<>();
+
+        String binary = Integer.toBinaryString(dec);
+
+        if(inputName.equals("additionalEquipment")){
+            additionalEquipmentList.add("Fog Lights");
+            additionalEquipmentList.add("Steering Lights");
+            additionalEquipmentList.add("Aluminium Rims");
+            additionalEquipmentList.add("Lane Assist");
+            additionalEquipmentList.add("Speed Limiter");
+            additionalEquipmentList.add("Infotainment Screen");
+            additionalEquipmentList.add("LED Headlights");
+            additionalEquipmentList.add("Navigation");
+            additionalEquipmentList.add("ABS");
+            additionalEquipmentList.add("Cruise Control");
+            additionalEquipmentList.add("Rain Sensor");
+            additionalEquipmentList.add("Rear Windshield Wiper");
+
+            binary = addZeros(binary, additionalEquipmentList.size());
+        }
+
+        else if(inputName.equals("extraFeatures")){
+            extraFeaturesList.add("Tyre Pressure Control");
+            extraFeaturesList.add("Start/Stop System");
+            extraFeaturesList.add("Central Armrest");
+            extraFeaturesList.add("Apple CarPlay");
+            extraFeaturesList.add("Android Auto");
+            extraFeaturesList.add("Bluetooth");
+            extraFeaturesList.add("Foldable Rear Seats");
+            extraFeaturesList.add("Steering Wheel Adjustment");
+            extraFeaturesList.add("Side Mirror Heating");
+            extraFeaturesList.add("Electrical Side Mirror Adjustment");
+            extraFeaturesList.add("Electrical Seat Adjustment");
+            extraFeaturesList.add("Electrical Window Raising");
+
+            binary = addZeros(binary, extraFeaturesList.size());
+        }
+
+        for(Character c: binary.toCharArray()){
+            binaryList.add(c);
+        }
+
+        if(inputName.equals("additionalEquipment")) {
+            for (int i = 0; i < additionalEquipmentList.size(); i++) {
+                if(binaryList.get(i) == '1')
+                    checkedContent.add(additionalEquipmentList.get(i));
+            }
+        }
+        if(inputName.equals("extraFeatures")) {
+            for (int i = 0; i < extraFeaturesList.size(); i++) {
+                if(binaryList.get(i) == '1')
+                    checkedContent.add(extraFeaturesList.get(i));
+            }
+        }
+
+        return checkedContent;
+    }
+
+    private static String addZeros(String binaryInput, int neededLength){
+        StringBuilder finalBinary = new StringBuilder(binaryInput);
+        while(finalBinary.length() < neededLength)
+            finalBinary.insert(0, "0");
+        return finalBinary.toString();
     }
 
     public void publishSpecification(Specification specs){
