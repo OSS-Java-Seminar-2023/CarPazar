@@ -322,3 +322,10 @@ hr {
     clear: both;
     display: table;
 }
+
+.error-message{
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color:red;
+}

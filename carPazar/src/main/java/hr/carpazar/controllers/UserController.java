@@ -152,7 +152,6 @@ public class UserController {
 
     @PostMapping(path = "/user/passwordChange")
     public String userPasswordChange(@RequestParam("old_password") String oldPassword,
-                                     @RequestParam("old_password2") String oldPassword2,
                                      @RequestParam("new_pass") String newPassword,
                                      @RequestParam("new_pass2") String newPassword2,
                                      HttpSession session ,Model model)
@@ -168,8 +167,8 @@ public class UserController {
 
             return "redirect:/login";
         }catch (RuntimeException e){
-            model.addAttribute("alert", e.getMessage());
-            return "redirect:/login";
+            model.addAttribute("alert_ch_pass", "Current Password is incorrect! Login again!");
+            return "login";
         }
 
     }
@@ -288,11 +287,7 @@ public class UserController {
             return "recover-password";
         }
         String userId = String.valueOf(user.getId());
-        String sublink = userId.substring(userId.length() - 12);
-        System.out.println(user.getId());
-        System.out.println(sublink);
-        String link="http://localhost:8080/password-recovery/"+sublink;
-        System.out.println(link);
+        String link="http://localhost:8080/password-recovery/"+userId;
         emailService.sendRecoveryEmail(user,link);
         model.addAttribute("alert2", "Recovery mail has been sent to your email!");
         return "recover-password";
@@ -300,19 +295,15 @@ public class UserController {
 
     @GetMapping(path="/password-recovery/{uuid}")
     public String passwordRecovery(@PathVariable("uuid") String uuid, Model model) {
-        List<User> users = userService.getAllUsers();
+        User user = userService.findById(uuid);
 
-        for (User user : users) {
-            if (user.getId().endsWith(uuid)) {
-                System.out.println(user.getId());
-                User wantedUser= userService.findById(user.getId());
-                String username=wantedUser.getUserName();
-                model.addAttribute("username",username);
-                return "change-password";
-            }
+        if(user==null)
+        {
+            return "notFound";
         }
-
-        return "notFound";
+        String username = user.getUserName();
+        model.addAttribute("username", username);
+        return "change-password";
     }
 
     @PostMapping(path = "/password-recovery/update")

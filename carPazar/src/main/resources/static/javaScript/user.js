@@ -12,20 +12,9 @@
         }
         function checkPass(){
                 var oldPassword = document.getElementById('old_password').value;
-                var oldPassword2 = document.getElementById('old_password2').value;
                 var newPassword = document.getElementById('new_pass').value;
                 var newPassword2 = document.getElementById('new_pass2').value;
-                var oldPasswordError = document.getElementById('oldPasswordError');
                 var newPasswordError = document.getElementById('newPasswordError');
-
-                if (oldPassword !== oldPassword2) {
-                    oldPasswordError.textContent = 'Current passwords do not match.';
-                    event.preventDefault();
-                    return false;
-                }
-                else {
-                    oldPasswordError.textContent = ' ';
-                }
 
                 if (newPassword !== newPassword2) {
                     newPasswordError.textContent = 'New passwords do not match.';

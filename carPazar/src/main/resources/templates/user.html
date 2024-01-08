@@ -87,15 +87,11 @@
             <div th:if="${alert}" class="alert">
                 <p class="alert_login" th:text="${alert}"></p>
             </div>
-            <div id="oldPasswordError" class="error-message"></div>
             <div id="newPasswordError" class="error-message"></div>
             <div id="samePasswordError" class="error-message"></div>
 
             <label for="old_password">Current Password<span class="required"></span>:</label>
             <input type="password" id="old_password" name="old_password" placeholder="Current password" required minlength="8">
-
-            <label for="old_password2">Confirm password<span class="required"></span>:</label>
-            <input type="password" id="old_password2" name="old_password2" placeholder="Repeat password" required>
 
             <label for="new_pass">New Password<span class="required"></span>:</label>
             <input type="password" id="new_pass" name="new_pass" placeholder="Create a new password" required minlength="8">
