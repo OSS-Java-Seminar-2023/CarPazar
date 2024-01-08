@@ -192,4 +192,5 @@ public class SpecificationService {
     public void publishSpecification(Specification specs){
         specificationRepository.save(specs);
     }
+    public Specification findByListingId(String listingId){return specificationRepository.findById(listingId);}
 }
