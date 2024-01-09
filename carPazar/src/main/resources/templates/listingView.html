@@ -5,33 +5,42 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/listingView.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Home</title>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbarDiv"></div>
-<div class="listing-details">
-    <img class="listing-img" th:src="@{'/imagesListing/'+${listing.id}}">
-    <div class="listing-desc">
-        <h2 th:text="${listing.title}"></h2>
-        <p th:text="${listing.description}"></p>
+    <div th:replace="fragments/navbar :: navbarDiv"></div>
+    <div class="listing-details">
+        <img class="listing-img" th:src="@{'/imagesListing/'+${listing.id}}">
+        <div class="listing-desc">
+            <h2 th:text="${listing.title}"></h2>
+            <p th:text="${listing.description}"></p>
+        </div>
+        <div class="listing-specs">
+            <h3>Specifications:</h3>
+            <ul>
+                <li>
+                    <p th:text="'Brand: '+${specification.getBrand()}"></p>
+                </li>
+                <li>
+                    <p th:text="'Model: '+${specification.getModel()}"></p>
+                </li>
+                <li>
+                    <p th:text="'Manufacture Year: '+${specification.getManufactureYear()}"></p>
+                </li>
+                <li>
+                    <p th:text="'Gear Count: '+${specification.getGearCount()}"></p>
+                </li>
+                <li>
+                    <p th:text="'Extra Features: '+${specification.getExtraFeatures()}"></p>
+                </li>
+                <li>
+                    <p th:text="'Additional Equipment: '+${specification.getAdditionalEquipment()}"></p>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="listing-specs">
-        <h3>Specifications:</h3>
-        <ul>
-            <li>
-                <p th:text="${specification.getBrand()}"></p>
-                <p th:text="${specification.getModel()}"></p>
-                <p th:text="${specification.getManufactureYear()}"></p>
-                <p th:text="${specification.getGearCount()}"></p>
-                <p th:text="${specification.getExtraFeatures()}"></p>
-                <p th:text="${specification.getAdditionalEquipment()}"></p>
-            </li>
-        </ul>
-    </div>
-</div>
-
 </body>
 </html>

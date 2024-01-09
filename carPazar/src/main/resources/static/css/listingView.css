@@ -1,0 +1,46 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.listing-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 60px; /* Adjust the top margin based on your navbar height */
+}
+
+.listing-img {
+    width: 40%;
+    max-height: calc(100vh - 60px); /* Adjust the height to leave space for the navbar */
+    object-fit: cover;
+}
+
+.listing-desc {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.listing-desc h2 {
+    margin-bottom: 10px;
+}
+
+.listing-specs {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.listing-specs h3 {
+    margin-bottom: 10px;
+}
+
+.listing-specs ul {
+    list-style: none;
+    padding: 0;
+}
+
+.listing-specs li {
+    margin-bottom: 10px;
+}
