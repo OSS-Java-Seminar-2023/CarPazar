@@ -14,32 +14,68 @@
     <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div class="listing-details">
         <img class="listing-img" th:src="@{'/imagesListing/'+${listing.id}}">
+
         <div class="listing-desc">
             <h2 th:text="${listing.title}"></h2>
             <p th:text="${listing.description}"></p>
+            <p th:text="${listing.price}+' €'"></p>
         </div>
         <div class="listing-specs">
             <h3>Specifications:</h3>
-            <ul>
-                <li>
-                    <p th:text="'Brand: '+${specification.getBrand()}"></p>
-                </li>
-                <li>
-                    <p th:text="'Model: '+${specification.getModel()}"></p>
-                </li>
-                <li>
-                    <p th:text="'Manufacture Year: '+${specification.getManufactureYear()}"></p>
-                </li>
-                <li>
-                    <p th:text="'Gear Count: '+${specification.getGearCount()}"></p>
-                </li>
-                <li>
-                    <p th:text="'Extra Features: '+${specification.getExtraFeatures()}"></p>
-                </li>
-                <li>
-                    <p th:text="'Additional Equipment: '+${specification.getAdditionalEquipment()}"></p>
-                </li>
-            </ul>
+            <table>
+                <tr>
+                    <td>Brand</td>
+                    <td th:text="${specification.getBrand()}"></td>
+                </tr>
+                <tr>
+                    <td>Model</td>
+                    <td th:text="${specification.getModel()}"></td>
+                </tr>
+                <tr>
+                    <td>Manufacture Year</td>
+                    <td th:text="${specification.getManufactureYear()}">
+                </tr>
+                <tr>
+                    <td>Gear Count</td>
+                    <td th:text="${specification.getGearCount()}"></td>
+                </tr>
+                <tr>
+                    <td>Drive Type</td>
+                    <td th:text="${specification.getDriveType()}"></td>
+                </tr>
+                <tr>
+                    <td>Engine Type</td>
+                    <td th:text="${specification.getEngineType()}"></td>
+                </tr>
+                <tr>
+                    <td>Engine Power</td>
+                    <td th:text="${specification.getEnginePower()}"></td>
+                </tr>
+                <tr>
+                    <td>Kilometers travelled</td>
+                    <td th:text="${specification.getKilometersTravelled()}"></td>
+                </tr>
+                <tr>
+                    <td>In Traffic Since</td>
+                    <td th:text="${specification.getInTrafficSince()}"></td>
+                </tr>
+                <tr>
+                    <td>Car Location</td>
+                    <td th:text="${specification.getLocation()}"></td>
+                </tr>
+                <tr>
+                    <td>Car Shape</td>
+                    <td th:text="${specification.getBodyShape()}"></td>
+                </tr>
+                <tr>
+                    <td>Extra Features</td>
+                    <td th:text="${specification.getExtraFeatures()}"></td>
+                </tr>
+                <tr>
+                    <td>Additional Equipment</td>
+                    <td th:text="${specification.getAdditionalEquipment()}"></td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>

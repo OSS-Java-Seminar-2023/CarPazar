@@ -2,6 +2,34 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f5f5f5;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    background-image: url("../images/background-cars.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+    background-image: url("../images/background-cars.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .listing-details {
@@ -9,18 +37,27 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin-top: 60px; /* Adjust the top margin based on your navbar height */
+    margin-top: 60px;
+    z-index: 1;
+    position: relative;
 }
 
 .listing-img {
     width: 40%;
-    max-height: calc(100vh - 60px); /* Adjust the height to leave space for the navbar */
+    max-height: calc(100vh - 60px);
     object-fit: cover;
 }
 
 .listing-desc {
     text-align: center;
+    width: 40%;
     margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+}
+
+.listing-desc p:last-child {
+    color:#168118;
 }
 
 .listing-desc h2 {
@@ -30,6 +67,9 @@ body {
 .listing-specs {
     text-align: left;
     margin-top: 20px;
+    width: 40%;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
 }
 
 .listing-specs h3 {
@@ -43,4 +83,26 @@ body {
 
 .listing-specs li {
     margin-bottom: 10px;
+}
+
+.listing-specs table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.listing-specs td {
+    border: 2px solid #000000;
+    padding: 8px;
+    text-align: left;
+}
+
+.listing-specs th {
+    background-color: #f2f2f2;
+}
+
+.listing-desc p {
+    border: 2px solid #000000;
+    padding: 8px;
+    margin: 0;
 }
