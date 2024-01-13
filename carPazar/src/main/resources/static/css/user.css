@@ -5,10 +5,11 @@
     margin: 0;
     padding: 7vh;
     display: flex;
-    height: 100vh;
+    height: 100%;
     background-image: url('../images/cartoon.png');
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
 }
 
 .user_left_side {
@@ -265,6 +266,8 @@ hr {
           padding: 10px 15px;
           font-size: 1rem;
           transition: background-color 0.3s;
+          display: inline-block;
+          margin-right: 10px;
 }
 
 .us_but:hover{

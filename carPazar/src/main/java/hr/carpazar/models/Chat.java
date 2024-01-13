@@ -15,11 +15,11 @@ public class Chat {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "listing_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "listing_id", referencedColumnName = "id")
     private hr.carpazar.models.Listing listingId;
 
     @ManyToOne
-    @JoinColumn(name = "buyer_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "buyer_id", referencedColumnName = "id")
     private User buyerId;
 
 }
