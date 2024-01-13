@@ -70,7 +70,7 @@ public class UserController {
         if (usernameOptional.isPresent()) {
             String username = usernameOptional.get();
 
-            User user = userService.findByUserName2(username);
+            User user = userService.findByUserName(username);
             if (user == null) {
                 return "redirect:/notFound";
             }
@@ -92,7 +92,7 @@ public class UserController {
         model.addAttribute("userId", userId);
         model.addAttribute("username", loggedInUsername);
 
-        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName2(loggedInUsername));
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(loggedInUsername));
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -132,7 +132,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        User existingUser = userService.findByUserName2(loggedInUsername);
+        User existingUser = userService.findByUserName(loggedInUsername);
         if (existingUser == null) {
             return "notFound";
         }
@@ -213,7 +213,7 @@ public class UserController {
 
     @GetMapping("/editUser/{username}")
     public String editUser(@PathVariable("username") String username, Model model) {
-        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName2(username));
+        Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -281,7 +281,7 @@ public class UserController {
     }
     @PostMapping(path="/recoverPassword")
     public String dataValidation(@RequestParam String email, Model model) {
-        User user = userService.findByEmail2(email);
+        User user = userService.findByEmail(email);
         if (user==null) {
             model.addAttribute("alert", "User not found!");
             return "recover-password";

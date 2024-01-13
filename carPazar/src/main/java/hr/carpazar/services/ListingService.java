@@ -2,15 +2,12 @@ package hr.carpazar.services;
 
 import hr.carpazar.dtos.ListingDto;
 import hr.carpazar.models.Listing;
-import hr.carpazar.models.Specification;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.ListingRepository;
-import hr.carpazar.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +25,10 @@ public class ListingService {
     @Autowired
     private UserService userService;
 
+    public User findSellerByListingID(String listingID) {
+        Listing listing= listingRepository.findById(listingID).get(0);
+        return listing.getUserId();
+    }
 
     public Listing createListingFromDto(ListingDto listingDto, String userid){
         Map<String, String> postParams = new Hashtable<>();

@@ -76,15 +76,6 @@ public class UserService {
     public User findById(String id) {
         return userRepository.findByid(id).get(0);
     }
-    public User findByUserName2(String username) {
-        List<User> users = userRepository.findByUserName(username);
-        if (!users.isEmpty()) {
-            return users.get(0);
-        } else {
-            return null;
-        }
-    }
-
 
     public User authenticateUser(String username, String password) {
         String dbHashedPassword = preparePasswordComparing(username, password);
@@ -124,14 +115,6 @@ public class UserService {
         return userRepository.findByEmail(email).get(0);
     }
 
-    public User findByEmail2(String email) {
-        List<User> users = userRepository.findByEmail(email);
-        if (!users.isEmpty()) {
-            return users.get(0);
-        } else {
-            return null;
-        }
-    }
     public void saveUser(User user){
         userRepository.save(user);
     }
