@@ -21,6 +21,7 @@
                     <p th:text="${listing.id}"></p>
                     <p th:text="${listing.description}"></p>
                     <p th:text="'Cijena: ' + ${listing.price} + ' €'"></p>
+                    <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
                 </div>
                 <div class="listing_image">
                     <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">

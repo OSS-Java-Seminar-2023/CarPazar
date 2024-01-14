@@ -37,39 +37,6 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-/*    @PostMapping("/start-chat/{listingId}")
-    public String startChatWithSeller(@RequestParam String listingId, HttpSession session, RedirectAttributes redirectAttributes) {
-        String loggedInUser = (String) session.getAttribute("user_id");
-        if (loggedInUser == null) {
-            return "redirect:/login";
-        }
-
-        User seller=listingService.findSellerByListingID(listingId);
-        if (seller.getId() == null || seller.getId().equals(loggedInUser)) {
-            return "redirect:/notFound";
-        }
-        User user=userService.findById(loggedInUser);
-        Listing listing=listingService.findById(listingId);
-        Optional<Chat> existingChat = chatService.findExistingChat(user, listing);
-        if (existingChat.isPresent()) {
-            String existingChatId = existingChat.get().getId();
-            redirectAttributes.addAttribute("chatid", existingChatId);
-            return "redirect:/chat/{chatid}";
-        }
-
-        User buyer=userService.findById(loggedInUser);
-
-        Chat newChat = new Chat();
-        newChat.setBuyerId(buyer);
-        newChat.setListingId(listing);
-
-        Chat savedChat = chatService.saveChat(newChat);
-        String chatId = savedChat.getId();
-
-        redirectAttributes.addAttribute("chatid", chatId);
-        return "redirect:/chat/{chatid}";
-    }*/
-
     @GetMapping("/start-chat/{listingId}")
     public String startChatWithSeller(@PathVariable(name = "listingId", required = true) String listingId, HttpSession session, RedirectAttributes redirectAttributes) {
         String loggedInUser = (String) session.getAttribute("user_id");
