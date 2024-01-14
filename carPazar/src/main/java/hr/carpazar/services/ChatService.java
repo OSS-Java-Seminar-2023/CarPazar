@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
-import java.util.UUID;
 
 
 @Service
@@ -18,7 +17,7 @@ public class ChatService {
     private ChatRepository chatRepository;
 
     public Optional<Chat> findByID(String chatID) {
-        return chatRepository.findById(String.valueOf(UUID.fromString(chatID)));
+        return chatRepository.findById(chatID);
     }
 
     public Optional<Chat> findExistingChat(User user, Listing listing) {

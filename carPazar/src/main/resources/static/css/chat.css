@@ -2,11 +2,15 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: red;
     display: flex;
     justify-content: center;
     height: 100vh;
     padding-top:7vh;
+    background-image: url('../images/cartoon.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
 }
 
 .chat-container {
@@ -14,7 +18,6 @@ body {
     max-width: 600px;
     margin: auto;
     background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .chat-header {
@@ -29,6 +32,7 @@ body {
     overflow-y: auto;
     padding: 15px;
     background: #e9ecef;
+    border: 1px solid black;
 }
 
 .chat-messages ul {
@@ -94,4 +98,28 @@ body {
 
 .chat-input button:hover {
     background-color: #0056b3;
+}
+.message-right {
+    background-color: #3FA3EF;
+    color: white;
+    text-align: right;
+    position: relative;
+}
+
+.message-left {
+    background-color: #D9E6EF;
+    color: black;
+    text-align: left;
+}
+.timestampR {
+    font-size: 0.5em;
+    display: block;
+    text-align: right;
+    margin-top: 3px;
+}
+.timestampL {
+    font-size: 0.5em;
+    display: block;
+    text-align: left;
+    margin-top: 3px;
 }

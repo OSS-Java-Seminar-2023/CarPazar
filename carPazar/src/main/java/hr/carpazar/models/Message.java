@@ -16,7 +16,7 @@ public class Message {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "chat_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "chat_id", referencedColumnName = "id")
     private hr.carpazar.models.Chat chatId;
 
     @Column(name = "message_content", nullable = false, columnDefinition = "text")

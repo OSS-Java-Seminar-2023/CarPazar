@@ -37,7 +37,7 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    @PostMapping("/start-chat/{listing}")
+/*    @PostMapping("/start-chat/{listingId}")
     public String startChatWithSeller(@RequestParam String listingId, HttpSession session, RedirectAttributes redirectAttributes) {
         String loggedInUser = (String) session.getAttribute("user_id");
         if (loggedInUser == null) {
@@ -68,6 +68,37 @@ public class ChatController {
 
         redirectAttributes.addAttribute("chatid", chatId);
         return "redirect:/chat/{chatid}";
+    }*/
+
+    @GetMapping("/start-chat/{listingId}")
+    public String startChatWithSeller(@PathVariable(name = "listingId", required = true) String listingId, HttpSession session, RedirectAttributes redirectAttributes) {
+        String loggedInUser = (String) session.getAttribute("user_id");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        User seller=listingService.findSellerByListingID(listingId);
+        if (seller.getId() == null || seller.getId().equals(loggedInUser)) {
+            return "redirect:/notFound";
+        }
+        User user=userService.findById(loggedInUser);
+        Listing listing=listingService.findById(listingId);
+        Optional<Chat> existingChat = chatService.findExistingChat(user, listing);
+        if (existingChat.isPresent()) {
+            String existingChatId = existingChat.get().getId();
+            redirectAttributes.addAttribute("chatid", existingChatId);
+            return "redirect:/chat/{chatid}";
+        }
+
+        Chat newChat = new Chat();
+        newChat.setBuyerId(user);
+        newChat.setListingId(listing);
+
+        Chat savedChat = chatService.saveChat(newChat);
+        String chatId = savedChat.getId();
+
+        redirectAttributes.addAttribute("chatid", chatId);
+        return "redirect:/chat/{chatid}";
     }
 
     @GetMapping(path="/chat/{chatid}")
@@ -82,23 +113,29 @@ public class ChatController {
 
         if (chatOptional.isPresent()) {
             Chat chat = chatOptional.get();
-            String listingID = String.valueOf(chat.getListingId());
-            String buyerID = String.valueOf(chat.getBuyerId());
+            String listingID = String.valueOf(chat.getListingId().getId());
+            String buyerID = String.valueOf(chat.getBuyerId().getId());
+            System.out.println(listingID);
             User buyer=userService.findById(buyerID);
             User seller=listingService.findSellerByListingID(listingID);
 
             Map<LocalDateTime, String> messages = messageService.findByChatID(chatid);
+
             model.addAttribute("chat", chat);
             model.addAttribute("messages", messages);
 
             if(loggedInUser.equals(buyerID)){
-                model.addAttribute("user_right",buyer);
+                model.addAttribute("user_right",buyer.getId());
+                model.addAttribute("user_right_username",buyer.getUserName());
                 model.addAttribute("user_left",seller.getId());
+                model.addAttribute("user_left_username",seller.getUserName());
                 return "chat";
             }
             else if(loggedInUser.equals(seller.getId())){
                 model.addAttribute("user_right",seller.getId());
-                model.addAttribute("user_left",buyer);
+                model.addAttribute("user_right_username",seller.getUserName());
+                model.addAttribute("user_left",buyer.getId());
+                model.addAttribute("user_left_username",buyer.getUserName());
                 return "chat";
             }
             else{
@@ -115,7 +152,7 @@ public class ChatController {
             return "redirect:/login";
         }
         Optional<Chat> chat= chatService.findByID(chatId);
-        if(chat.isEmpty()){
+        if(!chat.isPresent()){
             return "redirect:/notFound";
         }
         String fullMessage = loggedInUser + messageText;
@@ -124,6 +161,7 @@ public class ChatController {
         Message newMessage = new Message();
         newMessage.setMessageContent(fullMessage);
         newMessage.setMessageDatetime(LocalDateTime.now());
+        newMessage.setChatId(chat.get());
 
         messageService.saveMessage(newMessage);
 

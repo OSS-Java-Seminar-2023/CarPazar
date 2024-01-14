@@ -9,36 +9,50 @@
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Chat</title>
+    <script>
+        function scrollToBottom() {
+            var chatContainer = document.querySelector('.chat-messages');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
 </head>
-<body class="home_body">
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>Chat Room</h2>
-        </div>
-
-        <div class="chat-messages">
-            <ul>
-                <li th:each="messageEntry : ${messages}">
-                    <div th:if="${messageEntry.value.startsWith(loggedInUser)}" class="message message-right">
-                        <span th:text="${messageEntry.value.substring(37)}"></span>
-                    </div>
-                    <div th:unless="${messageEntry.value.startsWith(loggedInUser)}" class="message message-left">
-                        <span th:text="${messageEntry.value.substring(37)}"></span>
-                    </div>
-                </li>
-                <li th:if="${messages.isEmpty()}">No messages yet.</li>
-            </ul>
-        </div>
-
-
-        <div class="chat-input">
-            <form th:action="@{/sendMessage}" method="post">
-                <input type="text" name="message" placeholder="Type a message...">
-                <input type="hidden" name="chatId" th:value="${chat.id}">
-                <input type="hidden" name="sender" th:value="${user_right.id}">
-                <button type="submit">Send</button>
-            </form>
-        </div>
+<body class="chat_body" onload="scrollToBottom()">
+<div th:replace="fragments/navbar :: navbarDiv"></div>
+<div class="chat-container">
+    <div class="chat-header">
+        <h2 th:text="'Chat with ' + ${user_left_username}">Chat Room</h2>
     </div>
+
+    <div class="chat-messages">
+        <ul>
+            <li th:each="messageEntry : ${messages}">
+                <div th:if="${messageEntry.value != null and messageEntry.value.startsWith(user_right)}" class="message message-right">
+                    <span th:text="${messageEntry.value.substring(36)}"></span>
+                    <hr>
+                    <span class="timestampR" th:text="${#temporals.format(messageEntry.key, 'dd-MM-yyyy HH:mm:ss')}"></span>
+
+                </div>
+                <div th:if="${messageEntry.value != null and messageEntry.value.startsWith(user_left)}" class="message message-left">
+                    <span th:text="${messageEntry.value.substring(36)}"></span>
+                    <hr>
+                    <span class="timestampL" th:text="${#temporals.format(messageEntry.key, 'dd-MM-yyyy HH:mm:ss')}"></span>
+                </div>
+            </li>
+            <li th:if="${messages.isEmpty()}">No messages yet.</li>
+        </ul>
+    </div>
+
+
+
+    <div class="chat-input">
+        <form th:action="@{/sendMessage}" method="post" onsubmit="scrollToBottom()">
+            <input type="text" name="message" placeholder="Type a message..." required>
+            <input type="hidden" name="chatId" th:value="${chat.id}">
+            <input type="hidden" name="sender" th:value="${user_right}">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+</div>
 </body>
 </html>
