@@ -1,8 +1,6 @@
 body {
-    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
     position: relative;
 }
 
@@ -43,8 +41,9 @@ body::after {
 }
 
 .listing-img {
-    width: 40%;
-    max-height: calc(100vh - 60px);
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-height: 400px;
     object-fit: cover;
 }
 
@@ -52,7 +51,7 @@ body::after {
     text-align: center;
     width: 40%;
     margin-top: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 10px;
 }
 
@@ -68,7 +67,7 @@ body::after {
     text-align: left;
     margin-top: 20px;
     width: 40%;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 10px;
 }
 
@@ -105,4 +104,38 @@ body::after {
     border: 2px solid #000000;
     padding: 8px;
     margin: 0;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%; /* Set a fixed height for the carousel */
+    overflow: hidden; /* Hide any overflow content */
+}
+
+.carousel-inner img {
+    width: 100%; /* Make the image take up the full width of the container */
+    height: 100%; /* Make the image take up the full height of the container */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    aspect-ratio: 1 / 1;
+}
+
+.number-box-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.number-box {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    margin: 0 5px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.active-number-box {
+    background-color: #007bff;
 }

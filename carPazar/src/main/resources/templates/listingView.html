@@ -8,12 +8,36 @@
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/listingView.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <title>Home</title>
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div class="listing-details">
-        <img class="listing-img" th:src="@{'/imagesListing/'+${listing.id}}">
+        <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div th:each="imageIndex : ${#numbers.sequence(1, fileNames.size())}" class="carousel-item" th:classappend="${imageIndex == 1}? 'active'">
+                    <img th:src="@{'/imagesListing/'+${listing.id}+'/img_'+${imageIndex}+'.png'}" class="d-block w-100 listing-img" alt="Listing Image">
+                </div>
+            </div>
+            <div class="number-boxes">
+                <div class="number-box-container">
+                    <span th:each="imageIndex : ${#numbers.sequence(1, fileNames.size())}" class="number-box">
+                        <span th:text="${imageIndex}"></span>
+                    </span>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+        </div>
 
         <div class="listing-desc">
             <h2 th:text="${listing.title}"></h2>
@@ -69,11 +93,19 @@
                 </tr>
                 <tr>
                     <td>Extra Features</td>
-                    <td th:text="${specification.getExtraFeatures()}"></td>
+                    <td>
+                        <span th:each="feature : ${exFeat}">
+                            <span th:text="${feature}"></span><br>
+                        </span>
+                    </td>
                 </tr>
                 <tr>
                     <td>Additional Equipment</td>
-                    <td th:text="${specification.getAdditionalEquipment()}"></td>
+                    <td>
+                        <span th:each="feature : ${addEquip}">
+                            <span th:text="${feature}"></span><br>
+                        </span>
+                    </td>
                 </tr>
             </table>
         </div>

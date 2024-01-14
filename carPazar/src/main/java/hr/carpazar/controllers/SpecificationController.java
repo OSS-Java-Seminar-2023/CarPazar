@@ -33,7 +33,7 @@ public class SpecificationController {
         Specification specs = specificationService.createSpecificationFromDto(specificationDto, listingid);
         specificationService.publishSpecification(specs);
 
-        return "redirect:/listing/" + listingid;
+        return "redirect:/listingWithImages/" + listingid;
     }
     @GetMapping(path="/listing/{listingId}")
     public String viewListing(@PathVariable String listingId, Model model){

@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.listings_right_side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    width: 100%;
+}
+
+.listing_container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.listing_details {
+    padding-right: 20px;
+    flex: 1;
+}
+
+.listing_image {
+    width: 30%;
+}
+
+.listing_image_img {
+    width: 100%;
+    height: auto;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}

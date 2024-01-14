@@ -7,11 +7,13 @@ import hr.carpazar.repositories.ListingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +91,22 @@ public class ListingService {
         listing.setImgDirectory(directory);
         listingRepository.save(listing);
     }
-
+    public List<String> getImageFilenames(String listingId) {
+        List<String> filenames = new ArrayList<>();
+        File folder = new File("C:/CarPazar/listings/" + listingId+"/");
+        File[] files = folder.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    filenames.add(file.getName());
+                }
+            }
+        }
+        for(String name:filenames){
+            System.out.println(name);
+        }
+        return filenames;
+    }
     public Listing findById(String id){
         return listingRepository.findById(id).get(0);
     }
@@ -98,5 +115,5 @@ public class ListingService {
     public List<Listing> findByUserId(String userId){
         return listingRepository.findByUserId_Id(userId);
     }
-
+    public List<Listing> getAll(){return listingRepository.findAll();}
 }

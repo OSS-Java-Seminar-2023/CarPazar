@@ -48,7 +48,7 @@
         <li th:each="listing : ${listings}">
             <div class="listing_container">
                 <div class="listing_details">
-                    <a th:text="${listing.title}" th:href="@{'/listing/'+${listing.id}}"></a>
+                    <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                     <p th:text="${listing.id}"></p>
                     <p th:text="${listing.description}"></p>
                     <p th:text="'Cijena: ' + ${listing.price} + ' €'"></p>
