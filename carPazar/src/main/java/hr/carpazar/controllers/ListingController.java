@@ -78,7 +78,6 @@ public class ListingController {
         model.addAttribute("listing", listing);
         model.addAttribute("fileNames", fileNames);
         model.addAttribute("specification", specification);
-        System.out.println(specification.getExtraFeatures());
         ArrayList<String> exFeat = checkboxToStringList(specification.getExtraFeatures(),"extraFeatures");
         model.addAttribute("exFeat",exFeat);
         ArrayList<String> addEquip = checkboxToStringList(specification.getAdditionalEquipment(),"additionalEquipment");
@@ -89,8 +88,6 @@ public class ListingController {
     @GetMapping(path = "/imagesListing/{listingId}/{imageIndex}")
     public ResponseEntity<byte[]> getListingImage(@PathVariable String listingId, @PathVariable String imageIndex) throws IOException {
         Path imgPath = Paths.get("C:/CarPazar/listings/" + listingId + "/" + imageIndex);
-        System.out.println(imgPath);
-
         if (Files.exists(imgPath)) {
             byte[] imgBytes = Files.readAllBytes(imgPath);
             return ResponseEntity.ok()
