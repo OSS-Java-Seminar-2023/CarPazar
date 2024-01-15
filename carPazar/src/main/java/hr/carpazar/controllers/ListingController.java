@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static hr.carpazar.services.SpecificationService.checkboxToStringList;
 
@@ -105,6 +106,20 @@ public class ListingController {
         List<Listing> listings = listingService.getAll();
         model.addAttribute("listings",listings);
         return "allListings";
+    }
+
+    @PostMapping("/deleteListing/{id}") ///OVO NEVALJA ZBOG KASKADNOG BRISANJA UGHHHH
+    public String deleteListing(@PathVariable String id) {
+        Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(id));
+        if (!listingOptional.isPresent()) {
+            System.out.println("TUU");
+            return "redirect:/notFound";
+        }
+        Listing listing = listingOptional.get();
+        System.out.println(listing);
+        System.out.println(listing.getId());
+        listingService.deleteListing(listing);
+        return "redirect:/adminPanel";
     }
 
 

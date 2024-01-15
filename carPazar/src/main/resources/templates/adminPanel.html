@@ -9,6 +9,46 @@
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Admin Panel</title>
+    <script>
+        function AopenConfirmationDialog(id) {
+            var confirmDialog = document.createElement("div");
+            confirmDialog.id = "confirmDialog";
+            confirmDialog.className = "modal";
+            confirmDialog.innerHTML = `
+                <div class="modal-content">
+                    <p>Are you sure you want to delete listing: ${id}?</p>
+                    <button class="delete-button" onclick="deleteListing('${id}')">Yes</button>
+                    <button class="close-button" onclick="closeConfirmationDialog2()">No</button>
+                </div>
+            `;
+
+            document.body.appendChild(confirmDialog);
+        }
+
+
+        function closeConfirmationDialog2() {
+            var dialog = document.getElementById("confirmDialog");
+            if (dialog) {
+                dialog.parentNode.removeChild(dialog);
+            }
+        }
+
+        async function deleteListing(id) {
+            const response = await fetch(`/deleteListing/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = '/adminPanel';
+            } else {
+                console.error('Deletion failed');
+                window.location.href = '/notFound';
+            }
+        }
+    </script>
 </head>
 <body class="admin_body">
     <div th:replace="fragments/navbar :: navbarDiv"></div>
@@ -34,7 +74,7 @@
             <td data-label="Username" th:text="${user.userName}"></td>
             <td data-label="Email" th:text="${user.email}"></td>
             <td data-label="Full Name" th:text="${user.fullName}"></td>
-            <td data-label="Rating" th:text="${user.userRating}"></td>
+            <td data-label="Rating" th:text="${user.userRating != null} ? ${user.userRating} : 'No rating yet'"></td>
             <td data-label="Phone Number" th:text="${user.phoneNumber}"></td>
             <td data-label="Premium">
                         <span th:text="${user.isPremium}"
@@ -58,7 +98,44 @@
         </tr>
         </tbody>
     </table>
-    <script src="/javaScript/adminPanel.js"></script>
+
+    <h3>All Listings:</h3>
+    <table class="users-table">
+        <thead>
+        <tr>
+            <th>Listing ID</th>
+            <th>Owner Username</th>
+            <th>Owner Full Name</th>
+            <th>Listing Creation Time</th>
+            <th>Title</th>
+            <th>Sponsored</th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="listing : ${listings}">
+            <td data-label="Listing ID" th:text="${listing.id}"></td>
+            <td data-label="Owner Username" th:text="${listing.userId.userName}"></td>
+            <td data-label="Owner Full Name" th:text="${listing.userId.fullName}"></td>
+            <td data-label="Listing Creation Time" th:text="${#temporals.format(listing.listingDatetime, 'yyyy-MM-dd')}"></td>
+            <td data-label="Title" th:text="${listing.title}"></td>
+            <td data-label="Sponsored">
+                        <span th:text="${listing.isSponsored}"
+                              th:class="${listing.isSponsored} ? 'text-green' : 'text-red'">
+                        </span>
+            </td>
+            <td data-label="Delete User">
+                <a href="javascript:void(0);"
+                   th:data-username="${listing.id}"
+                   onclick="AopenConfirmationDialog(this.getAttribute('data-username'))"
+                   class="delete-button">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <script src="../javaScript/adminPanel.js"></script>
 
 </body>
 </html>

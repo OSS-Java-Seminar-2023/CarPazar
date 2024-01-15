@@ -20,9 +20,7 @@ function closeConfirmationDialog() {
         dialog.parentNode.removeChild(dialog);
     }
 }
-function deleteUser(username) {
-    window.location.href = `/deleteUser/${username}`;
-}
+
 async function deleteUser(username) {
     const response = await fetch(`/deleteUser/${username}`, {
         method: 'POST',

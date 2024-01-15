@@ -31,6 +31,8 @@ public class ListingService {
     @Autowired
     private MessageSource msgSource;
 
+
+
     public String getDirPath(String listingUUID){
         return msgSource.getMessage("file.directory", null, null) + listingUUID + "/";
     }
@@ -71,6 +73,10 @@ public class ListingService {
 
     public void publishListing(Listing listing){
         listingRepository.save(listing);
+    }
+
+    public void deleteListing(Listing listing){
+        listingRepository.delete(listing);
     }
 
     public static String getFileExtension(String filename){

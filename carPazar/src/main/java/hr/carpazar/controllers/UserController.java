@@ -50,10 +50,12 @@ public class UserController {
         String loggedInUsername = (String) session.getAttribute("user_username");
         String userId = (String) session.getAttribute("user_id");
         List<User> users=userService.getAllUsers();
+        List<Listing> listings=listingService.getAll();
         if(userId == null || !userService.checkIfAdminByUserId(userId)){
             return "redirect:/notFound";
         }
         model.addAttribute("users", users);
+        model.addAttribute("listings", listings);
         return "adminPanel";
     }
 
@@ -92,7 +94,10 @@ public class UserController {
         model.addAttribute("userId", userId);
         model.addAttribute("username", loggedInUsername);
 
+
         Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(loggedInUsername));
+        model.addAttribute("admin", userOptional.get().getIsAdmin());
+
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -263,9 +268,10 @@ public class UserController {
             return "redirect:/notFound";
         }
         User user = userOptional.get();
-        userService.deleteUserByUsername(user);
+        userService.deleteUser(user);
         return "redirect:/adminPanel";
     }
+
     @GetMapping(path="/mylistings")
     public String viewListings(Model model, HttpSession session)
     {

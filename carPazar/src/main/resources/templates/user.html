@@ -16,27 +16,33 @@
 
     <div class="user_left_side">
         <p>Username: <span th:text="${username}"></span></p>
-        <button id="button1" onclick="hideUserInfo(); change1();" class="pass_btn">Change password</button>
-        <button id="button2" onclick="hidePassChange(); change2();" class="pass_btn1">Change user information</button>
 
         <hr>
-        <h4>Your CarPazar rating: 5.0</h4>
+        <h4 th:if="${admin == false ? true : false}">Your CarPazar rating: 5.0</h4>
         <!--Ovdi bi tribalo ic 5 praznih zvjezdica koje su popunjene onoliko koliki je rating ako je to moguce // ili laksa verzija samo broj npr 3.7-->
+        <div th:if="${admin == true ? true : false}">
+            <a href="../adminPanel">
+                <button id="admin" class="us_but">Admin Panel</button>
+            </a>
+        </div>
+
         <hr>
 
-        <h4 class="prem_prof_h">Premium profile enhances visibility of your listings.</h4>
-        <button id="prem_prof" class="prem_prof">Buy Premium Profile</button>
-        <hr>
+        <div th:if="${admin == false ? true : false}">
+            <h4 class="prem_prof_h">Premium profile enhances visibility of your listings.</h4>
+            <button id="prem_prof" class="prem_prof">Buy Premium Profile</button>
+            <hr>
 
-        <h4>My Listings</h4>
-        <ul>
-            <li><a class="user_a" href="../mylistings">All Listings</a></li>
-            <li><a class="user_a" href="#">Active Listings</a></li>
-            <li><a class="user_a" href="#">Inactive Listings</a></li>
-        </ul>
-        <hr>
+            <h4>My Listings</h4>
+            <ul>
+                <li><a class="user_a" href="../mylistings">All Listings</a></li>
+                <li><a class="user_a" href="#">Active Listings</a></li>
+                <li><a class="user_a" href="#">Inactive Listings</a></li>
+            </ul>
+            <hr>
+        </div>
         <button id="messages" class="us_but">My Messages</button>
-        <button id="us_but" class="us_but">User Support</button> <!--button koji otvara chat sa adminon?-->
+        <button th:if="${admin == false ? true : false}" id="us_but" class="us_but">User Support</button> <!--button koji otvara chat sa adminon?-->
 
     </div>
 
