@@ -8,6 +8,7 @@ import hr.carpazar.services.ImageService;
 import hr.carpazar.services.ListingService;
 import hr.carpazar.services.SpecificationService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,7 @@ public class ListingController {
     @Autowired
     private SpecificationService specificationService;
 
+
     @GetMapping(path="/add-listing")
     public String openListingForm(){
         return "new_listing";
@@ -48,20 +50,13 @@ public class ListingController {
         Listing listing = listingService.createListingFromDto(listingDto, userid);
 
         listingService.publishListing(listing);
-
-        String directory = "C:/CarPazar/listings/";
         String listingUUID = listing.getId();
-        directory += listingUUID + "/";
+        String directoryPath = listingService.getDirPath(listingUUID);
 
-        ListingService.createDirectory(directory);
+        ListingService.createDirectory(directoryPath);
+        ImageService.saveAsPng(imageList, directoryPath);
+        listingService.updateImgDirectory(directoryPath, listingUUID);
 
-        int imageCounter = 1;
-        for(MultipartFile image: imageList){
-            ImageService.saveAsPng(image, directory, imageCounter);
-            imageCounter++;
-        }
-
-        listingService.updateImgDirectory(directory, listingUUID);
         httpSession.setAttribute("listing_id", listingUUID);
 
         return "redirect:/add-info";

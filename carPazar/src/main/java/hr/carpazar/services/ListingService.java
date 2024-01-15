@@ -4,6 +4,7 @@ import hr.carpazar.dtos.ListingDto;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.ListingRepository;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +27,13 @@ public class ListingService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageSource msgSource;
+
+    public String getDirPath(String listingUUID){
+        return msgSource.getMessage("file.directory", null, null) + listingUUID + "/";
+    }
 
     public User findSellerByListingID(String listingID) {
         Listing listing= listingRepository.findById(listingID).get(0);

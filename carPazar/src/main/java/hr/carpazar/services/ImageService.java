@@ -1,5 +1,7 @@
 package hr.carpazar.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,17 +9,41 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ImageService {
-    public static void saveAsPng(MultipartFile imgFile, String directory, int counter){
-        String newFilename = "img_" + counter + ".png";
-        try {
-            File outputImg = new File(directory + newFilename);
-            BufferedImage originalImg = ImageIO.read(imgFile.getInputStream());
-            ImageIO.write(originalImg, "png", outputImg);
-        } catch(IOException ioException){
-            System.out.println(ioException.getMessage());
+    @Autowired
+    private static MessageSource msgSource;
+
+    public static void saveAsPng(List<MultipartFile> imageList, String dirPath){
+        int fileCount;
+        File directory = new File(dirPath);
+        if(directory.exists() && directory.isDirectory()){
+            File[] files = directory.listFiles();
+            if(files != null)
+                fileCount = files.length;
+            else
+                fileCount = 0;
+            System.out.println(files.length);
         }
+        else{
+            fileCount = 0;
+            System.out.println("ovo se nikad ne bi smilo ispisat"); // custom exception stvorit
+        }
+
+        AtomicInteger counter = new AtomicInteger(fileCount + 1);
+        imageList.stream().forEach(image -> {
+            System.out.println();
+            String newFilename = "img_" + (counter.getAndIncrement()) + ".png";
+            try {
+                File outputImg = new File(dirPath + newFilename);
+                BufferedImage originalImg = ImageIO.read(image.getInputStream());
+                ImageIO.write(originalImg, "png", outputImg);
+            } catch (IOException ioException) {
+                System.out.println(ioException.getMessage());
+            }
+        });
     }
 }
