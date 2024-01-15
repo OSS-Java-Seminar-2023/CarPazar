@@ -76,6 +76,18 @@
                     <td th:text="${specification.getEnginePower()}"></td>
                 </tr>
                 <tr>
+                    <td>Shifter</td>
+                    <td th:text="${specification.getShifterType()}"></td>
+                </tr>
+                <tr>
+                    <td>Consumption</td>
+                    <td th:text="${specification.getConsumption()+ 'L / 100 km'}"></td>
+                </tr>
+                <tr>
+                    <td>AC</td>
+                    <td th:text="${specification.getAcType()}"></td>
+                </tr>
+                <tr>
                     <td>Kilometers travelled</td>
                     <td th:text="${specification.getKilometersTravelled()}"></td>
                 </tr>
@@ -84,12 +96,24 @@
                     <td th:text="${specification.getInTrafficSince()}"></td>
                 </tr>
                 <tr>
-                    <td>Car Location</td>
-                    <td th:text="${specification.getLocation()}"></td>
-                </tr>
-                <tr>
                     <td>Car Shape</td>
                     <td th:text="${specification.getBodyShape()}"></td>
+                </tr>
+                <tr>
+                    <td>Door Count</td>
+                    <td th:text="${specification.getDoorCount()}"></td>
+                </tr>
+                <tr>
+                    <td>Seat Count</td>
+                    <td th:text="${specification.getSeatCount()}"></td>
+                </tr>
+                <tr>
+                    <td>Color</td>
+                    <td th:text="${specification.getColor()}"></td>
+                </tr>
+                <tr>
+                    <td>Owner Number</td>
+                    <td th:text="${specification.getOwnerNo()}"></td>
                 </tr>
                 <tr>
                     <td>Extra Features</td>
@@ -106,6 +130,10 @@
                             <span th:text="${feature}"></span><br>
                         </span>
                     </td>
+                </tr>
+                <tr>
+                    <td>Car Location</td>
+                    <td th:text="${specification.getLocation()}"></td>
                 </tr>
             </table>
         </div>
