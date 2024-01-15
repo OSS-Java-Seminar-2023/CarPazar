@@ -42,6 +42,7 @@ public class ImageService {
                 File outputImg = new File(dirPath + newFilename);
                 BufferedImage originalImg = ImageIO.read(image.getInputStream());
                 resizeCompression(originalImg, outputImg);
+                //ImageIO.write(originalImg,"png", outputImg);
             } catch (IOException ioException) {
                 System.out.println(ioException.getMessage());
             }
@@ -50,7 +51,7 @@ public class ImageService {
 
     private static void resizeCompression(BufferedImage originalImg, File outputImg){
         try {
-            Thumbnails.of(originalImg).size(1024, 768).outputQuality(1.0).outputFormat("png").toFile(outputImg);
+            Thumbnails.of(originalImg).size(600, 450).outputQuality(1.0).outputFormat("png").toFile(outputImg);
         } catch (IOException ioException){
             System.out.println(ioException.getMessage());
         }

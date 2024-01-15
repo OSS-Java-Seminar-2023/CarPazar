@@ -64,7 +64,7 @@ public class ListingController {
     }
     @GetMapping(path = "/imagesListing/{listingId}")
     public ResponseEntity<byte[]> getListingImage(@PathVariable String listingId,Model model) throws IOException {
-        Path imgPath = Paths.get("C:/CarPazar/listings/"+listingId+"/img_1.png");
+        Path imgPath = Paths.get(listingService.getDirPath(listingId) + "/img_1.png");
         byte[] imgBytes = Files.readAllBytes(imgPath);
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_PNG)
