@@ -1,5 +1,6 @@
 package hr.carpazar.services;
 
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -40,10 +41,18 @@ public class ImageService {
             try {
                 File outputImg = new File(dirPath + newFilename);
                 BufferedImage originalImg = ImageIO.read(image.getInputStream());
-                ImageIO.write(originalImg, "png", outputImg);
+                resizeCompression(originalImg, outputImg);
             } catch (IOException ioException) {
                 System.out.println(ioException.getMessage());
             }
         });
+    }
+
+    private static void resizeCompression(BufferedImage originalImg, File outputImg){
+        try {
+            Thumbnails.of(originalImg).size(1024, 768).outputQuality(1.0).outputFormat("png").toFile(outputImg);
+        } catch (IOException ioException){
+            System.out.println(ioException.getMessage());
+        }
     }
 }
