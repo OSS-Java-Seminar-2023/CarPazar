@@ -31,8 +31,12 @@
         <hr>
 
         <div th:if="${admin == false ? true : false}">
-            <h4 class="prem_prof_h">Premium profile enhances visibility of your listings.</h4>
-            <button id="prem_prof" class="prem_prof">Buy Premium Profile</button>
+            <h4 class="prem_prof_h" th:if="${premium == false ? true : false}">Premium profile enhances visibility of your listings.</h4>
+            <form action="../premiumRequest" method="post" th:if="${premium == false ? true : false}">
+                <button type="submit" id="prem_prof" class="prem_prof">Buy Premium Profile</button>
+            </form>
+
+            <h3 class="premium" th:if="${premium != false ? true : false}">Premium Account</h3>
             <hr>
 
             <h4>My Listings</h4>

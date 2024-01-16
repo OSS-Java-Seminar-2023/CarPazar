@@ -97,6 +97,7 @@ public class UserController {
 
         Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(loggedInUsername));
         model.addAttribute("admin", userOptional.get().getIsAdmin());
+        model.addAttribute("premium", userOptional.get().getIsPremium());
 
 
         if (userOptional.isPresent()) {
@@ -323,6 +324,17 @@ public class UserController {
         emailService.sendRecoveryEmail(user,link);
         model.addAttribute("alert2", "Recovery mail has been sent to your email!");
         return "recover-password";
+    }
+
+    @PostMapping(path="/premiumRequest")
+    public String premiumRequest(HttpSession session) {
+        String loggedInUsername = (String) session.getAttribute("user_username");
+        if (loggedInUsername == null) {
+            return "redirect:/login";
+        }
+        User user = userService.findByUserName(loggedInUsername);
+        emailService.sendPremiumAccRequest(user);
+        return "redirect:/user";
     }
 
     @GetMapping(path="/password-recovery/{uuid}")
