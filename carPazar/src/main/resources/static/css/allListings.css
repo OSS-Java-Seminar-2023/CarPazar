@@ -29,11 +29,11 @@ body {
 }
 
 .listing_image {
-    width: 30%;
+    width: auto;
 }
 
 .listing_image_img {
-    width: 100%;
+    width: auto;
     height: auto;
 }
 ul {

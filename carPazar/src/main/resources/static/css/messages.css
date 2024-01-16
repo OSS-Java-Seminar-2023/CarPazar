@@ -1,0 +1,82 @@
+body {
+    font-family: 'Monaco', monospace;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 7vh;
+    display: flex;
+    height: 100%;
+    background-image: url('../images/cartoon.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.a {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.b {
+    padding: 15px;
+}
+
+.c {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.c a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.c a:hover {
+    text-decoration: underline;
+}
+
+.c p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+.listing_image {
+    width: 30%;
+}
+
+.listing_image_img {
+    width: 100%;
+    height: auto;
+}
+.div1 {
+               background-color: white;
+               margin: auto;
+               margin-top: 100px;
+               padding: 20px;
+               text-align: center;
+               width: 60%;
+               box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+               border-radius: 10px;
+}
+h1 {
+                       font-size: 2em;
+                       text-align: center;
+                       color: #333;
+}

@@ -1,13 +1,11 @@
 package hr.carpazar.controllers;
 
 import hr.carpazar.dtos.*;
+import hr.carpazar.models.Chat;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.UserRepository;
-import hr.carpazar.services.HashService;
-import hr.carpazar.services.ListingService;
-import hr.carpazar.services.UserService;
-import hr.carpazar.services.EmailService;
+import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -28,6 +26,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ListingService listingService;
+    @Autowired
+    private ChatService chatService;
     private final EmailService emailService;
 
     @GetMapping(path="/home")
@@ -279,6 +279,32 @@ public class UserController {
         List<Listing> userListings = listingService.findByUserId(userId);
         model.addAttribute("listings",userListings);
         return "mylistings";
+    }
+
+    @GetMapping(path="/myMessages")
+    public String viewMyMessages(Model model, HttpSession session)
+    {
+        String loggedInUsername = (String) session.getAttribute("user_username");
+        if (loggedInUsername == null) {
+            return "redirect:/login";
+        }
+        User user=userService.findByUserName(loggedInUsername);
+        List<Chat> chats = chatService.findByUserID(user);
+        List<Chat> chatOwner = new ArrayList<>();
+        List<Listing> listings = listingService.findByUserId(user.getId());
+
+        for (Listing listing : listings) {
+            Chat chat = chatService.findExistingChatByListings(listing);
+            if (chat != null) {
+                chatOwner.add(chat);
+            }
+        }
+
+        model.addAttribute("chats",chats);
+        model.addAttribute("chatOwner",chatOwner);
+
+
+        return "messages";
     }
 
     @GetMapping(path="/recoverPassword")

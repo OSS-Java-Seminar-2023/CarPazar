@@ -5,35 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/user.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/messages.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>User</title>
 </head>
-<body class="user_body" onload="hidePassChange(); change2();">
 <div th:replace="fragments/navbar :: navbarDiv"></div>
-<div class="user_left_side">
-    <hr>
-    <h4 class="prem_prof_h">Premium profile enhances visibility of your listings.</h4>
-    <button id="prem_prof" class="prem_prof">Buy Premium Profile</button>
-    <hr>
-
-    <h4>My Listings</h4>
-    <ul>
-        <li><a class="user_a" href="../mylistings">All Listings</a></li>
-        <li><a class="user_a" href="#">Active Listings</a></li>
-        <li><a class="user_a" href="#">Inactive Listings</a></li>
-    </ul>
-    <hr>
-    <button id="messages" class="us_but">My Messages</button>
-    <button id="us_but" class="us_but">User Support</button> <!--button koji otvara chat sa adminon?-->
-
-</div>
-<div class="user_listings_right_side">
+<div class="a" th:if="${!listings.isEmpty()}">
     <ul>
         <li th:each="listing : ${listings}">
-            <div class="listing_container">
-                <div class="listing_details">
+            <div class="b">
+                <div class="c">
                     <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                     <p th:text="${listing.description}"></p>
                     <p th:text="'Cijena: ' + ${listing.price} + ' €'"></p>
@@ -45,6 +27,7 @@
         </li>
     </ul>
 </div>
-
-</body>
+<div class="div1" th:if="${listings.isEmpty()}">
+    <h1>You have not posted any listings yet!</h1>
+</div>
 </html>

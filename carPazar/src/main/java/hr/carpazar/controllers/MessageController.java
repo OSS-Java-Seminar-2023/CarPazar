@@ -9,6 +9,7 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+
     public MessageController(MessageService messageService) {
         this.messageService = messageService;
     }

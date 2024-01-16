@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/messages.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <title>My Messages</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbarDiv"></div>
+<div class="a" th:if="${!chats.isEmpty()}">
+    <ul>
+        <li th:each="chat : ${chats}">
+            <div class="b">
+                <div class="c">
+                    <a th:text="${chat.listingId.title}" th:href="@{'/chat/'+${chat.id}}"></a>
+                    <p th:text="${chat.listingId.userId.userName}"></p>
+                    <p th:text="${chat.listingId.description}"></p>
+                </div>
+                <div class="listing_image">
+                    <img class="listing_image_img" th:src="@{'/imagesListing/' + ${chat.listingId.id}}" alt="Listing Image">
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="a" th:if="${!chatOwner.isEmpty()}">
+    <ul>
+        <li th:each="chat : ${chatOwner}">
+            <div class="b">
+                <div class="c">
+                    <a th:text="${chat.listingId.title}" th:href="@{'/chat/'+${chat.id}}"></a>
+                    <p><span>Chat with:</span> <span th:text="${chat.buyerId.userName}" style="font-weight: bold; color: red;"></span></p>
+                </div>
+                <div class="listing_image">
+                    <img class="listing_image_img" th:src="@{'/imagesListing/' + ${chat.listingId.id}}" alt="Listing Image">
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="div1" th:if="${chats.isEmpty() and chatOwner.isEmpty()}">
+    <h1>You don't have any messages yet!</h1>
+</div>
+</body>
+</html>

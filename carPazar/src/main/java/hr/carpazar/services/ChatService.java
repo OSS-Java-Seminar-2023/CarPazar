@@ -7,6 +7,7 @@ import hr.carpazar.repositories.ChatRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -20,8 +21,16 @@ public class ChatService {
         return chatRepository.findById(chatID);
     }
 
+    public List<Chat> findByUserID(User user) {
+        return chatRepository.findByBuyerId(user);
+    }
+
     public Optional<Chat> findExistingChat(User user, Listing listing) {
         return chatRepository.findByBuyerIdAndListingId(user, listing);
+    }
+
+    public Chat findExistingChatByListings(Listing listing) {
+        return chatRepository.findByListingId(listing);
     }
     public Chat saveChat(Chat chat){
         chatRepository.save(chat);
