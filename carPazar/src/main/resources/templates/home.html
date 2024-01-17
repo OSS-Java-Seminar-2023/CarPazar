@@ -11,20 +11,21 @@
     <title>Home</title>
 </head>
 <body class="home_body">
+<div class="search-container">
+    <form action="/search" method="GET" class="search-bar">
+        <input type="text" placeholder="Looking for something?" name="query">
+        <button type="submit" class="search-button">
+            <img th:src="@{images/search.png}" alt="Search icon">
+        </button>
+    </form>
+</div>
     <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div class="image-container">
         <h1 class="home_h1">Welcome to Car Pazar</h1>
         <img th:src="@{images/car.png}" alt="Slika auta brm brm">
         <a href="../add-listing"><button class="post-button">Post a listing</button></a>
     </div>
-    <div class="search-container">
-        <form action="" class="search-bar">
-            <input type="text" placeholder="Looking for something?" name="search">
-            <button type="submit" class="search-button">
-                <img th:src="@{images/search.png}" alt="Search icon">
-            </button>
-        </form>
-    </div>
+
 
 </body>
 </html>

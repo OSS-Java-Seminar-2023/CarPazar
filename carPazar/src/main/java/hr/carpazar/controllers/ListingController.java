@@ -99,6 +99,13 @@ public class ListingController {
         }
     }
 
+    @GetMapping("/search")
+    public String search(@RequestParam("query") String query, Model model) {
+        String[] keywords = query.trim().split("\\s+");
+        List<Listing> searchResults = listingService.search(keywords);
+        model.addAttribute("searchResults", searchResults);
+        return "/search";
+    }
 
     @GetMapping(path= "/listings")
     public String openAllListingsForm(Model model)

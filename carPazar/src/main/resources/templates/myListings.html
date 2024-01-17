@@ -18,7 +18,7 @@
                 <div class="c">
                     <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                     <p th:text="${listing.description}"></p>
-                    <p th:text="'Cijena: ' + ${listing.price} + ' €'"></p>
+                    <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
                 </div>
                 <div class="listing_image">
                     <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">

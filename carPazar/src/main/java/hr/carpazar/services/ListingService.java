@@ -14,10 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -120,6 +118,42 @@ public class ListingService {
             System.out.println(name);
         }
         return filenames;
+    }
+
+    public List<Listing> search(String[] keywords) {
+        Map<Listing, Integer> listingMatches = new HashMap<>();
+        List<Listing> allListings = listingRepository.findAll();
+
+        for (Listing listing : allListings) {
+            listingMatches.put(listing, 0);
+            for (String word : keywords) {
+                if (listing.getTitle().toLowerCase().contains(word.toLowerCase())) {
+                    listingMatches.put(listing, listingMatches.get(listing) + 1);
+                }
+            }
+        }
+
+        List<Listing> searchResults;
+        searchResults = listingMatches.entrySet().stream()
+                .filter(entry -> entry.getValue() > 0)
+                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        if (searchResults.isEmpty()) {
+            String keyword = keywords[0];
+            searchResults = allListings.stream()
+                    .filter(listing -> listing.getTitle().toLowerCase().startsWith(keyword.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            if (searchResults.isEmpty()) {
+                searchResults = allListings.stream()
+                        .filter(listing -> listing.getTitle().toLowerCase().contains(keyword.toLowerCase()))
+                        .collect(Collectors.toList());
+            }
+        }
+
+        return searchResults;
     }
     public Listing findById(String id){
         return listingRepository.findById(id).get(0);
