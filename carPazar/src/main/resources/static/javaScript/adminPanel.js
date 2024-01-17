@@ -36,3 +36,7 @@ async function deleteUser(username) {
         window.location.href = '/notFound';
     }
 }
+
+function deleteUser(username){
+    window.location.href = `/deleteUser/${username}`;
+}

@@ -3,10 +3,12 @@ package hr.carpazar.controllers;
 import hr.carpazar.dtos.*;
 import hr.carpazar.models.Chat;
 import hr.carpazar.models.Listing;
+import hr.carpazar.models.Specification;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.UserRepository;
 import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,14 @@ public class UserController {
     private ListingService listingService;
     @Autowired
     private ChatService chatService;
+    @Autowired
     private final EmailService emailService;
+    @Autowired
+    private MessageService messageService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private SpecificationService specificationService;
 
     @GetMapping(path="/home")
     public String home(){
@@ -262,13 +271,24 @@ public class UserController {
 
         return "redirect:/adminPanel";
     }
-    @PostMapping("/deleteUser/{username}")
+    @RequestMapping("/deleteUser/{username}")
+    @Transactional
     public String deleteUser(@PathVariable String username) {
         Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
         if (!userOptional.isPresent()) {
             return "redirect:/notFound";
         }
         User user = userOptional.get();
+        List<Listing> listings = listingService.findByUserId(user.getId());
+        List<Chat> chats = chatService.findByUserID(user);
+        reviewService.deleteByUser(user);
+        chatService.deleteByBuyerId(user);
+        //Specification specs;
+        for(Listing listing:listings) {
+            listingService.deleteListing(listing);
+            //specs = specificationService.findByListingId(listing.getId());
+            //specificationService.deleteSpec(specs);
+        }
         userService.deleteUser(user);
         return "redirect:/adminPanel";
     }

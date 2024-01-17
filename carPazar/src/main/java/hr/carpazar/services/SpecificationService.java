@@ -1,6 +1,7 @@
 package hr.carpazar.services;
 
 import hr.carpazar.dtos.SpecificationDto;
+import hr.carpazar.models.Listing;
 import hr.carpazar.models.Specification;
 import hr.carpazar.repositories.SpecificationRepository;
 import org.springframework.stereotype.Service;
@@ -193,4 +194,6 @@ public class SpecificationService {
         specificationRepository.save(specs);
     }
     public Specification findByListingId(String listingId){return specificationRepository.findById(listingId);}
+
+    public void deleteSpec(Specification specification){specificationRepository.delete(specification);}
 }

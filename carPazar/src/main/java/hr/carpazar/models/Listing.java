@@ -2,6 +2,8 @@ package hr.carpazar.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UuidGenerator;
 import java.time.LocalDateTime;
 
@@ -17,6 +19,7 @@ public class Listing {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User userId;
 
     @Column(name = "listing_datetime", nullable = false)

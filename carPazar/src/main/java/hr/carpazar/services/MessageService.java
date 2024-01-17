@@ -1,5 +1,6 @@
 package hr.carpazar.services;
 
+import hr.carpazar.models.Chat;
 import hr.carpazar.models.Message;
 import hr.carpazar.repositories.MessageRepository;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,5 @@ public class MessageService {
     public void saveMessage(Message message) {
         messageRepository.save(message);
     }
-
+    public void deleteByChatId(Chat chatId){messageRepository.deleteByChatId(chatId);}
 }
