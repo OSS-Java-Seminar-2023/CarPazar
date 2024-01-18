@@ -15,26 +15,42 @@
 <body>
     <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div class="listing-details">
+        
         <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+
             <div class="carousel-inner">
+
                 <div th:each="imageIndex : ${#numbers.sequence(1, fileNames.size())}" class="carousel-item" th:classappend="${imageIndex == 1}? 'active'">
-                    <img th:src="@{'/imagesListing/'+${listing.id}+'/img_'+${imageIndex}+'.png'}" class="d-block w-100 listing-img" alt="Listing Image">
+                    <div class="image-container">
+                        <img th:src="@{'/imagesListing/'+${listing.id}+'/img_'+${imageIndex}+'.png'}" class="d-block w-100 listing-img" alt="Listing Image">
+                    </div>
                 </div>
+
             </div>
+
             <div class="number-boxes">
+
                 <div class="number-box-container">
+
                     <span th:each="imageIndex : ${#numbers.sequence(1, fileNames.size())}" class="number-box">
                         <span th:text="${imageIndex}"></span>
                     </span>
+
                 </div>
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
+
             </button>
+
             <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
+
             </button>
 
         </div>

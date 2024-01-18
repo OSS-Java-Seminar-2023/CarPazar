@@ -53,6 +53,14 @@ button {
     font-size: 16px;
 }
 
+textarea {
+    width: 35vw;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
 button[type="button"] {
     background-color: #4CAF50;
 }
