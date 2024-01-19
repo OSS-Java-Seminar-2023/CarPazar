@@ -14,12 +14,14 @@
     <form method="post">
         <div id="additional-mandatory">
             <label for="brand">Make:</label><br>
-            <select name="brand" id="select-brand" required>
-                <option value="" disabled selected>Select a vehicle brand</option>
+            <select name="brand" id="select-brand" onchange="updateModels()" required>
+                <option value="" disabled selected>Select vehicle brand</option>
             </select><br><br>
         
             <label for="model">Model:</label><br>
-            <input type="text" name="model" placeholder="Vehicle Model" maxlength="32" required><br><br>
+            <select name="model" id="select-model" required>
+                <option value="" disabled selected>Select vehicle model</option>
+            </select><br><br>
         
             <label for="enginePower">Engine power:</label><br>
             <input type="number" name="enginePower" id="engine-power" placeholder="Engine Power" min="0" max="999" required>
@@ -51,12 +53,16 @@
             <input type="number" name="manufactureYear" placeholder="Manufacture Year" min="1900" max="2100" required><br><br>
         
             <label for="registrationUntil">Registered until:</label><br>
-            <input type="date" id="reg-date" name="registrationUntil" placeholder="Registration Date" min="1900-01-01" max="2099-12-31" required>
+            <input type="date" id="reg-date" name="registrationUntil" placeholder="Registration Date" min="2020-01-01" max="2099-12-31" required>
             <label for="unregistered">Vehicle is unregistered</label>
             <input type="checkbox" id="reg-checkbox" name="unregistered" onchange="disableRegInput()"><br><br>
         
-            <label for="ownerNo">Owner number:</label><br>
-            <input type="number" name="ownerNo" placeholder="1st Owner" value="1" min="1", max="9" required><br><br>
+            <label for="ownerNo">Owner:</label><br>
+            <select name="ownerNo" required>
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third or more</option>
+            </select><br><br>
         
             <label for="isUsed">Car condition:</label><br>
             <input type="radio" name="isUsed" value="false"><label for="is-used">New</label>

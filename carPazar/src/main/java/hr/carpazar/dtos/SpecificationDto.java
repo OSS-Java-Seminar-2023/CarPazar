@@ -11,6 +11,7 @@ public class SpecificationDto {
     private String brand;
     private String model;
     private String enginePower;
+    private String powerUnit;
     private String engineType;
     private String shifterType;
     private Integer kilometersTravelled;

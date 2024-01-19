@@ -21,17 +21,12 @@ public class SpecificationService {
     public Specification createSpecificationFromDto(SpecificationDto specificationDto, String listingid){
         Map<String, String> postParams = new Hashtable<>();
         nullSpecificationHandle(specificationDto);
-        /*
-        *
-        *       uspjesno pise specifikacije u bazu
-        *       napravit kalkulaciju extra featurea i tih sranja
-        *
-        *
-        * */
+
         postParams.put("id", listingid);
         postParams.put("brand", specificationDto.getBrand());
         postParams.put("model", specificationDto.getModel());
         postParams.put("enginePower", specificationDto.getEnginePower());
+        postParams.put("powerUnit", specificationDto.getPowerUnit());
         postParams.put("engineType", specificationDto.getEngineType());
         postParams.put("shifterType", specificationDto.getShifterType());
         postParams.put("kilometersTravelled", specificationDto.getKilometersTravelled().toString());
@@ -62,7 +57,12 @@ public class SpecificationService {
         specs.setId(specsData.get("id"));
         specs.setBrand(specsData.get("brand"));
         specs.setModel(specsData.get("model"));
-        specs.setEnginePower(Integer.parseInt(specsData.get("enginePower")));
+
+        if(specsData.get("powerUnit").equals("kW"))
+            specs.setEnginePower((int)(Integer.parseInt(specsData.get("enginePower")) * 1.34));
+        else
+            specs.setEnginePower(Integer.parseInt(specsData.get("enginePower")));
+
         specs.setEngineType(specsData.get("engineType"));
         specs.setShifterType(specsData.get("shifterType"));
         specs.setKilometersTravelled(Integer.parseInt(specsData.get("kilometersTravelled")));
@@ -87,6 +87,9 @@ public class SpecificationService {
     }
 
     private void nullSpecificationHandle(SpecificationDto specificationDto){
+        if(specificationDto.getRegistrationUntil() == null)
+            specificationDto.setRegistrationUntil(LocalDate.parse("0001-01-01"));
+
         if(specificationDto.getInTrafficSince() == null)
             specificationDto.setInTrafficSince(Year.parse("0"));
 
