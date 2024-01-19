@@ -74,7 +74,6 @@ public class ListingService {
         listingRepository.save(listing);
     }
 
-    @Transactional
     public void deleteListing(Listing listing){
         listingRepository.delete(listing);
     }

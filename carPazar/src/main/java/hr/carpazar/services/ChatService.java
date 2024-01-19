@@ -33,6 +33,10 @@ public class ChatService {
     public Chat findExistingChatByListings(Listing listing) {
         return chatRepository.findByListingId(listing);
     }
+
+    public List<Chat> findAllChatsByListing(Listing listing){
+        return chatRepository.findAllByListingId(listing);
+    }
     public Chat saveChat(Chat chat){
         chatRepository.save(chat);
         return chat;
@@ -40,8 +44,15 @@ public class ChatService {
 
     public void deleteByBuyerId(User buyerId){chatRepository.deleteByBuyerId(buyerId);}
 
-    @Transactional
-    public void deleteByListingId(Listing listingId){chatRepository.deleteByListingId(listingId);}
+
+    public void deleteByListingId(Listing listing) {
+        List<Chat> chats = chatRepository.findAllByListingId(listing);
+        for (Chat chat : chats) {
+            System.out.println("CHAT IN"+chat.getBuyerId().getUserName());
+            chatRepository.deleteByListingId(listing);
+        }
+    }
+
 
     public List<Chat> getAll(){return chatRepository.findAll();}
 

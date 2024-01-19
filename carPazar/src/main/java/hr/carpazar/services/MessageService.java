@@ -35,8 +35,14 @@ public class MessageService {
     public void saveMessage(Message message) {
         messageRepository.save(message);
     }
-    @Transactional
-    public void deleteByChatId(Chat chatId){messageRepository.deleteByChatId(chatId);}
+
+    public void deleteByChatId(Chat chat) {
+        List<Message> messages = messageRepository.findAllByChatId(chat);
+        for (Message msg : messages) {
+            System.out.println("msg in"+msg.getMessageContent());
+            messageRepository.deleteByChatId(chat);
+        }
+    }
 
     public List<Message> getAll(){return messageRepository.findAll();}
 

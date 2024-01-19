@@ -119,8 +119,8 @@ public class ListingController {
     }
 
     @Transactional
-    @PostMapping("/deleteListing/{id}") ///OVO NEVALJA ZBOG KASKADNOG BRISANJA UGHHHH
-    public String deleteListing(@PathVariable String id,HttpSession session) {
+    @PostMapping("/deleteListing/{id}")
+    public String deleteListing(@PathVariable String id, HttpSession session) {
         String loggedInUsername = (String) session.getAttribute("user_username");
         User user = userService.findByUserName(loggedInUsername);
 
@@ -130,28 +130,14 @@ public class ListingController {
             return "redirect:/notFound";
         }
 
-        if (!listingOptional.isPresent()) {
-            return "redirect:/notFound";
-        }
-
         Listing listing = listingOptional.get();
-        System.out.println(listing);
-        System.out.println(listing.getId());
-        Specification spec=specificationService.findByListingId(String.valueOf(listing));
-        List<Chat> allChats=chatService.getAll();
 
-        for(Chat chat: allChats){
-            if(chat.getListingId().equals(listing)){
-                List<Message> allMessages=messageService.getAll();
-                for(Message msg : allMessages){
-                    if(msg.getChatId().equals(chat))
-                    {
-                        messageService.deleteByChatId(chat);
-                    }
-                }
-                chatService.deleteByListingId(listing);
-            }
+        List<Chat> chats = chatService.findAllChatsByListing(listing);
+        for (Chat chat : chats) {
+            messageService.deleteByChatId(chat);
         }
+
+        chatService.deleteByListingId(listing);
         listingService.deleteListing(listing);
 
         return "redirect:/adminPanel";
