@@ -1,8 +1,10 @@
 package hr.carpazar.services;
 
 import hr.carpazar.models.Chat;
+import hr.carpazar.models.Listing;
 import hr.carpazar.models.Message;
 import hr.carpazar.repositories.MessageRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,5 +35,9 @@ public class MessageService {
     public void saveMessage(Message message) {
         messageRepository.save(message);
     }
+    @Transactional
     public void deleteByChatId(Chat chatId){messageRepository.deleteByChatId(chatId);}
+
+    public List<Message> getAll(){return messageRepository.findAll();}
+
 }

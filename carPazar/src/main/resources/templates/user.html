@@ -39,19 +39,12 @@
             <h3 class="premium" th:if="${premium != false ? true : false}">Premium Account</h3>
             <hr>
 
-            <h4>My Listings</h4>
-            <ul>
-                <li><a class="user_a" href="../mylistings">All Listings</a></li>
-                <li><a class="user_a" href="#">Active Listings</a></li>
-                <li><a class="user_a" href="#">Inactive Listings</a></li>
-            </ul>
+            <a href="../mylistings"><button id="listings" class="us_but">My Listings</button></a>
+            <a href="../myMessages"><button id="msg" class="us_but">My Messages</button></a>
             <hr>
+            <p id="us_text" class="us_text">For any inquiries or support, please contact us via email at <a href="mailto:carpazarmail@gmail.com">carpazarmail@gmail.com</a>.</p>
+
         </div>
-        <a href="../myMessages">
-            <button id="msg" class="us_but">My Messages</button>
-        </a>
-        <button th:if="${!admin}" id="us_but" class="us_but">User Support</button>
-        <!--button koji otvara chat sa adminon?-->
 
     </div>
 

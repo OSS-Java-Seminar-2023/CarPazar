@@ -10,24 +10,34 @@
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>User</title>
 </head>
-<div th:replace="fragments/navbar :: navbarDiv"></div>
-<div class="a" th:if="${!listings.isEmpty()}">
-    <ul>
-        <li th:each="listing : ${listings}">
-            <div class="b">
-                <div class="c">
-                    <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
-                    <p th:text="${listing.description}"></p>
-                    <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
+<body>
+    <div th:replace="fragments/navbar :: navbarDiv"></div>
+    <div class="a" th:if="${!listings.isEmpty()}">
+        <ul>
+            <li th:each="listing : ${listings}">
+                <div class="b">
+                    <div class="c">
+                        <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
+                        <p th:text="${listing.description}"></p>
+                        <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
+                    </div>
+                    <div class="listing_image">
+                        <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
+                    </div>
+                    <a href="javascript:void(0);"
+                       th:data-username="${listing.title}"
+                       th:data-id="${listing.id}"
+                       onclick="AopenConfirmationDialog(this.getAttribute('data-username'), this.getAttribute('data-id'))"
+                       class="delete-button">Delete</a>
+
                 </div>
-                <div class="listing_image">
-                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
-<div class="div1" th:if="${listings.isEmpty()}">
-    <h1>You have not posted any listings yet!</h1>
-</div>
+            </li>
+        </ul>
+    </div>
+    <div class="div1" th:if="${listings.isEmpty()}">
+        <h1>You have not posted any listings yet!</h1>
+    </div>
+    <script src="/javaScript/myListings.js"></script>
+
+</body>>
 </html>

@@ -1,13 +1,10 @@
 package hr.carpazar.controllers;
 
 import hr.carpazar.dtos.ListingDto;
-import hr.carpazar.models.Listing;
-import hr.carpazar.models.Specification;
-import hr.carpazar.models.User;
-import hr.carpazar.services.ImageService;
-import hr.carpazar.services.ListingService;
-import hr.carpazar.services.SpecificationService;
+import hr.carpazar.models.*;
+import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
@@ -34,7 +31,13 @@ public class ListingController {
     @Autowired
     private ListingService listingService;
     @Autowired
+    private ChatService chatService;
+    @Autowired
     private SpecificationService specificationService;
+    @Autowired
+    private MessageService messageService;
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping(path="/add-listing")
@@ -115,22 +118,44 @@ public class ListingController {
         return "allListings";
     }
 
+    @Transactional
     @PostMapping("/deleteListing/{id}") ///OVO NEVALJA ZBOG KASKADNOG BRISANJA UGHHHH
-    public String deleteListing(@PathVariable String id) {
+    public String deleteListing(@PathVariable String id,HttpSession session) {
+        String loggedInUsername = (String) session.getAttribute("user_username");
+        User user = userService.findByUserName(loggedInUsername);
+
         Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(id));
-        if (!listingOptional.isPresent()) {
-            System.out.println("TUU");
+
+        if(!user.getIsAdmin() && !listingOptional.get().getUserId().equals(user)){
             return "redirect:/notFound";
         }
+
+        if (!listingOptional.isPresent()) {
+            return "redirect:/notFound";
+        }
+
         Listing listing = listingOptional.get();
         System.out.println(listing);
         System.out.println(listing.getId());
+        Specification spec=specificationService.findByListingId(String.valueOf(listing));
+        List<Chat> allChats=chatService.getAll();
+
+        for(Chat chat: allChats){
+            if(chat.getListingId().equals(listing)){
+                List<Message> allMessages=messageService.getAll();
+                for(Message msg : allMessages){
+                    if(msg.getChatId().equals(chat))
+                    {
+                        messageService.deleteByChatId(chat);
+                    }
+                }
+                chatService.deleteByListingId(listing);
+            }
+        }
         listingService.deleteListing(listing);
+
         return "redirect:/adminPanel";
     }
-
-
-
 
     public ListingController(ListingService listingService) {
         this.listingService = listingService;

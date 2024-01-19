@@ -4,6 +4,7 @@ import hr.carpazar.models.Chat;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.ChatRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,4 +39,10 @@ public class ChatService {
     }
 
     public void deleteByBuyerId(User buyerId){chatRepository.deleteByBuyerId(buyerId);}
+
+    @Transactional
+    public void deleteByListingId(Listing listingId){chatRepository.deleteByListingId(listingId);}
+
+    public List<Chat> getAll(){return chatRepository.findAll();}
+
 }

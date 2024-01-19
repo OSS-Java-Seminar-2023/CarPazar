@@ -4,6 +4,7 @@ import hr.carpazar.dtos.ListingDto;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.ListingRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,7 @@ public class ListingService {
         listingRepository.save(listing);
     }
 
+    @Transactional
     public void deleteListing(Listing listing){
         listingRepository.delete(listing);
     }

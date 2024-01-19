@@ -68,7 +68,7 @@ select {
 }
 
 #form-div input[type="submit"]:hover, #form-div button:hover {
-    background-color: #25a0d9;
+    background-color: #065980;
 }
 
 #form-div input[type="submit"], #backButton {
