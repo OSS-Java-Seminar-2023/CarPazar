@@ -41,7 +41,12 @@ public class ListingController {
 
 
     @GetMapping(path="/add-listing")
-    public String openListingForm(){
+    public String openListingForm(HttpSession httpSession){
+        String userid = (String) httpSession.getAttribute("user_id");
+        if(userid==null){
+            return "redirect:/notFound";
+        }
+
         return "new_listing";
     }
 

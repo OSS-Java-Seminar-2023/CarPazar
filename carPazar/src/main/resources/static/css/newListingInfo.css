@@ -1,0 +1,98 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    background-image: url('../images/cartoon.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin: auto;
+}
+
+#additional-mandatory, #additional-optional, #additional-checkboxes {
+    margin-bottom: 25px;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+label {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type=number], input[type=date], input[type=text], select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=checkbox], input[type=radio] {
+    margin-right: 5px;
+}
+
+button, input[type=submit] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#back-button {
+    background-color: #808080;
+}
+
+button:hover, input[type=submit]:hover {
+    filter: brightness(85%);
+}
+input[type=submit] {
+    background-color:  #007bff;
+    float: none;
+}
+
+.buttons-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.radio-group {
+    display: flex;
+    align-items: center;
+}
+
+.radio-group label {
+    margin-right: 10px;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 5px;
+}

@@ -12,9 +12,12 @@
 </head>
 <body onload="hideSteps()">
     <div th:replace="fragments/navbar :: navbarDiv"></div>
-    
+
     <form method="post" enctype="multipart/form-data">
         <div id="general-info">
+            <div class="centered-container">
+                <h1>Basic Car Info</h1>
+            </div>
             <label for="title">Title:</label><br>
             <input type="text" name="title" placeholder="Listing Title" maxlength="64" required><br><br>
 
@@ -23,17 +26,21 @@
 
             <label for="price">Price:</label><br>
             <input type="number" name="price" placeholder="Listing Price" min="1" max="2147483647" required>€<br><br>
+
+            <button type="button" id="next-button" onclick="showNext()">Next</button>
         </div>
 
         <div id="image-upload">
-            <label for="images">Select images for upload</label><br>
+            <div class="centered-container">
+                <h1>Add Pictures Of Your Car</h1>
+            </div>
+            <label for="images">Select images for upload</label>
             <input type="file" name="images" multiple accept="image/png, image/jpg, image/jpeg, image/bmp" required><br><br>
-            
+
+            <button type="button" id="back-button" onclick="showPrevious()">Back</button>
             <input type="submit">
         </div>
 
-        <button type="button" id="back-button" onclick="showPrevious()">Back</button>
-        <button type="button" id="next-button" onclick="showNext()">Next</button>
     </form>
 
     <script src="/javaScript/newListing.js"></script>

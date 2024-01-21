@@ -48,7 +48,6 @@ public class ChatService {
     public void deleteByListingId(Listing listing) {
         List<Chat> chats = chatRepository.findAllByListingId(listing);
         for (Chat chat : chats) {
-            System.out.println("CHAT IN"+chat.getBuyerId().getUserName());
             chatRepository.deleteByListingId(listing);
         }
     }

@@ -39,7 +39,6 @@ public class MessageService {
     public void deleteByChatId(Chat chat) {
         List<Message> messages = messageRepository.findAllByChatId(chat);
         for (Message msg : messages) {
-            System.out.println("msg in"+msg.getMessageContent());
             messageRepository.deleteByChatId(chat);
         }
     }

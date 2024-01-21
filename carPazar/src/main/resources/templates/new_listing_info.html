@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/new_listing.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/newListingInfo.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Listing info</title>
@@ -46,15 +46,15 @@
                 <option value="manual">Manual</option>
             </select><br><br>
         
-            <label for="kilometersTravelled">Odometer:</label><br>
-            <input type="number" name="kilometersTravelled" placeholder="Kilometerage" min="0" max="999999" required>km<br><br>
+            <label for="kilometersTravelled">Odometer (km):</label><br>
+            <input type="number" name="kilometersTravelled" placeholder="Kilometerage" min="0" max="999999" required><br><br>
         
             <label for="manufactureYear">Manufacture year:</label><br>
             <input type="number" name="manufactureYear" placeholder="Manufacture Year" min="1900" max="2100" required><br><br>
         
             <label for="registrationUntil">Registered until:</label><br>
             <input type="date" id="reg-date" name="registrationUntil" placeholder="Registration Date" min="2020-01-01" max="2099-12-31" required>
-            <label for="unregistered">Vehicle is unregistered</label>
+            <label for="unregistered">Vehicle is unregistered:</label>
             <input type="checkbox" id="reg-checkbox" name="unregistered" onchange="disableRegInput()"><br><br>
         
             <label for="ownerNo">Owner:</label><br>
@@ -63,19 +63,24 @@
                 <option value="2">Second</option>
                 <option value="3">Third or more</option>
             </select><br><br>
-        
+
             <label for="isUsed">Car condition:</label><br>
-            <input type="radio" name="isUsed" value="false"><label for="is-used">New</label>
-            <input type="radio" name="isUsed" value="true" checked><label for="is-used">Used</label><br><br>
-        
+            <div class="radio-group">
+                <input type="radio" id="is-used-new" name="isUsed" value="false">
+                <label for="is-used-new">New</label>
+                <input type="radio" id="is-used-old" name="isUsed" value="true" checked>
+                <label for="is-used-old">Used</label>
+            </div><br><br>
+
+
             <label for="location">Location:</label><br>
             <select name="location" id="select-county" required>
                 <option value="" disabled selected>Location</option>
             </select>
         </div>
-        
+
         <div id="additional-optional">
-            <label for="inTrafficSince">In traffic since</label><br>
+            <label for="inTrafficSince">In traffic since:</label><br>
             <input type="number" name="inTrafficSince" placeholder="Year" min="1900" max="2100"><br>
         
             <label for="doorCount">Door count:</label><br>
@@ -105,8 +110,8 @@
                 <option value="awd">AWD</option>
             </select><br>
         
-            <label for="consumption">Consumption:</label><br>
-            <input type="number" name="consumption" placeholder="Consumption" min="0" max="99.9"><label for="consumption">L/100km</label><br>
+            <label for="consumption">Consumption (L/100km):</label><br>
+            <input type="number" name="consumption" placeholder="Consumption" min="0" max="99.9"><br>
         
             <label for="acType">AC type:</label><br>
             <select name="acType">
@@ -123,7 +128,7 @@
             <input type="text" name="color" placeholder="Color" maxlength="32"><br>
         
         </div>
-        
+
         <div id="additional-checkboxes">
             <article id="equipment">
                 <label for="additional-equipment"><h2>Additional equipment:</h2></label>
@@ -168,7 +173,7 @@
             <input type="hidden" name="additionalEquipment" value="0">
             <input type="hidden" name="extraFeatures" value="0">
         
-            <input type="submit">
+            <input type="submit" class="submit_button">
         </div>
 
         <button type="button" id="back-button" onclick="showPrevious()">Back</button>
