@@ -40,3 +40,63 @@ ul {
     list-style-type: none;
     padding: 0;
 }
+
+.intro-container {
+    margin: 70px;
+    text-align: center;
+}
+
+.premium-listings {
+    text-align: center;
+    margin: 70px;
+    border: 2px solid #333;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-x: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.carousel-item {
+    width: 100%;
+}
+
+.carousel-control-prev,.carousel-control-next {
+    align-self: center;
+    z-index: 1;
+}
+.premium-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.premium-list li {
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.arrow {
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.arrow.prev {
+    left: 0;
+}
+
+.arrow.next {
+    right: 0;
+}
