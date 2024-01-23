@@ -1,15 +1,13 @@
 package hr.carpazar.controllers;
 
 import hr.carpazar.dtos.*;
-import hr.carpazar.models.Chat;
-import hr.carpazar.models.Listing;
-import hr.carpazar.models.Specification;
-import hr.carpazar.models.User;
+import hr.carpazar.models.*;
 import hr.carpazar.repositories.UserRepository;
 import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +37,19 @@ public class UserController {
     @Autowired
     private SpecificationService specificationService;
 
-    @GetMapping(path="/home")
-    public String home(){
+    @GetMapping(path="/{string}")
+    public String nothing(String string){
+        return "redirect:/notFound";
+    }
+
+    @GetMapping({"/", "/home"})
+    public String home(HttpSession httpSession, Model model) {
+        String userId = (String) httpSession.getAttribute("user_id");
+        if (userId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
+
         return "home";
     }
 
@@ -56,12 +65,12 @@ public class UserController {
 
     @GetMapping(path="/adminPanel")
     public String openAdminPanel(Model model, HttpSession session){
-        String loggedInUsername = (String) session.getAttribute("user_username");
         String userId = (String) session.getAttribute("user_id");
         List<User> users=userService.getAllUsers();
         List<Listing> listings=listingService.getAll();
         if(userId == null || !userService.checkIfAdminByUserId(userId)){
-            return "redirect:/notFound";
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
         model.addAttribute("users", users);
         model.addAttribute("listings", listings);
@@ -72,10 +81,11 @@ public class UserController {
 
     @GetMapping(path = {"/user", "/user/{username}"})
     public String openUserPage(@PathVariable(name = "username", required = false) Optional<String> usernameOptional, Model model, HttpSession session) {
+        String loggedInId = (String) session.getAttribute("user_id");
         String loggedInUsername = (String) session.getAttribute("user_username");
-        String userId = (String) session.getAttribute("user_id");
-        if (userId == null || loggedInUsername == null){
-            return "redirect:/login";
+        if (loggedInId == null){
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
 
         if (usernameOptional.isPresent()) {
@@ -100,7 +110,7 @@ public class UserController {
             }
         }
 
-        model.addAttribute("userId", userId);
+        model.addAttribute("userId", loggedInId);
         model.addAttribute("username", loggedInUsername);
 
 
@@ -136,15 +146,22 @@ public class UserController {
     }
 
     @GetMapping("otherUser")
-    public String openOtherUserPage() {
+    public String openOtherUserPage(HttpSession session, Model model) {
+        String userid = session.getAttribute("user_id").toString();
+        if (userid == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
         return "otheruser";
     }
 
     @PostMapping(path = "/user/update")
-    public String userUpdate(@ModelAttribute UserDto userDto, HttpSession session) throws ParseException {
+    public String userUpdate(@ModelAttribute UserDto userDto, HttpSession session, Model model) throws ParseException {
+        String loggedInID = session.getAttribute("user_id").toString();
         String loggedInUsername = (String) session.getAttribute("user_username");
-        if (loggedInUsername == null) {
-            return "redirect:/login";
+        if (loggedInID == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
 
         User existingUser = userService.findByUserName(loggedInUsername);
@@ -162,7 +179,7 @@ public class UserController {
 
         userService.saveUser(existingUser);
 
-        return "redirect:/login";
+        return "redirect:/logout";
     }
 
     @PostMapping(path = "/user/passwordChange")
@@ -171,6 +188,11 @@ public class UserController {
                                      @RequestParam("new_pass2") String newPassword2,
                                      HttpSession session ,Model model)
     {
+        String loggedInUsername = session.getAttribute("user_id").toString();
+        if (loggedInUsername == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
         try{
             String username = (String) session.getAttribute("user_username");
 
@@ -180,10 +202,10 @@ public class UserController {
             currentUser.setHashedPassword(hashedNewPassword);
             userService.saveUser(currentUser);
 
-            return "redirect:/login";
+            return "redirect:/logout";
         }catch (RuntimeException e){
             model.addAttribute("alert_ch_pass", "Current Password is incorrect! Login again!");
-            return "login";
+            return "logout";
         }
 
     }
@@ -227,8 +249,13 @@ public class UserController {
 
 
     @GetMapping("/editUser/{username}")
-    public String editUser(@PathVariable("username") String username, Model model) {
+    public String editUser(@PathVariable("username") String username, Model model, HttpSession session) {
         Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
+        String loggedInUsername = session.getAttribute("user_id").toString();
+        if (loggedInUsername == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -253,7 +280,12 @@ public class UserController {
     }
 
     @PostMapping("/editUser/update")
-    public String updateUser(@ModelAttribute UserDto userDto) throws ParseException {
+    public String updateUser(@ModelAttribute UserDto userDto,HttpSession session,Model model) throws ParseException {
+        String loggedInUsername = session.getAttribute("user_id").toString();
+        if (loggedInUsername == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
         String username = userDto.getUsername();
         System.out.println(username);
 
@@ -273,12 +305,17 @@ public class UserController {
     }
     @RequestMapping("/deleteUser/{username}")
     @Transactional
-    public String deleteUser(@PathVariable String username) {
+    public String deleteUser(@PathVariable String username,Model model, HttpSession session) {
+        String loggedInUsername = session.getAttribute("user_id").toString();
+        User user=userService.findById(loggedInUsername);
+        if (loggedInUsername == null || !user.getIsAdmin()) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
         Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
         if (!userOptional.isPresent()) {
             return "redirect:/notFound";
         }
-        User user = userOptional.get();
         List<Listing> listings = listingService.findByUserId(user.getId());
         List<Chat> chats = chatService.findByUserID(user);
         reviewService.deleteByUser(user);
@@ -296,8 +333,12 @@ public class UserController {
     @GetMapping(path="/mylistings")
     public String viewListings(Model model, HttpSession session)
     {
-        String userId = (String) session.getAttribute("user_id");
-        List<Listing> userListings = listingService.findByUserId(userId);
+        String loggedInId = session.getAttribute("user_id").toString();
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
+        List<Listing> userListings = listingService.findByUserId(loggedInId);
         model.addAttribute("listings",userListings);
         return "mylistings";
     }
@@ -305,9 +346,11 @@ public class UserController {
     @GetMapping(path="/myMessages")
     public String viewMyMessages(Model model, HttpSession session)
     {
+        String loggedInId = session.getAttribute("user_id").toString();
         String loggedInUsername = (String) session.getAttribute("user_username");
-        if (loggedInUsername == null) {
-            return "redirect:/login";
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
         User user=userService.findByUserName(loggedInUsername);
         List<Chat> chats = chatService.findByUserID(user);
@@ -329,7 +372,7 @@ public class UserController {
     }
 
     @GetMapping(path="/recoverPassword")
-    public String recoverPassword(){
+    public String recoverPassword(HttpSession session, Model model){
         return "recover-password";
     }
     @PostMapping(path="/recoverPassword")
@@ -347,10 +390,12 @@ public class UserController {
     }
 
     @PostMapping(path="/premiumRequest")
-    public String premiumRequest(HttpSession session) {
+    public String premiumRequest(HttpSession session, Model model) {
+        String loggedInId = session.getAttribute("user_id").toString();
         String loggedInUsername = (String) session.getAttribute("user_username");
-        if (loggedInUsername == null) {
-            return "redirect:/login";
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
         User user = userService.findByUserName(loggedInUsername);
         emailService.sendPremiumAccRequest(user);

@@ -38,10 +38,11 @@ public class ChatController {
     }
 
     @GetMapping("/start-chat/{listingId}")
-    public String startChatWithSeller(@PathVariable(name = "listingId", required = true) String listingId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String startChatWithSeller(@PathVariable(name = "listingId", required = true) String listingId, HttpSession session, RedirectAttributes redirectAttributes,Model model) {
         String loggedInUser = (String) session.getAttribute("user_id");
         if (loggedInUser == null) {
-            return "redirect:/login";
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
 
         User seller=listingService.findSellerByListingID(listingId);
@@ -72,9 +73,9 @@ public class ChatController {
     public String openChat(@PathVariable("chatid") String chatid, Model model, HttpSession session)
     {
         String loggedInUser = (String) session.getAttribute("user_id");
-        String loggedInUserUsername = (String) session.getAttribute("user_username");
-        if(loggedInUser == null){
-            return "redirect:/login";
+        if (loggedInUser == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
         Optional<Chat> chatOptional=chatService.findByID(chatid);
 
@@ -113,10 +114,11 @@ public class ChatController {
     }
 
     @PostMapping("/sendMessage")
-    public String sendMessage(@RequestParam("message") String messageText, @RequestParam("chatId") String chatId, @RequestParam("sender") String senderID, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String sendMessage(@RequestParam("message") String messageText, @RequestParam("chatId") String chatId, @RequestParam("sender") String senderID, Model model,HttpSession session, RedirectAttributes redirectAttributes) {
         String loggedInUser = (String) session.getAttribute("user_id");
         if (loggedInUser == null) {
-            return "redirect:/login";
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
         Optional<Chat> chat= chatService.findByID(chatId);
         if(!chat.isPresent()){

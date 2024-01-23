@@ -27,7 +27,12 @@ public class SpecificationController {
     }
 
     @PostMapping(path = "/add-info")
-    public String addListingSpecs(@ModelAttribute SpecificationDto specificationDto, HttpSession httpSession){
+    public String addListingSpecs(@ModelAttribute SpecificationDto specificationDto, HttpSession httpSession,Model model){
+        String userid = httpSession.getAttribute("user_id").toString();
+        if (userid == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
         String listingid = httpSession.getAttribute("listing_id").toString();
 
         Specification specs = specificationService.createSpecificationFromDto(specificationDto, listingid);
@@ -35,16 +40,6 @@ public class SpecificationController {
 
         return "redirect:/listingWithImages/" + listingid;
     }
-    @GetMapping(path="/listing/{listingId}")
-    public String viewListing(@PathVariable String listingId, Model model){
-        Listing listing = listingService.findById(listingId);
-        Specification specification = specificationService.findByListingId(listingId);
-        model.addAttribute("listing",listing);
-        model.addAttribute("specification",specification);
-        return "listingView";
-    }
-
-
 
     public SpecificationController(SpecificationService specificationService) {
         this.specificationService = specificationService;

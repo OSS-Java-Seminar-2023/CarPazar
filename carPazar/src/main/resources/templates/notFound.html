@@ -11,10 +11,11 @@
     <title>Page Not Found</title>
 </head>
 <body>
-    <div th:replace="fragments/navbar :: navbarDiv"></div>
+    <div th:replace="fragments/navbarNotLoggedIn :: navbarDiv"></div>
     <div class="div1">
-        <h1>Oops! Page Not Found</h1>
-        <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+        <h1 th:if="${not_logged_in}" th:text="${not_logged_in}"></h1>
+        <h1 th:if="${not_logged_in==null}">Oops! Page Not Found</h1>
+        <p th:if="${not_logged_in==null}">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
     </div>
 </body>
 </html>

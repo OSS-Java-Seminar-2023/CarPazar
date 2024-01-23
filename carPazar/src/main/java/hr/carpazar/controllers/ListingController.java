@@ -41,10 +41,11 @@ public class ListingController {
 
 
     @GetMapping(path="/add-listing")
-    public String openListingForm(HttpSession httpSession){
+    public String openListingForm(HttpSession httpSession,Model model){
         String userid = (String) httpSession.getAttribute("user_id");
-        if(userid==null){
-            return "redirect:/notFound";
+        if (userid == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
         }
 
         return "new_listing";
@@ -53,8 +54,12 @@ public class ListingController {
 
     // kod nece radit ako u sesiji ne postoji user (zabranit pokusaj stvaranja listinga triba ako nije logged in)
     @PostMapping(path="/add-listing")
-    public String newListing(@ModelAttribute ListingDto listingDto, @RequestParam("images")List<MultipartFile> imageList, HttpSession httpSession){
+    public String newListing(@ModelAttribute ListingDto listingDto, @RequestParam("images")List<MultipartFile> imageList, HttpSession httpSession, Model model){
         String userid = httpSession.getAttribute("user_id").toString();
+        if (userid == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
 
         Listing listing = listingService.createListingFromDto(listingDto, userid);
 
@@ -108,7 +113,12 @@ public class ListingController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam("query") String query, Model model) {
+    public String search(@RequestParam("query") String query, Model model, HttpSession httpSession) {
+        String userid = httpSession.getAttribute("user_id").toString();
+        if (userid == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
         String[] keywords = query.trim().split("\\s+");
         List<Listing> searchResults = listingService.search(keywords);
         model.addAttribute("searchResults", searchResults);
@@ -116,8 +126,13 @@ public class ListingController {
     }
 
     @GetMapping(path= "/listings")
-    public String openAllListingsForm(Model model)
+    public String openAllListingsForm(Model model, HttpSession httpSession)
     {
+     /*   String userid = httpSession.getAttribute("user_id").toString();
+        if (userid == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }*/
         List<Listing> listings = listingService.getAll();
         model.addAttribute("listings",listings);
         return "allListings";
@@ -125,8 +140,13 @@ public class ListingController {
 
     @Transactional
     @PostMapping("/deleteListing/{id}")
-    public String deleteListing(@PathVariable String id, HttpSession session) {
+    public String deleteListing(@PathVariable String id, HttpSession session,Model model) {
+        String loggedInId = session.getAttribute("user_id").toString();
         String loggedInUsername = (String) session.getAttribute("user_username");
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
         User user = userService.findByUserName(loggedInUsername);
 
         Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(id));
@@ -147,6 +167,23 @@ public class ListingController {
 
         return "redirect:/adminPanel";
     }
+
+    @GetMapping(path="/listing/{listingId}")
+    public String viewListing(@PathVariable String listingId, Model model,HttpSession httpSession){
+        String userid = httpSession.getAttribute("user_id").toString();
+        if (userid == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
+        Listing listing = listingService.findById(listingId);
+        Specification specification = specificationService.findByListingId(listingId);
+        model.addAttribute("listing",listing);
+        model.addAttribute("specification",specification);
+        return "listingView";
+    }
+
+
+
 
     public ListingController(ListingService listingService) {
         this.listingService = listingService;
