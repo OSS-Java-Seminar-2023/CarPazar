@@ -17,7 +17,7 @@ CarPazar is an application designed to assist users in selling and buying cars f
 
 ### User Profiles
 
-Each user needs to create a profile in order to do anything except browsing. CarPazar profiles consist of a username, email, phone number, profile picture, and the user's full name. Profiles can be created without some of these details, but limited profiles have restricted functionality. Limited accounts are permitted to see seller's contact information and leave reviews on the seller's profile.
+Each user needs to create a profile in order to do anything except browsing. CarPazar profiles consist of a username, email, phone number, user's full name and other details. Profiles are required in order to gain trust within CarPazar community.
 
 In order to create a car listing, users must fully complete their profile information.
 
@@ -25,8 +25,6 @@ In order to create a car listing, users must fully complete their profile inform
 ### Premium Profile
 
 Premium profiles enjoy increased exposure for their car listings, leading to faster sales and a higher volume of potential buyers. This is ideal for sellers seeking maximum visibility for their cars, such as power sellers, dealerships, or individuals with a large inventory of cars to sell. Premium profiles help users gain a competitive edge and stand out in a crowded marketplace, ensuring their car listings are seen by more users.
-
-Premium profiles may be acquired through the accumulation of positive reviews by consistently offering excellent service or by reviewing a significant number of cars that you've bought. This rewards sellers for providing exceptional service and maintaining a high level of trust within the CarPazar community.
 
 
 ### Premium Listing
@@ -36,8 +34,7 @@ Are you in a hurry to sell a car but don't have a Premium Profile? Don't worry! 
 
 ### Ratings
 
-Each seller has a rating ranging between 1.0 and 5.0. We highly recommend leaving a review on the seller's profile after a car purchase to help create a safer and more trustworthy trading environment. Reviews must contain a rating, but the reason is optional. As mentioned earlier, actively engaging in reviews can potentially elevate your standard profile to a premium one if you currently don't have a premium profile.
-
+Each seller has a rating ranging between 1.0 and 5.0. We highly recommend leaving a review on the seller's profile after a car purchase to help create a safer and more trustworthy trading environment. Good ratings will give you trust within CarPazar community.
 
 ### Listings
 
@@ -51,22 +48,18 @@ Each car listing has specific requirements:
   - Listing description
   - Key details about the car
   - Contact information of the seller
-  - Mileage, year, make, and model of the car
+  - Mileage, year, make, model of the car
+  - Other additional details/equipment
 
 
 ### Search Bar
 
-Using the search bar will filter out all the car listings in the same (sub)category based on their titles. If a search is done outside of a category, recommended categories will show up, based on the quantity of results within those categories.
+Using the search bar will filter out all the car listings in the same (sub)category based on their titles.
 
 
-### Wishlist
+### Chat
 
-Your CarPazar Wishlist is like your secret car shopping helper. Whether you are looking for ideas, keeping track of your dream cars, or just staying organized with your car interests, our Wishlist makes online car shopping more fun and simple.
-
-
-### Favourite Categories
-
-CarPazar's Favorite Car Categories feature is your key to a more personalized and convenient car shopping experience. We understand that your car interests are diverse, and that's why we've created this feature to help you easily explore the cars you love most on our platform. Users can filter their categories of interest and turn on notifications if they want to receive updates about new car listings, special promotions, or price changes within those selected categories.
+Users can message car sellers through our application and ask any questions about listings they are interested in!
 
 
 ### Database 
