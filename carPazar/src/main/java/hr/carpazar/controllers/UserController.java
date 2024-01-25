@@ -44,12 +44,6 @@ public class UserController {
 
     @GetMapping({"/", "/home"})
     public String home(HttpSession httpSession, Model model) {
-        String userId = (String) httpSession.getAttribute("user_id");
-        if (userId == null) {
-            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
-            return "notFound";
-        }
-
         return "home";
     }
 

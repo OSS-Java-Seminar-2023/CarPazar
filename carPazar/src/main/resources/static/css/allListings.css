@@ -21,15 +21,20 @@ body {
     align-items: center;
     width: 50%;
     box-sizing: border-box;
+    height: 170 px;
+    max-height: 170 px;
+    overflow: hidden;
 }
 
 .listing_details {
     padding-right: 20px;
     flex: 1;
+    overflow: auto;
 }
 
 .listing_image {
     width: auto;
+    margin-left: 10px;
 }
 
 .listing_image_img {
@@ -45,58 +50,66 @@ ul {
     margin: 70px;
     text-align: center;
 }
+.premium_listing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    width: 100%;
 
-.premium-listings {
-    text-align: center;
-    margin: 70px;
-    border: 2px solid #333;
-    padding: 10px;
-    border-radius: 10px;
-    overflow-x: hidden;
 }
 
-.carousel-inner {
+.premium_listing_container {
+    border: 2px solid #FFD700;
+    padding: 10px;
+    margin: 10px auto;
     display: flex;
     align-items: center;
+    width: 50%;
+    box-sizing: border-box;
+    height: 170 px;
+    max-height: 170 px;
+    overflow: hidden;
+}
+
+.listing_details {
+    padding-right: 20px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.listing_image {
+    width: 400px;
+    max-width: 400px;
+    height: 150px;
+    max-height: 150px;
     position: relative;
-}
-
-.carousel-item {
-    width: 100%;
-}
-
-.carousel-control-prev,.carousel-control-next {
-    align-self: center;
-    z-index: 1;
-}
-.premium-list {
-    list-style-type: none;
-    padding: 0;
+    overflow: hidden;
+    margin: 0 auto;
     display: flex;
-    transition: transform 0.3s ease;
-}
-
-.premium-list li {
-    margin: 0 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-
-.arrow {
-    font-size: 24px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
     z-index: 1;
+    margin-left: 10px;
+    flex-shrink: 0;
 }
 
-.arrow.prev {
-    left: 0;
+.listing_image_img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain !important;
 }
 
-.arrow.next {
-    right: 0;
+.listing_details > * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+.premium_listing_details > * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+

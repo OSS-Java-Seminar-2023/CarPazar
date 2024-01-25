@@ -8,8 +8,6 @@
     <link rel="stylesheet" th:href="@{/css/allListings.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <title>Listings</title>
 </head>
 <body>
@@ -19,12 +17,10 @@
     <p>Explore a variety of listings below. Find the perfect car that suits your needs.</p>
     <p>Number of Listings: <span th:text="${listings.size} + ' listings'"></span></p>
 </div>
-<div class="premium-listings">
-    <h3>Premium listings</h3>
-    <div id="premiumCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div th:each="listing, iterStat : ${listings}" class="carousel-item" th:classappend="${iterStat.first}? 'active'">
-                <div class="listing_container">
+<div class="premium_listing">
+        <ul>
+            <li th:each="listing : ${listings}" th:if="${listing.isSponsored}">
+                <div class="premium_listing_container">
                     <div class="listing_details">
                         <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                         <p th:text="${listing.description}"></p>
@@ -35,24 +31,16 @@
                         <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
                     </div>
                 </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#premiumCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#premiumCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+            </li>
+        </ul>
 </div>
 
 <div class="listings_right_side">
     <ul>
-        <li th:each="listing : ${listings}">
+        <li th:each="listing : ${listings}" >
             <div class="listing_container">
                 <div class="listing_details">
+                    <p th:text="${listing.isSponsored}">isSponsored</p>
                     <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                     <p th:text="${listing.description}"></p>
                     <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
