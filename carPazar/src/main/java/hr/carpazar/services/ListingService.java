@@ -178,6 +178,25 @@ public class ListingService {
 
         return listingPage;
     }
+
+    public Page findPaginatedByUser(PageRequest pageable,String loggedInId) {
+        List<Listing> allListings = findByUserId(loggedInId);
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Listing> list;
+
+        if (allListings.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, allListings.size());
+            list = allListings.subList(startItem, toIndex);
+        }
+
+        Page<Listing> listingPage = new PageImpl<Listing>(list, PageRequest.of(currentPage, pageSize), allListings.size());
+
+        return listingPage;
+    }
     public Listing findById(String id){
         return listingRepository.findById(id).get(0);
     }

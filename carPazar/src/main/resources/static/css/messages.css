@@ -149,3 +149,34 @@ h1 {
 .close-button:hover {
     background-color: darkblue;
 }
+.pagination {
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+        list-style: none;
+        }
+
+.pagination .page-item {
+            display: inline;
+        }
+
+.pagination .page-link {
+            border: 1px solid #007bff;
+            padding: 5px 10px;
+            margin-left: 5px;
+            text-decoration: none;
+            color: #007bff;
+            background-color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+.pagination .page-link:hover {
+            color: white;
+            background-color: #007bff;
+        }
+
+.pagination .active .page-link {
+            color: white;
+            background-color: #007bff;
+        }

@@ -135,7 +135,7 @@ public class ListingController {
     public String openAllListingsForm(Model model, HttpSession httpSession,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size)
     {
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int pageSize = size.orElse(1);
 
         Page<Listing> listingPage=listingService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
         List<Listing> listings = listingService.getAll();

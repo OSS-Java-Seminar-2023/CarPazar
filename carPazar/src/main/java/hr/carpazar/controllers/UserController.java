@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.parser.HttpParser;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.ui.Model;
 
@@ -325,15 +329,30 @@ public class UserController {
     }
 
     @GetMapping(path="/mylistings")
-    public String viewListings(Model model, HttpSession session)
+    public String viewListings(Model model, HttpSession httpSession,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size)
     {
-        String loggedInId = session.getAttribute("user_id").toString();
+        String loggedInId = httpSession.getAttribute("user_id").toString();
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
-        List<Listing> userListings = listingService.findByUserId(loggedInId);
-        model.addAttribute("listings",userListings);
+        List<Listing> listings = listingService.findByUserId(loggedInId);
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+
+        Page<Listing> listingPage=listingService.findPaginatedByUser(PageRequest.of(currentPage - 1, pageSize),loggedInId);
+
+        int totalPages = listingPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("listingPage", listingPage);
+        model.addAttribute("listings",listings);
         return "mylistings";
     }
 
