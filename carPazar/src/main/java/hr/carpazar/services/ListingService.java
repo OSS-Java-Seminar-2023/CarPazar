@@ -6,6 +6,9 @@ import hr.carpazar.models.User;
 import hr.carpazar.repositories.ListingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -155,6 +158,25 @@ public class ListingService {
         }
 
         return searchResults;
+    }
+
+    public Page findPaginated(PageRequest pageable) {
+        List<Listing> allListings = listingRepository.findAll();
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Listing> list;
+
+        if (allListings.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, allListings.size());
+            list = allListings.subList(startItem, toIndex);
+        }
+
+        Page<Listing> listingPage = new PageImpl<Listing>(list, PageRequest.of(currentPage, pageSize), allListings.size());
+
+        return listingPage;
     }
     public Listing findById(String id){
         return listingRepository.findById(id).get(0);

@@ -7,6 +7,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,8 +24,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static hr.carpazar.services.SpecificationService.checkboxToStringList;
 
@@ -126,15 +132,26 @@ public class ListingController {
     }
 
     @GetMapping(path= "/listings")
-    public String openAllListingsForm(Model model, HttpSession httpSession)
+    public String openAllListingsForm(Model model, HttpSession httpSession,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size)
     {
-     /*   String userid = httpSession.getAttribute("user_id").toString();
-        if (userid == null) {
-            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
-            return "notFound";
-        }*/
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(3);
+
+        Page<Listing> listingPage=listingService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
         List<Listing> listings = listingService.getAll();
+
+
+        model.addAttribute("listingPage", listingPage);
         model.addAttribute("listings",listings);
+
+        int totalPages = listingPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         return "allListings";
     }
 
