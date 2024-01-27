@@ -137,6 +137,7 @@ public class ListingController {
         String loggedInId = httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
         model.addAttribute("userID", loggedInId);
 
+        
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(1);
 

@@ -53,7 +53,7 @@
                     <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                     <p th:text="${listing.description}"></p>
                     <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
-                    <div th:if="${userID != null and userID != listing.userId}">
+                    <div th:if="${userID != null and userID != listing.userId.id}">
                         <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
                     </div>
                 </div>
