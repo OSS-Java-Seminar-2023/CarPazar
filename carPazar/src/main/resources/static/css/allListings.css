@@ -19,7 +19,7 @@ body {
     margin: 10px auto;
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 35%;
     box-sizing: border-box;
     height: 170 px;
     max-height: 170 px;
@@ -44,6 +44,11 @@ body {
 ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
+}
+
+.listing_container:not(:last-child) {
+    margin-bottom: 20px;
 }
 
 .intro-container {
@@ -144,3 +149,25 @@ ul {
             color: white;
             background-color: #007bff;
         }
+
+.sort-dropdown {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#sort {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+#sort option {
+    background-color: #fff;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+}

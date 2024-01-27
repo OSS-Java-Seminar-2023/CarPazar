@@ -132,21 +132,23 @@ public class ListingController {
     }
 
     @GetMapping(path= "/listings")
-    public String openAllListingsForm(Model model, HttpSession httpSession,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size)
+    public String openAllListingsForm(@RequestParam(name = "sort", defaultValue = "dateAsc") String sort,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,Model model, HttpSession httpSession)
     {
         String loggedInId = httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
         model.addAttribute("userID", loggedInId);
 
         
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(1);
+        int pageSize = size.orElse(4);
 
-        Page<Listing> listingPage=listingService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-        List<Listing> listings = listingService.getAll();
+        PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
+
+        List<Listing> sortedListings = getSortedListings(sort);
+        Page<Listing> listingPage=listingService.findPaginated(sortedListings,pageable);
 
 
+        model.addAttribute("sortedListings",sortedListings);
         model.addAttribute("listingPage", listingPage);
-        model.addAttribute("listings",listings);
 
         int totalPages = listingPage.getTotalPages();
         if (totalPages > 0) {
@@ -158,6 +160,23 @@ public class ListingController {
 
         return "allListings";
     }
+
+    public List<Listing> getSortedListings(String sort)
+    {
+        switch (sort){
+            case "priceDesc":
+                return listingService.getAllByPriceDesc();
+            case "priceAsc":
+                return listingService.getAllByPriceAsc();
+            case "dateDesc":
+                return listingService.getAllByDateDesc();
+            case "dateAsc":
+                return listingService.getAllByDateAsc();
+            default:
+                return listingService.getAll();
+        }
+    }
+
 
     @Transactional
     @PostMapping("/deleteListing/{id}")

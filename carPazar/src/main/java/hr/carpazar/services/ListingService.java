@@ -160,21 +160,21 @@ public class ListingService {
         return searchResults;
     }
 
-    public Page findPaginated(PageRequest pageable) {
-        List<Listing> allListings = listingRepository.findAll();
+    public Page findPaginated(List<Listing> sortedListings,PageRequest pageable) {
+        //List<Listing> allListings = listingRepository.findAll();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
         List<Listing> list;
 
-        if (allListings.size() < startItem) {
+        if (sortedListings.size() < startItem) {
             list = Collections.emptyList();
         } else {
-            int toIndex = Math.min(startItem + pageSize, allListings.size());
-            list = allListings.subList(startItem, toIndex);
+            int toIndex = Math.min(startItem + pageSize, sortedListings.size());
+            list = sortedListings.subList(startItem, toIndex);
         }
 
-        Page<Listing> listingPage = new PageImpl<Listing>(list, PageRequest.of(currentPage, pageSize), allListings.size());
+        Page<Listing> listingPage = new PageImpl<Listing>(list, pageable, sortedListings.size());
 
         return listingPage;
     }
@@ -206,4 +206,9 @@ public class ListingService {
         return listingRepository.findByUserId_Id(userId);
     }
     public List<Listing> getAll(){return listingRepository.findAll();}
+    public List<Listing> getAllByPriceDesc(){return listingRepository.findAllByOrderByPriceDesc();}
+    public List<Listing> getAllByPriceAsc(){return listingRepository.findAllByOrderByPriceAsc();}
+    public List<Listing> getAllByDateDesc(){return listingRepository.findAllByOrderByListingDatetimeDesc();}
+    public List<Listing> getAllByDateAsc(){return listingRepository.findAllByOrderByListingDatetimeAsc();}
+
 }

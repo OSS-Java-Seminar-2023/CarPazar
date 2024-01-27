@@ -11,7 +11,11 @@ public interface ListingRepository extends JpaRepository<Listing, UUID>{
 
 
     List<Listing> findByUserId_Id(String id);
-
     List<Listing> findById(String id);
+    List<Listing> findAllByOrderByPriceDesc();
+    List<Listing> findAllByOrderByPriceAsc();
+    List<Listing> findAllByOrderByListingDatetimeDesc();
+    List<Listing> findAllByOrderByListingDatetimeAsc();
+
 
 }
