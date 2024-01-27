@@ -134,6 +134,9 @@ public class ListingController {
     @GetMapping(path= "/listings")
     public String openAllListingsForm(Model model, HttpSession httpSession,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size)
     {
+        String loggedInId = httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
+        model.addAttribute("userID", loggedInId);
+
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(1);
 

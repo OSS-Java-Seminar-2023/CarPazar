@@ -26,13 +26,15 @@
 </nav>
 <div class="premium_listing">
         <ul>
-            <li th:each="listing : ${listings}" th:if="${listing.isSponsored}">
+            <li th:each="listing : ${listingPage.content}" th:if="${listing.isSponsored}">
                 <div class="premium_listing_container">
                     <div class="listing_details">
                         <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                         <p th:text="${listing.description}"></p>
                         <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
-                        <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
+                        <div th:if="${userID != null and userID != listing.userId}">
+                            <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
+                        </div>
                     </div>
                     <div class="listing_image">
                         <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
@@ -51,7 +53,9 @@
                     <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
                     <p th:text="${listing.description}"></p>
                     <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
-                    <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
+                    <div th:if="${userID != null and userID != listing.userId}">
+                        <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
+                    </div>
                 </div>
                 <div class="listing_image">
                     <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
