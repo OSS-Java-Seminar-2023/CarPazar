@@ -222,7 +222,10 @@ public class ListingController {
         return "listingView";
     }
 
-
+    @GetMapping(path="/editListing/{listingId}")//placeholder
+    public String editListing(@PathVariable String listingId, Model model,HttpSession httpSession){
+        return "home"; //placeholder
+    }
 
 
     public ListingController(ListingService listingService) {

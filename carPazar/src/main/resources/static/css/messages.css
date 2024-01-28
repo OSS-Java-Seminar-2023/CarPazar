@@ -121,21 +121,6 @@ h1 {
     text-align: center;
 }
 
-.delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.delete-button:hover {
-    background-color: darkred;
-}
-
 .close-button {
     background-color: blue;
     color: white;
@@ -179,4 +164,22 @@ h1 {
 .pagination .active .page-link {
             color: white;
             background-color: #007bff;
+        }
+ .edit-button {
+        background-color: #2FCB22;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        }
+
+.edit-button:hover {
+        background-color: #248D1B;
         }
