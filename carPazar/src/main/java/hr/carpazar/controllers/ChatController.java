@@ -86,6 +86,7 @@ public class ChatController {
             System.out.println(listingID);
             User buyer=userService.findById(buyerID);
             User seller=listingService.findSellerByListingID(listingID);
+            Listing listing=listingService.findById(listingID);
 
             Map<LocalDateTime, String> messages = messageService.findByChatID(chatid);
 
@@ -97,6 +98,7 @@ public class ChatController {
                 model.addAttribute("user_right_username",buyer.getUserName());
                 model.addAttribute("user_left",seller.getId());
                 model.addAttribute("user_left_username",seller.getUserName());
+                model.addAttribute("listing",listing);
                 return "chat";
             }
             else if(loggedInUser.equals(seller.getId())){
@@ -104,6 +106,7 @@ public class ChatController {
                 model.addAttribute("user_right_username",seller.getUserName());
                 model.addAttribute("user_left",buyer.getId());
                 model.addAttribute("user_left_username",buyer.getUserName());
+                model.addAttribute("listing",listing);
                 return "chat";
             }
             else{

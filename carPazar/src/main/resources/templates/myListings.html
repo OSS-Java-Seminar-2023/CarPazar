@@ -31,6 +31,7 @@
                     <div class="listing_image">
                         <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
                     </div>
+                    <a th:href="@{'/editListing/'+${listing.id}}" class="edit-button">Edit</a>
                     <a href="javascript:void(0);"
                        th:data-username="${listing.title}"
                        th:data-id="${listing.id}"
