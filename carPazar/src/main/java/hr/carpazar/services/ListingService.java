@@ -210,9 +210,20 @@ public class ListingService {
         return listingRepository.findByUserId_Id(userId);
     }
     public List<Listing> getAll(){return listingRepository.findAll();}
-    public List<Listing> getAllByPriceDesc(){return listingRepository.findAllByOrderByPriceDesc();}
-    public List<Listing> getAllByPriceAsc(){return listingRepository.findAllByOrderByPriceAsc();}
-    public List<Listing> getAllByDateDesc(){return listingRepository.findAllByOrderByListingDatetimeDesc();}
-    public List<Listing> getAllByDateAsc(){return listingRepository.findAllByOrderByListingDatetimeAsc();}
+    private List<Listing> getAllByPriceDesc(){return listingRepository.findAllByOrderByPriceDesc();}
+    private List<Listing> getAllByPriceAsc(){return listingRepository.findAllByOrderByPriceAsc();}
+    private List<Listing> getAllByDateDesc(){return listingRepository.findAllByOrderByListingDatetimeDesc();}
+    private List<Listing> getAllByDateAsc(){return listingRepository.findAllByOrderByListingDatetimeAsc();}
+
+    public List<Listing> getSortedListings(String sort)
+    {
+        return switch (sort) {
+            case "priceDesc" -> getAllByPriceDesc();
+            case "priceAsc" -> getAllByPriceAsc();
+            case "dateDesc" -> getAllByDateDesc();
+            case "dateAsc" -> getAllByDateAsc();
+            default -> getAll();
+        };
+    }
 
 }

@@ -1441,7 +1441,6 @@
         });
     }
 
-
     function disableRegInput(){
         let checkbox = document.getElementById("reg-checkbox");
         let date = document.getElementById("reg-date");
@@ -1491,3 +1490,4 @@
         for(let i = 1; i < allFormDivs.length; i++)
             allFormDivs[i].style.display = "none";
     }
+

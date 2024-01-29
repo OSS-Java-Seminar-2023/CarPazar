@@ -1,5 +1,6 @@
 package hr.carpazar.controllers;
 
+import hr.carpazar.dtos.FilterDto;
 import hr.carpazar.dtos.ListingDto;
 import hr.carpazar.dtos.UserDto;
 import hr.carpazar.models.*;
@@ -47,6 +48,8 @@ public class ListingController {
     private MessageService messageService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private FilterService filterService;
 
 
     @GetMapping(path="/add-listing")
@@ -146,7 +149,7 @@ public class ListingController {
 
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 
-        List<Listing> sortedListings = getSortedListings(sort);
+        List<Listing> sortedListings = listingService.getSortedListings(sort);
         Page<Listing> listingPage=listingService.findPaginated(sortedListings,pageable);
 
 
@@ -164,21 +167,24 @@ public class ListingController {
         return "allListings";
     }
 
-    public List<Listing> getSortedListings(String sort)
-    {
-        switch (sort){
-            case "priceDesc":
-                return listingService.getAllByPriceDesc();
-            case "priceAsc":
-                return listingService.getAllByPriceAsc();
-            case "dateDesc":
-                return listingService.getAllByDateDesc();
-            case "dateAsc":
-                return listingService.getAllByDateAsc();
-            default:
-                return listingService.getAll();
-        }
+    @PostMapping(path = "/listings")
+    public String openFilteredListings(@ModelAttribute FilterDto filterDto, Model model, HttpSession httpSession){
+
+        Filter filters = filterService.setDefaults(filterDto);
+
+        PageRequest pageable = PageRequest.of(filters.getPage(), filters.getSize());
+
+        List<Listing> sortedListings = listingService.getSortedListings(filters.getSort());
+
+        Page<Listing> listingPage=listingService.findPaginated(sortedListings,pageable);
+
+        model.addAttribute("sortedListings",sortedListings);
+        model.addAttribute("listingPage", listingPage);
+
+        return "allListings";
     }
+
+
 
 
     @Transactional

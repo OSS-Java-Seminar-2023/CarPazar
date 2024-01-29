@@ -186,7 +186,7 @@ a {
 
     </style>
 </head>
-<body>
+<body onload="specsInit()">
 <div th:replace="fragments/navbar :: navbarDiv"></div>
 <div class="intro-container">
     <h2>Welcome to Our Listings Page.</h2>
@@ -204,6 +204,132 @@ a {
     </select>
 </div>
 
+<div class="filter-bar">
+    <form method="post" id="filter-form">
+
+        <input type="hidden" name="size" value="5">
+        <input type="hidden" name="page" value="1"> <!-- maknit? -->
+
+        <label for="sort">Sort by:</label>
+        <select id="sort">
+            <option value="" disabled selected>Choose the sorting</option>
+            <option value="dateAsc">Oldest</option>
+            <option value="dateDesc">Most Recent</option>
+            <option value="priceDesc">Most expensive</option>
+            <option value="priceAsc">Least expensive</option>
+        </select><br><br>
+
+        <label for="brand">Make:</label><br>
+        <select name="brand" id="select-brand" onchange="updateModels()">
+            <option value="any" selected>Any</option>
+        </select><br><br>
+            
+        <label for="model">Model:</label><br>
+        <select name="model" id="select-model">
+            <option value="any" selected>Any</option>
+        </select><br><br>
+            
+        <label for="enginePowerMin">Engine power:</label><br>
+        <input type="number" name="enginePowerMin" id="engine-power" placeholder="Engine Power" min="0" max="999">
+        <label for="enginePowerMax">to</label>
+        <input type="number" name="enginePowerMax" id="engine-power" placeholder="Engine Power" min="0" max="999"><br><br>
+
+            
+        <label for="engineType">Engine type:</label><br>
+        <select name="engineType">
+            <option value="any" selected>Any</option>
+            <option value="diesel">Diesel</option>
+            <option value="gasoline">Gasoline/Gas</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="electric">EV</option>
+        </select><br><br>
+            
+        <label for="shifterType">Transmission:</label><br>
+        <select name="shifterType">
+            <option value="any" selected >Any</option>
+            <option value="automatic">Automatic</option>
+            <option value="manual">Manual</option>
+        </select><br><br>
+
+        <label for="kilometersTravelledMin">Odometer (km):</label><br>
+        <input type="number" name="kilometersTravelledMin" placeholder="Kilometerage" min="0" max="999999">
+        <label for="kilometersTravelledMax">Odometer (km):</label>
+        <input type="number" name="kilometersTravelledMax" placeholder="Kilometerage" min="0" max="999999"><br><br>
+            
+        <label for="manufactureYearMin">Manufacture year:</label><br>
+        <input type="number" name="manufactureYearMin" placeholder="min" min="1900" max="2100">
+        <label for="manufactureYearMax">to</label>
+        <input type="number" name="manufactureYearMax" placeholder="max" min="1900" max="2100"><br><br>
+            
+        <label for="registrationUntil">Registered until:</label><br>
+        <input type="date" id="reg-date" name="registrationUntil" placeholder="Registration Date" min="2020-01-01" max="2099-12-31"><br><br>
+            
+        <label for="ownerNo">Owner:</label><br>
+        <select name="ownerNo">
+            <option value="any" selected>Any</option>
+            <option value="1">First</option>
+            <option value="2">Second</option>
+            <option value="3">Third or more</option>
+        </select><br><br>
+
+        <label for="isUsed">Car condition:</label><br>
+            <input type="radio" id="is-used-new" name="isUsed" value="false">
+            <label for="is-used-new">New</label>
+            <input type="radio" id="is-used-old" name="isUsed" value="true">
+            <label for="is-used-old">Used</label>
+        <br><br>
+
+        <label for="location">Location:</label><br>
+        <select name="location" id="select-county">
+            <option value="any" disabled selected>Any</option>
+        </select><br><br>
+            
+        <label for="doorCount">Door count:</label><br>
+        <input type="number" name="doorCount" placeholder="Door Count" min="1" max="9"><br><br>
+            
+        <label for="gearCount">Gear count:</label><br>
+        <input type="number" name="gearCount" placeholder="Gear Count" min="1" max="19"><br><br>
+            
+        <label for="bodyShape">Body shape:</label><br>
+        <select name="bodyShape">
+            <option value="any" selected>Any</option>
+            <option value="coupe">Coupe</option>
+            <option value="limo">Limousine</option>
+            <option value="caravan">Caravan</option>
+            <option value="hatchback">Hatchback</option>
+            <option value="suv">SUV</option>
+            <option value="minivan">Minivan</option>
+            <option value="cabrio">Convertible</option>
+            <option value="van">Van</option>
+        </select><br><br>
+            
+        <label for="driveType">Drive type:</label><br>
+        <select name="driveType">
+            <option value="any" selected>Any</option>
+            <option value="fwd">FWD</option>
+            <option value="rwd">RWD</option>
+            <option value="awd">AWD</option>
+        </select><br><br>
+            
+        <label for="consumptionMin">Consumption (L/100km):</label><br>
+        <input type="number" step="any" name="consumptionMin" placeholder="Consumption" min="0" max="99.9">
+        <label for="consumptionMax">to</label>
+        <input type="number" step="any" name="consumptionMax" placeholder="Consumption" min="0" max="99.9"><br><br>
+            
+        <label for="acType">AC type:</label><br>
+        <select name="acType">
+            <option value="any" selected>Any</option>
+            <option value="automatic">Automatic</option>
+            <option value="dual">Dual</option>
+            <option value="manual">Manual</option>
+        </select><br><br>
+            
+        <label for="seatCount">Seat count:</label><br>
+        <input type="number" name="seatCount" placeholder="Seat Count" min="1" max="99"><br><br>
+
+        <input type="submit" value="Filter">
+    </form>
+</div>
 
 <div class="premium_listing">
         <ul>
@@ -262,5 +388,6 @@ a {
     </ul>
 </nav>
 <script th:src="@{/javaScript/sort.js}" defer="defer"></script>
+<script th:src="@{/javaScript/newListing.js}" defer="defer"></script>
 </body>
 </html>
