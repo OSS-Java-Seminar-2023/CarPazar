@@ -139,7 +139,7 @@ public class ListingController {
 
         
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(4);
+        int pageSize = size.orElse(1);
 
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 

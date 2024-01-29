@@ -20,8 +20,13 @@
 <div th:replace="fragments/navbar :: navbarDiv"></div>
 <div class="chat-container">
     <div class="chat-header">
-        <h2>Chat with <span class="yellow-text" th:text="${user_left_username}">User</span> about <a class="yellow-text no-underline" th:href="@{/listing/{id}(id=${listing.id})}" th:text="${listing.title}">Listing Title</a></h2>
+        <h2>Chat with
+            <a class="yellow-text no-underline" th:href="@{/user/{username}(username=${listing.userId.userName})}" th:text="${listing.userId.userName}">User</a>
+            about
+            <a class="yellow-text no-underline" th:href="@{/listingWithImages/{id}(id=${listing.id})}" th:text="${listing.title}">Listing Title</a>
+        </h2>
     </div>
+
 
     <div class="chat-messages">
         <ul>

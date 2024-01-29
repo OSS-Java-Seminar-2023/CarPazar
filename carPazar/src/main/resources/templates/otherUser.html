@@ -18,24 +18,29 @@
         <div class="user_info">
             <span>Username:</span> <h2 th:text="${username}" style="display: inline;">Username</h2>
             <hr>
-            <span>Rating:</span> <span th:text="${rating}">Rating Value</span>
-            <hr>
-
             <p>Premium Member: <span th:text="${premium ? 'Yes' : 'No'}"></span></p>
             <hr>
-
-            <button id="send_msg" class="send_msg">Send a Message</button>
         </div>
     </div>
 
     <div class="user_right_side">
         <h3>User's Listings</h3>
-        <div><!-- th:each="listing : ${user.listings}"-->
-            <div class="listing">
-                <h4> <!--th:text="${listing.title}">-->Listing Title</h4>
-                <p> <!--th:text="${listing.description}">-->Description</p>
-                <!--ovde ce ic slika jos kako vec to ide...-->
-            </div>
+        <div class="a" th:if="${!listings.isEmpty()}">
+            <ul>
+                <li th:each="listing : ${listings}">
+                    <div class="b">
+                        <div class="c">
+                            <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
+                            <p th:text="${listing.description}"></p>
+                            <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
+                            <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller for this listing</a>
+                        </div>
+                        <div class="listing_image">
+                            <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

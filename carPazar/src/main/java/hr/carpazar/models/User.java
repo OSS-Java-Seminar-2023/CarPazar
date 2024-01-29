@@ -21,9 +21,6 @@ public class User {
     @Column(name = "id")
     private String id = UUID.randomUUID().toString();
 
-    @Column(name = "user_rating")
-    private Integer userRating;
-
     @Column(name = "user_name", nullable = false)
     private String userName;
 

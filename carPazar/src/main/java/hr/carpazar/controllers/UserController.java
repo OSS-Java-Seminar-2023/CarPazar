@@ -37,8 +37,6 @@ public class UserController {
     @Autowired
     private MessageService messageService;
     @Autowired
-    private ReviewService reviewService;
-    @Autowired
     private SpecificationService specificationService;
 
     @GetMapping(path="/{string}")
@@ -96,14 +94,10 @@ public class UserController {
 
             if (!username.equals(loggedInUsername)) {
                 model.addAttribute("username", user.getUserName());
-                if(user.getUserRating() == null){
-                    model.addAttribute("rating", "No rating yet");
-                }
-                else{
-                    model.addAttribute("rating", String.valueOf(user.getUserRating()));
-
-                }
                 model.addAttribute("premium", user.getIsPremium());
+                List<Listing> listings = listingService.findByUserId(user.getId());
+                model.addAttribute("listings", listings);
+
                 return "otherUser";
             }
         }
@@ -316,7 +310,6 @@ public class UserController {
         }
         List<Listing> listings = listingService.findByUserId(user.getId());
         List<Chat> chats = chatService.findByUserID(user);
-        reviewService.deleteByUser(user);
         chatService.deleteByBuyerId(user);
         //Specification specs;
         for(Listing listing:listings) {
@@ -339,7 +332,7 @@ public class UserController {
         List<Listing> listings = listingService.findByUserId(loggedInId);
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(10);
+        int pageSize = size.orElse(1);
 
         Page<Listing> listingPage=listingService.findPaginatedByUser(PageRequest.of(currentPage - 1, pageSize),loggedInId);
 
