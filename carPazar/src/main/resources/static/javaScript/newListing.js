@@ -1471,6 +1471,15 @@
         }
     }
 
+     function showPrevious2() {
+         var optionalDiv = document.getElementById('additional-optional');
+         optionalDiv.style.display = 'none';
+
+         var mandatoryDiv = document.getElementById('additional-mandatory');
+         mandatoryDiv.style.display = 'block';
+     }
+
+
     function showNext(){
         if(currentDiv == allFormDivs.length - 2){ 
             nextButton.style.display = "none";

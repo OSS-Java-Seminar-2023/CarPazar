@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/newListingInfo.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <title>Edit Specification</title>
+</head>
+<body onload="specsInit()">
+<div th:replace="fragments/navbar :: navbarDiv"></div>
+<form th:action="@{/editSpecification/update}" th:object="${specificationDto}" method="post">
+    <hr>
+    <hr>
+    <hr>
+    <div id="additional-mandatory">
+        <label for="brand">Make:</label><br>
+        <select th:field="*{brand}" id="select-brand" onchange="updateModels()" required>
+            <option value="">Select vehicle brand</option>
+        </select><br><br>
+
+        <label for="model">Model:</label><br>
+        <select th:field="*{model}" id="select-model" required>
+            <option value="">Select vehicle model</option>
+        </select><br><br>
+
+        <label for="engineType">Engine type:</label><br>
+        <select th:field="*{engineType}" required>
+            <option value="" disabled selected>Engine Type</option>
+            <option value="diesel">Diesel</option>
+            <option value="gasoline">Gasoline/Gas</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="electric">EV</option>
+        </select><br><br>
+
+        <label for="shifterType">Transmission:</label><br>
+        <select th:field="*{shifterType}" required>
+            <option value="" selected disabled>Shifter Type</option>
+            <option value="automatic">Automatic</option>
+            <option value="manual">Manual</option>
+        </select><br><br>
+
+        <label for="kilometersTravelled">Odometer (km):</label><br>
+        <input type="number" th:field="*{kilometersTravelled}" placeholder="Kilometerage" min="0" max="999999" required><br><br>
+
+        <label for="manufactureYear">Manufacture year:</label><br>
+        <input type="number" th:field="*{manufactureYear}" placeholder="Manufacture Year" min="1900" max="2100" required><br><br>
+
+        <label for="registrationUntil">Registered until:</label>
+        <input type="date" id="registrationUntil" name="registrationUntil" th:field="*{registrationUntil}" required><br>
+
+        <label for="ownerNo">Owner:</label><br>
+        <select th:field="*{ownerNo}" required>
+            <option value="1">First</option>
+            <option value="2">Second</option>
+            <option value="3">Third or more</option>
+        </select><br><br>
+
+        <label for="isUsed">Car condition:</label><br>
+        <div class="radio-group">
+            <input type="radio" th:field="*{isUsed}" value="false">
+            <label>New</label>
+            <input type="radio" th:field="*{isUsed}" value="true">
+            <label>Used</label>
+        </div><br><br>
+
+        <label for="location">Location:</label><br>
+        <select th:field="*{location}" id="select-county" required>
+            <option value="">Location</option>
+        </select>
+
+        <label for="inTrafficSince">In traffic since:</label><br>
+        <input type="number" th:field="*{inTrafficSince}" placeholder="Year" min="1900" max="2100"><br><br>
+
+        <label for="doorCount">Door count:</label><br>
+        <input type="number" th:field="*{doorCount}" placeholder="Door Count" min="1" max="9"><br><br>
+
+        <label for="gearCount">Gear count:</label><br>
+        <input type="number" th:field="*{gearCount}" placeholder="Gear Count" min="1" max="19"><br><br>
+
+        <label for="bodyShape">Body shape:</label><br>
+        <select th:field="*{bodyShape}">
+            <option value="">---</option>
+            <option value="coupe">Coupe</option>
+            <option value="limo">Limousine</option>
+            <option value="caravan">Caravan</option>
+            <option value="hatchback">Hatchback</option>
+            <option value="suv">SUV</option>
+            <option value="minivan">Minivan</option>
+            <option value="cabrio">Convertible</option>
+            <option value="van">Van</option>
+        </select><br><br>
+
+        <label for="driveType">Drive type:</label><br>
+        <select th:field="*{driveType}">
+            <option value="">---</option>
+            <option value="fwd">FWD</option>
+            <option value="rwd">RWD</option>
+            <option value="awd">AWD</option>
+        </select><br><br>
+
+        <label for="consumption">Consumption (L/100km):</label><br>
+        <input type="number" th:field="*{consumption}" placeholder="Consumption" min="0" max="99.9"><br><br>
+
+        <label for="acType">AC type:</label><br>
+        <select th:field="*{acType}">
+            <option value="">Air Conditioning</option>
+            <option value="automatic">Automatic</option>
+            <option value="dual">Dual</option>
+            <option value="manual">Manual</option>
+        </select><br><br>
+
+        <label for="seatCount">Seat count:</label><br>
+        <input type="number" th:field="*{seatCount}" placeholder="Seat Count" min="1" max="99"><br><br>
+
+        <label for="color">Vehicle color:</label><br>
+        <input type="text" th:field="*{color}" placeholder="Color" maxlength="32"><br><br>
+        <input type="submit" class="submit_button">
+
+    </div>
+
+</form>
+
+<script src="/javaScript/newListing.js"></script>
+<script src="/javaScript/calculateCheckbox.js"></script>
+</body>
+</html>

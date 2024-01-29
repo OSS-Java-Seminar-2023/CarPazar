@@ -84,6 +84,25 @@ input[type=submit]:hover {
     background-color: #c2c2c2;
 }
 
+ .edit-button {
+        background-color: #2FCB22;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        }
+
+.edit-button:hover {
+        background-color: #248D1B;
+        }
+
 #next-button {
     background-color: #007bff;
     color: white;
