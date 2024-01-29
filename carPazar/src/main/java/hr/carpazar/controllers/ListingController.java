@@ -1,6 +1,7 @@
 package hr.carpazar.controllers;
 
 import hr.carpazar.dtos.ListingDto;
+import hr.carpazar.dtos.UserDto;
 import hr.carpazar.models.*;
 import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -222,11 +225,53 @@ public class ListingController {
         return "listingView";
     }
 
-    @GetMapping(path="/editListing/{listingId}")//placeholder
+    @GetMapping(path="/editListing/{listingId}")
     public String editListing(@PathVariable String listingId, Model model,HttpSession httpSession){
-        return "home"; //placeholder
+        String loggedInId = (httpSession.getAttribute("user_id") != null) ? httpSession.getAttribute("user_id").toString() : null;
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
+        Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(listingId));
+        if (listingOptional.isPresent()) {
+            Listing listing=listingOptional.get();
+            ListingDto listingDTO = new ListingDto();
+            listingDTO.setPrice(listing.getPrice());
+            listingDTO.setDescription(listing.getDescription());
+            listingDTO.setTitle(listing.getTitle());
+            listingDTO.setId(listing.getId());
+
+            model.addAttribute("listingDTO", listingDTO);
+        } else {
+            return "redirect:/notFound";
+        }
+        return "editListing";
     }
 
+    @PostMapping(path="/editListing/update")
+    public String updateListing(@ModelAttribute ListingDto listingDTO,HttpSession session,Model model) throws ParseException {
+        String loggedInId = (session.getAttribute("user_id") != null) ? session.getAttribute("user_id").toString() : null;
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
+
+        String listingID=listingDTO.getId();
+        Optional<Listing> listingOptional= Optional.ofNullable(listingService.findById(listingID));
+
+        if (!listingOptional.isPresent()) {
+            return "redirect:/notFound";
+        }
+
+        Listing listing=listingOptional.get();
+        listing.setTitle(listingDTO.getTitle());
+        listing.setDescription(listingDTO.getDescription());
+        listing.setPrice(listingDTO.getPrice());
+
+        listingService.saveListing(listing);
+
+        return "redirect:/mylistings";
+    }
 
     public ListingController(ListingService listingService) {
         this.listingService = listingService;

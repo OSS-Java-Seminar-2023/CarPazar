@@ -201,6 +201,10 @@ public class ListingService {
         return listingRepository.findById(id).get(0);
     }
 
+    public void saveListing(Listing listing){
+        listingRepository.save(listing);
+    }
+
 
     public List<Listing> findByUserId(String userId){
         return listingRepository.findByUserId_Id(userId);

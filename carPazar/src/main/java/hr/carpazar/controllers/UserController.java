@@ -243,7 +243,7 @@ public class UserController {
     @GetMapping("/editUser/{username}")
     public String editUser(@PathVariable("username") String username, Model model, HttpSession session) {
         Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
-        String loggedInUsername = session.getAttribute("user_id").toString();
+        String loggedInUsername = (session.getAttribute("user_id") != null) ? session.getAttribute("user_id").toString() : null;
         if (loggedInUsername == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -279,7 +279,6 @@ public class UserController {
             return "notFound";
         }
         String username = userDto.getUsername();
-        System.out.println(username);
 
         Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
 

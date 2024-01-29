@@ -14,4 +14,5 @@ public class ListingDto {
     private Boolean isSponsored;
     private Boolean isSold;
     private Specification specifications;
+    private String id;
 }
