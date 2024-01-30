@@ -16,10 +16,16 @@
     <hr>
     <hr>
     <hr>
+    <input type="hidden" name="id" th:value="${specificationDto.id}">
     <div id="additional-mandatory">
         <label for="brand">Make:</label><br>
-        <select th:field="*{brand}" id="select-brand" onchange="updateModels()" required>
-            <option value="">Select vehicle brand</option>
+        <select name="brand" th:field="*{brand}" id="select-brand" onchange="updateModels()" required>
+            <option value="" disabled>Select vehicle brand</option>
+            <th:block th:each="brandOption : ${brands}">
+                <option th:value="${brandOption}"
+                        th:text="${brandOption}"
+                        th:selected="${brandOption.equals(*{brand})}"></option>
+            </th:block>
         </select><br><br>
 
         <label for="model">Model:</label><br>
@@ -50,7 +56,7 @@
         <input type="number" th:field="*{manufactureYear}" placeholder="Manufacture Year" min="1900" max="2100" required><br><br>
 
         <label for="registrationUntil">Registered until:</label>
-        <input type="date" id="registrationUntil" name="registrationUntil" th:field="*{registrationUntil}" required><br>
+        <input type="date" id="registrationUntil" name="registrationUntil" th:value="*{registrationUntil}" required>
 
         <label for="ownerNo">Owner:</label><br>
         <select th:field="*{ownerNo}" required>
@@ -69,7 +75,7 @@
 
         <label for="location">Location:</label><br>
         <select th:field="*{location}" id="select-county" required>
-            <option value="">Location</option>
+            <option value="" disabled selected>Location</option>
         </select>
 
         <label for="inTrafficSince">In traffic since:</label><br>
@@ -119,6 +125,7 @@
         <label for="color">Vehicle color:</label><br>
         <input type="text" th:field="*{color}" placeholder="Color" maxlength="32"><br><br>
         <input type="submit" class="submit_button">
+
 
     </div>
 
