@@ -46,6 +46,20 @@ public class UserController {
 
     @GetMapping({"/", "/home"})
     public String home(HttpSession httpSession, Model model) {
+        List<Listing> listings=listingService.getAll();
+        List<Listing> listingsFiltered = listings.stream()
+                .filter(listing -> !listing.getIsSponsored())
+                .sorted((listing1, listing2) -> listing2.getListingDatetime().compareTo(listing1.getListingDatetime())) // Sort by LocalDateTime, newest first
+                .limit(3)
+                .collect(Collectors.toList());
+
+
+        if (listingsFiltered.isEmpty()) {
+            model.addAttribute("listings",null);
+        }
+        else{
+            model.addAttribute("listings",listingsFiltered);
+        }
         return "home";
     }
 

@@ -10,8 +10,12 @@
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Home</title>
 </head>
-<body class="home_body">
-<a href="../add-listing"><button class="post-button">Post a listing</button></a>
+<body>
+<div th:replace="fragments/navbar :: navbarDiv"></div>
+<div class="div1">
+    <h1>Welcome to CarPazar!</h1>
+    <p>Your one-stop destination for all car listings!</p>
+</div>
 <div class="search-container">
     <form action="/search" method="GET" class="search-bar">
         <input type="text" placeholder="Looking for something?" name="query">
@@ -19,14 +23,29 @@
             <img th:src="@{images/search.png}" alt="Search icon">
         </button>
     </form>
+    <a href="../add-listing"><button class="post-button">Post a listing</button></a>
 </div>
-    <div th:replace="fragments/navbar :: navbarDiv"></div>
-    <div class="image-container">
-        <h1 class="home_h1">Welcome to Car Pazar</h1>
-        <img th:src="@{images/car.png}" alt="Slika auta brm brm">
-        <a href="../add-listing"><button class="post-button">Post a listing</button></a>
-    </div>
-
-
-</body>
+<div class="a">
+    <ul>
+        <li th:each="listing : ${listings}">
+            <div class="b">
+                <div class="c">
+                    <a class="title" th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
+                    <p th:text="${listing.description}"></p>
+                    <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
+                    <p>
+                        Owner: <a class="title" th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}"></a>
+                    </p>
+                    <div th:if="${userID != listing.userId}">
+                        <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
+                    </div>
+                </div>
+                <div class="listing_image">
+                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>>
 </html>

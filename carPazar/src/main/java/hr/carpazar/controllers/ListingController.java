@@ -123,8 +123,8 @@ public class ListingController {
 
     @GetMapping("/search")
     public String search(@RequestParam("query") String query, Model model, HttpSession httpSession) {
-        String userid = httpSession.getAttribute("user_id").toString();
-        if (userid == null) {
+        String loggedInId = httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
+        if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
