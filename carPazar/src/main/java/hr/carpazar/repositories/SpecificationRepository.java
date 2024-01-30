@@ -14,14 +14,14 @@ public interface SpecificationRepository extends JpaRepository<Specification, UU
 
     Specification findById(String listingId);
 
-    @Query("SELECT s FROM specification s WHERE (:brand = 'any' OR s.brand = :brand) AND" +
+    @Query("SELECT s FROM Specification s WHERE (:brand = 'any' OR s.brand = :brand) AND" +
             "(:model = 'any' OR s.model = :model) AND" +
             "(s.enginePower BETWEEN :enginePowerMin AND :enginePowerMax) AND" +
             "(:engineType = 'any' OR s.engineType = :engineType) AND" +
             "(:shifterType = 'any' OR s.shifterType = :shifterType) AND" +
             "(s.kilometersTravelled BETWEEN :kilometersTravelledMin AND :kilometersTravelledMax) AND" +
-            "(s.manufactureYear BETWEEN :manufactureYearMin AND manufactureYearMax) AND" +
-            "(:registrationUntil = '0001-01-01' OR s.registrationUntil >= :registrationUntil) AND" +
+            "(s.manufactureYear BETWEEN :manufactureYearMin AND :manufactureYearMax) AND" +
+            "(:registrationUntil IS NULL OR s.registrationUntil >= :registrationUntil) AND" +
             "(:ownerNo = 333 OR s.ownerNo = :ownerNo) AND" +
             "(:isUsed IS NULL OR s.isUsed = :isUsed) AND" +
             "(:location = 'any' OR s.location = :location) AND" +

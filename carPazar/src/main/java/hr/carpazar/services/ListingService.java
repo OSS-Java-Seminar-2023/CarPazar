@@ -161,7 +161,6 @@ public class ListingService {
     }
 
     public Page findPaginated(List<Listing> sortedListings,PageRequest pageable) {
-        //List<Listing> allListings = listingRepository.findAll();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;

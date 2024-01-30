@@ -191,17 +191,7 @@ a {
 <div class="intro-container">
     <h2>Welcome to Our Listings Page.</h2>
     <p>Explore a variety of listings below. Find the perfect car that suits your needs.</p>
-    <p>Number of Listings: <span th:text="${sortedListings.size} + ' listings'"></span></p>
-</div>
-<div class="sort-dropdown">
-    <label for="sort">Sort by:</label>
-    <select id="sort" onchange="handleSortChange()">
-        <option value="">Choose the sorting</option>
-        <option value="dateAsc">Oldest</option>
-        <option value="dateDesc">Most Recent</option>
-        <option value="priceDesc">Most expensive</option>
-        <option value="priceAsc">Least expensive</option>
-    </select>
+    <p>Number of Listings: <span th:text="${listingPage.size} + ' listings'"></span></p>
 </div>
 
 <div class="filter-bar">
@@ -212,7 +202,7 @@ a {
 
         <label for="sort">Sort by:</label>
         <select id="sort">
-            <option value="" disabled selected>Choose the sorting</option>
+            <option value="any" selected>Choose the sorting</option>
             <option value="dateAsc">Oldest</option>
             <option value="dateDesc">Most Recent</option>
             <option value="priceDesc">Most expensive</option>
@@ -333,7 +323,7 @@ a {
 
 <div class="premium_listing">
         <ul>
-            <li th:each="listing : ${listingPage.content}" th:if="${listing.isSponsored}">
+            <li th:each="listing : ${listingPage.content} " th:if="${listing.isSponsored}">
                 <div class="premium_listing_container">
                     <div class="listing_details">
                         <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
@@ -354,6 +344,13 @@ a {
                 </div>
             </li>
         </ul>
+</div>
+<div>
+    <ul>
+        <li th:each="spec : ${specs}">
+            <p th:text="'model:'+${spec.GetModel()}}"></p>
+        </li>
+    </ul>
 </div>
 
 <div class="listings_right_side">

@@ -27,10 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -145,7 +142,7 @@ public class ListingController {
 
         
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(1);
+        int pageSize = size.orElse(5);
 
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 
@@ -171,15 +168,24 @@ public class ListingController {
     public String openFilteredListings(@ModelAttribute FilterDto filterDto, Model model, HttpSession httpSession){
 
         Filter filters = filterService.setDefaults(filterDto);
+        List<Specification> specs = filterService.findSpecificationByFilter(filters);
+        model.addAttribute("specs",specs);
+        List<Listing> listingsWithSpecs = new ArrayList<>();
+        for(Specification specification:specs){
+            System.out.println(specification.getId());
+            if(listingService.findById(specification.getId()) != null) {
+                listingsWithSpecs.add(listingService.findById(specification.getId()));
+            }
+        }
+
 
         PageRequest pageable = PageRequest.of(filters.getPage(), filters.getSize());
 
-        List<Listing> sortedListings = listingService.getSortedListings(filters.getSort());
+        Page<Listing> listingPage=listingService.findPaginated(listingsWithSpecs,pageable);
 
-        Page<Listing> listingPage=listingService.findPaginated(sortedListings,pageable);
-
-        model.addAttribute("sortedListings",sortedListings);
         model.addAttribute("listingPage", listingPage);
+        model.addAttribute("listingsWithSpecs", listingsWithSpecs);
+
 
         return "allListings";
     }
