@@ -63,6 +63,7 @@ Users can message car sellers through our application and ask any questions abou
 
 
 ### Database 
-![carpazar_db_schema](https://github.com/OSS-Java-Seminar-2023/CarPazar/assets/147037900/8195b9aa-c436-4177-af8a-ab77c9b72824)
+![carpazar_db_schema](https://github.com/OSS-Java-Seminar-2023/CarPazar/assets/147037900/852b6ab2-fc38-4b15-9258-71bab6046820)
+
 
 
