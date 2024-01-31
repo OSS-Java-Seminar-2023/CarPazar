@@ -165,21 +165,32 @@ public class ListingController {
     }
 
     @PostMapping(path = "/listings")
-    public String openFilteredListings(@ModelAttribute FilterDto filterDto, Model model, HttpSession httpSession){
+    public String openFilteredListings(@ModelAttribute FilterDto filterDto,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Model model, HttpSession httpSession){
 
         Filter filters = filterService.setDefaults(filterDto);
+        System.out.println("Filter:" + filters.getSort() + filters.getModel() + filters.getBrand());
         List<Specification> specs = filterService.findSpecificationByFilter(filters);
+        if(specs.isEmpty())
+            System.out.println("Specs je prazan");
+        else
+        {
+            for(Specification specification:specs)
+                System.out.println("Spec: " + specs.getFirst());
+        }
         model.addAttribute("specs",specs);
         List<Listing> listingsWithSpecs = new ArrayList<>();
         for(Specification specification:specs){
             System.out.println(specification.getId());
             if(listingService.findById(specification.getId()) != null) {
                 listingsWithSpecs.add(listingService.findById(specification.getId()));
+                System.out.println(listingsWithSpecs.getFirst().getTitle());
             }
         }
 
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(4);
 
-        PageRequest pageable = PageRequest.of(filters.getPage(), filters.getSize());
+        PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 
         Page<Listing> listingPage=listingService.findPaginated(listingsWithSpecs,pageable);
 

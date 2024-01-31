@@ -22,7 +22,6 @@ public class Filter {
     private int kilometersTravelledMax;
     private Year manufactureYearMin;
     private Year manufactureYearMax;
-    private LocalDate registrationUntil;
     private int ownerNo;
     private Boolean isUsed;
     private String location;

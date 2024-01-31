@@ -21,7 +21,6 @@ public interface SpecificationRepository extends JpaRepository<Specification, UU
             "(:shifterType = 'any' OR s.shifterType = :shifterType) AND" +
             "(s.kilometersTravelled BETWEEN :kilometersTravelledMin AND :kilometersTravelledMax) AND" +
             "(s.manufactureYear BETWEEN :manufactureYearMin AND :manufactureYearMax) AND" +
-            "(:registrationUntil IS NULL OR s.registrationUntil >= :registrationUntil) AND" +
             "(:ownerNo = 333 OR s.ownerNo = :ownerNo) AND" +
             "(:isUsed IS NULL OR s.isUsed = :isUsed) AND" +
             "(:location = 'any' OR s.location = :location) AND" +
@@ -35,8 +34,7 @@ public interface SpecificationRepository extends JpaRepository<Specification, UU
     List<Specification> findByArguments(String brand, String model, int enginePowerMin, int enginePowerMax,
                                         String engineType, String shifterType, int kilometersTravelledMin,
                                         int kilometersTravelledMax, Year manufactureYearMin, Year manufactureYearMax,
-                                        LocalDate registrationUntil, int ownerNo, Boolean isUsed, String location,
-                                        int doorCount, int gearCount, String bodyShape, String driveType,
+                                        int ownerNo, Boolean isUsed, String location, int doorCount, int gearCount, String bodyShape, String driveType,
                                         Double consumptionMin, Double consumptionMax, String acType, int seatCount);
 
 }

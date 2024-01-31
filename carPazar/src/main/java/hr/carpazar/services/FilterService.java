@@ -71,11 +71,6 @@ public class FilterService {
         else
             filters.setManufactureYearMax(Year.parse(filterDto.getManufactureYearMax()));
 
-        if (filterDto.getRegistrationUntil().isEmpty())
-            filters.setRegistrationUntil(LocalDate.parse("0001-01-01"));
-        else
-            filters.setRegistrationUntil(LocalDate.parse(filterDto.getRegistrationUntil()));
-
         if (filterDto.getIsUsed() == null)
             filters.setIsUsed(null);  // boolean null -> any
         else
@@ -86,13 +81,18 @@ public class FilterService {
         else
             filters.setDoorCount(Integer.parseInt(filterDto.getDoorCount()));
 
+        if (filterDto.getGearCount().isEmpty())
+            filters.setGearCount(333); // if 333 u filterima -> any
+        else
+            filters.setDoorCount(Integer.parseInt(filterDto.getDoorCount()));
+
         if (filterDto.getConsumptionMin().isEmpty())
             filters.setConsumptionMin(0d);
         else
             filters.setConsumptionMin(Double.parseDouble(filterDto.getConsumptionMin()));
 
         if (filterDto.getConsumptionMax().isEmpty())
-            filters.setConsumptionMax(0d);
+            filters.setConsumptionMax(999999d);
         else
             filters.setConsumptionMax(Double.parseDouble(filterDto.getConsumptionMax()));
 
@@ -121,9 +121,6 @@ public class FilterService {
     }
 
     public List<Specification> findSpecificationByFilter(Filter filter){
-        int size = filter.getSize();
-        int page = filter.getPage();
-        String sort = filter.getSort();
         String brand = filter.getBrand();
         String model = filter.getModel();
         int enginePowerMin = filter.getEnginePowerMin();
@@ -134,7 +131,6 @@ public class FilterService {
         int kilometersTravelledMax = filter.getKilometersTravelledMax();
         Year manufactureYearMin = filter.getManufactureYearMin();
         Year manufactureYearMax = filter.getManufactureYearMax();
-        LocalDate registrationUntil = filter.getRegistrationUntil();
         int ownerNo = filter.getOwnerNo();
         Boolean isUsed = filter.getIsUsed();
         String location = filter.getLocation();
@@ -146,8 +142,9 @@ public class FilterService {
         Double consumptionMax = filter.getConsumptionMax();
         String acType = filter.getAcType();
         int seatCount = filter.getSeatCount();
+        System.out.println(" Brand:"+brand+" model:"+model+" hpMin:"+enginePowerMin+" hpMax:"+enginePowerMax+" engtype::"+engineType+" shifter:"+shifterType+" kmMin:"+kilometersTravelledMin+" kmMax:"+kilometersTravelledMax+" ManYearMin:"+manufactureYearMin+" ManYearMax:"+manufactureYearMax+" ownerNo:"+ownerNo+" isUsed:"+isUsed+" location:"+location+" door:"+doorCount+" gear:"+gearCount+" body:"+bodyShape+" Drive:"+driveType+" ConsumptionMin:"+consumptionMin+" ConsumptionMax:"+consumptionMax+" ac:"+acType+" Seats:"+seatCount);
         return specificationRepository.findByArguments(brand,model,enginePowerMin,enginePowerMax,engineType,shifterType,
-                kilometersTravelledMin,kilometersTravelledMax,manufactureYearMin,manufactureYearMax,registrationUntil,ownerNo,
-                isUsed,location,doorCount,gearCount,bodyShape,driveType,consumptionMin,consumptionMax,acType,seatCount);
+                kilometersTravelledMin,kilometersTravelledMax,manufactureYearMin,manufactureYearMax,ownerNo, isUsed,
+                location,doorCount,gearCount,bodyShape,driveType,consumptionMin,consumptionMax,acType,seatCount);
     }
 }

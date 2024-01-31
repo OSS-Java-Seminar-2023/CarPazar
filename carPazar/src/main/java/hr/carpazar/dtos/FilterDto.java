@@ -3,6 +3,8 @@ package hr.carpazar.dtos;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class FilterDto {
     private final int size = 5;
@@ -18,7 +20,6 @@ public class FilterDto {
     private String kilometersTravelledMax;
     private String manufactureYearMin;
     private String manufactureYearMax;
-    private String registrationUntil;
     private String ownerNo;
     private String isUsed;
     private String location;

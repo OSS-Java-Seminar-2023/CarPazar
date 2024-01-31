@@ -250,10 +250,7 @@ a {
         <input type="number" name="manufactureYearMin" placeholder="min" min="1900" max="2100">
         <label for="manufactureYearMax">to</label>
         <input type="number" name="manufactureYearMax" placeholder="max" min="1900" max="2100"><br><br>
-            
-        <label for="registrationUntil">Registered until:</label><br>
-        <input type="date" id="reg-date" name="registrationUntil" placeholder="Registration Date" min="2020-01-01" max="2099-12-31"><br><br>
-            
+
         <label for="ownerNo">Owner:</label><br>
         <select name="ownerNo">
             <option value="any" selected>Any</option>
@@ -271,7 +268,7 @@ a {
 
         <label for="location">Location:</label><br>
         <select name="location" id="select-county">
-            <option value="any" disabled selected>Any</option>
+            <option value="any" selected>Any</option>
         </select><br><br>
             
         <label for="doorCount">Door count:</label><br>
@@ -343,14 +340,6 @@ a {
             </li>
         </ul>
 </div>
-<div>
-    <ul>
-        <li th:each="spec : ${specs}">
-            <p th:text="'model:'+${spec.GetModel()}}"></p>
-        </li>
-    </ul>
-</div>
-
 <div class="listings_right_side">
     <ul>
         <li th:each="listing : ${listingPage.content}" th:if="${!listing.isSponsored}">
