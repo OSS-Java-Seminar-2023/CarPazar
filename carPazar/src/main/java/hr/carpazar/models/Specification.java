@@ -59,7 +59,7 @@ public class Specification {
     private String driveType;
 
     @Column(name = "consumption", precision = 10, scale = 0)
-    private Long consumption;
+    private Double consumption;
 
     @Column(name = "ac_type", length = 32)
     private String acType;

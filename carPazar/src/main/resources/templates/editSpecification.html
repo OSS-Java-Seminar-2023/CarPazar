@@ -109,7 +109,7 @@
         </select><br><br>
 
         <label for="consumption">Consumption (L/100km):</label><br>
-        <input type="number" th:field="*{consumption}" placeholder="Consumption" min="0" max="99.9"><br><br>
+        <input type="number" th:field="*{consumption}" step="any" placeholder="Consumption" min="0" max="99.9"><br><br>
 
         <label for="acType">AC type:</label><br>
         <select th:field="*{acType}">

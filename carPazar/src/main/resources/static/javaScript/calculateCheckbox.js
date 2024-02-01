@@ -12,9 +12,8 @@ function onChangeEquip(){
         }
     });
     equipmentVar.value = totalEquip;
-}
 
-function onChangeExtras(){
+    
     let totalExtras = 0
     extrasCheckboxes.forEach(function(checkbox){
         if(checkbox.checked){

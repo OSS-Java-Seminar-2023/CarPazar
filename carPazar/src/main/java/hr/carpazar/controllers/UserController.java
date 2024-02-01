@@ -223,7 +223,7 @@ public class UserController {
             HttpSession session = request.getSession(true);
             session.setAttribute("user_id",user.getId());
             session.setAttribute("user_username",user.getUserName());
-            return "home";
+            return "redirect:/home";
         } catch (RuntimeException e) {
             if (!Objects.equals(e.getMessage(), "Wrong password!")){
                 model.addAttribute("alert", "User not found!");

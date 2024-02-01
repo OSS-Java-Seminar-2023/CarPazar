@@ -46,7 +46,7 @@ public class SpecificationService {
         postParams.put("color", specificationDto.getColor());
         postParams.put("additionalEquipment", specificationDto.getAdditionalEquipment().toString());
         postParams.put("extraFeatures", specificationDto.getExtraFeatures().toString());
-
+        System.out.println("consumption u dto:" + specificationDto.getConsumption());
         return createSpecification(postParams);
     }
 
@@ -74,7 +74,7 @@ public class SpecificationService {
         specs.setBodyShape(specsData.get("bodyShape"));
         specs.setIsUsed(Boolean.parseBoolean(specsData.get("isUsed")));
         specs.setDriveType(specsData.get("driveType"));
-        specs.setConsumption(Long.parseLong(specsData.get("consumption")));
+        specs.setConsumption(Double.parseDouble(specsData.get("consumption")));
         specs.setAcType(specsData.get("acType"));
         specs.setSeatCount(Integer.parseInt(specsData.get("seatCount")));
         specs.setRegistrationUntil(LocalDate.parse(specsData.get("registrationUntil")));
@@ -82,7 +82,8 @@ public class SpecificationService {
         specs.setColor(specsData.get("color"));
         specs.setAdditionalEquipment(Integer.parseInt(specsData.get("additionalEquipment")));
         specs.setExtraFeatures(Integer.parseInt(specsData.get("extraFeatures")));
-
+        System.out.println("consumption u hashtabli:" + specsData.get("consumption"));
+        System.out.println("consumption u specs klasi:" + specs.getConsumption());
         return specs;
     }
 
@@ -106,7 +107,7 @@ public class SpecificationService {
             specificationDto.setDriveType("");
 
         if(specificationDto.getConsumption() == null)
-            specificationDto.setConsumption(0L);
+            specificationDto.setConsumption(0d);
 
         if(specificationDto.getAcType() == null)
             specificationDto.setAcType("");
@@ -124,10 +125,10 @@ public class SpecificationService {
             specificationDto.setExtraFeatures(0);
     }
 
-    public static ArrayList<String> checkboxToStringList(int dec, String inputName){
+    public static ArrayList<String> checkboxToStringList(int dec, String inputName, Boolean textContent){
         ArrayList<String> extraFeaturesList = new ArrayList<>();
         ArrayList<String> additionalEquipmentList = new ArrayList<>();
-        ArrayList<Character> binaryList = new ArrayList<>();
+        ArrayList<String> binaryList = new ArrayList<>();
         ArrayList<String> checkedContent = new ArrayList<>();
 
         String binary = Integer.toBinaryString(dec);
@@ -167,24 +168,27 @@ public class SpecificationService {
         }
 
         for(Character c: binary.toCharArray()){
-            binaryList.add(c);
+            binaryList.add(c.toString());
         }
 
         if(inputName.equals("additionalEquipment")) {
             for (int i = 0; i < additionalEquipmentList.size(); i++) {
-                if(binaryList.get(i) == '1')
+                if(binaryList.get(i).equals("1"))
                     checkedContent.add(additionalEquipmentList.get(i));
             }
         }
         if(inputName.equals("extraFeatures")) {
             for (int i = 0; i < extraFeaturesList.size(); i++) {
-                if(binaryList.get(i) == '1')
+                if(binaryList.get(i).equals("1"))
                     checkedContent.add(extraFeaturesList.get(i));
             }
         }
-
-        return checkedContent;
+        if (textContent)
+            return checkedContent;
+        else
+            return binaryList;
     }
+
 
     private static String addZeros(String binaryInput, int neededLength){
         StringBuilder finalBinary = new StringBuilder(binaryInput);
@@ -196,7 +200,12 @@ public class SpecificationService {
     public void publishSpecification(Specification specs){
         specificationRepository.save(specs);
     }
-    public Specification findByListingId(String listingId){return specificationRepository.findById(listingId);}
 
-    public void deleteSpec(Specification specification){specificationRepository.delete(specification);}
+    public Specification findByListingId(String listingId){
+        return specificationRepository.findById(listingId);
+    }
+
+    public void deleteSpec(Specification specification){
+        specificationRepository.delete(specification);
+    }
 }

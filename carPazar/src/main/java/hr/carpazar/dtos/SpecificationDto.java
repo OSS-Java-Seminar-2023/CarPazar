@@ -23,7 +23,7 @@ public class SpecificationDto {
     private String bodyShape;
     private Boolean isUsed;
     private String driveType;
-    private Long consumption;
+    private Double consumption;
     private String acType;
     private Integer seatCount;
     private LocalDate registrationUntil;

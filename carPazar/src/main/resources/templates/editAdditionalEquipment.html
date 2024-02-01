@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/newListingInfo.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
+    <title>Checkbox hell</title>
+</head>
+<body onload="onChangeEquip()">
+    <form th:action="@{/editAdditionalEquipment/update}" th:object="${specificationDto}" method="post">
+
+        <input type="hidden" name="id" th:value="${specificationDto.id}">
+
+        <div id="additional-checkboxes">
+            <article id="equipment">
+                <label for="additional-equipment"><h2>Additional equipment:</h2></label>
+            
+                <p>
+                    <input type="checkbox" value="0" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[11].equals('1')}">
+                    <span>Rear Windshield Wiper</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="1" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[10].equals('1')}">
+                    <span>Rain Sensor</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="2" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[9].equals('1')}">
+                    <span>Cruise Control</span>
+                </p>
+            
+                <p>
+                    <input type="checkbox" value="3" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[8].equals('1')}">
+                    <span>ABS</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="4" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[7].equals('1')}">
+                    <span>Navigation</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="5" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[6].equals('1')}">
+                    <span>LED Headlights</span>
+                </p>
+            
+                <p>
+                    <input type="checkbox" value="6" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[5].equals('1')}">
+                    <span>Infotainment Screen</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="7" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[4].equals('1')}">
+                    <span>Speed Limiter</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="8" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[3].equals('1')}">
+                    <span>Lane Assist</span>
+                </p>
+            
+                <p>
+                    <input type="checkbox" value="9" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[2].equals('1')}">
+                    <span>Aluminium Rims</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="10" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[1].equals('1')}">
+                    <span>Steering Lights</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="11" name="additional-equipment" onchange="onChangeEquip()" th:checked="${additionalEquipmentBin[0].equals('1')}">
+                    <span>Fog Lights</span>
+                </p>
+            </article>
+        
+            <article id="extras">
+                <label for="extra-features"><h2>Extra features:</h2></label>
+            
+                <p>
+                    <input type="checkbox" value="0" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[11].equals('1')}">
+                    <span>Electrical Window Raising</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="1" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[10].equals('1')}">
+                    <span>Electrical Seat Adjustment</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="2" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[9].equals('1')}">
+                    <span>Electrical Side Mirror Adjustment</span>
+                </p>
+            
+                <p>
+                    <input type="checkbox" value="3" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[8].equals('1')}">
+                    <span>Side Mirror Heating</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="4" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[7].equals('1')}">
+                    <span>Steering Wheel Adjustment</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="5" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[6].equals('1')}">
+                    <span>Foldable Rear Seats</span>
+                </p>
+            
+                <p>
+                    <input type="checkbox" value="6" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[5].equals('1')}">
+                    <span>Bluetooth</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="7" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[4].equals('1')}">
+                    <span>Android Auto</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="8" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[3].equals('1')}">
+                    <span>Apple CarPlay</span>
+                </p>
+            
+                <p>
+                    <input type="checkbox" value="9" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[2].equals('1')}">
+                    <span>Central Armrest</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="10" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[1].equals('1')}">
+                    <span>Start/Stop System</span>
+                </p>
+                <p>
+                    <input type="checkbox" value="11" name="extra-features" onchange="onChangeEquip()" th:checked="${extraFeaturesBin[0].equals('1')}">
+                    <span>Tyre Pressure Control</span>
+                </p>
+            </article>
+
+            <input type="hidden" name="additionalEquipment" value="0">
+            <input type="hidden" name="extraFeatures" value="0">
+        
+            <input type="submit" class="submit_button">
+        </div>
+    </form>
+
+    <script src="/javaScript/newListing.js"></script>
+    <script src="/javaScript/calculateCheckbox.js"></script>
+</body>
+</html>

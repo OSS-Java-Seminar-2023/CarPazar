@@ -101,9 +101,9 @@ public class ListingController {
         model.addAttribute("listing", listing);
         model.addAttribute("fileNames", fileNames);
         model.addAttribute("specification", specification);
-        ArrayList<String> exFeat = checkboxToStringList(specification.getExtraFeatures(),"extraFeatures");
+        ArrayList<String> exFeat = checkboxToStringList(specification.getExtraFeatures(),"extraFeatures", true);
         model.addAttribute("exFeat",exFeat);
-        ArrayList<String> addEquip = checkboxToStringList(specification.getAdditionalEquipment(),"additionalEquipment");
+        ArrayList<String> addEquip = checkboxToStringList(specification.getAdditionalEquipment(),"additionalEquipment", true);
         model.addAttribute("addEquip",addEquip);
         return "listingView";
     }
