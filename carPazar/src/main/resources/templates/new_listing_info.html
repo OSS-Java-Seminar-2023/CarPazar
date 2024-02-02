@@ -11,31 +11,27 @@
     <title>Listing info</title>
 </head>
 <body onload="specsInit()">
-    <form method="post">
+    <form method="post" id="new-specs-form">
         <div id="additional-mandatory">
-            <label for="brand">Make:</label><br>
+            <label for="brand">Make:<span class="required">*</span></label><br>
             <select name="brand" id="select-brand" onchange="updateModels()" required>
                 <option value="" disabled selected>Select vehicle brand</option>
             </select><br><br>
         
-            <label for="model">Model:</label><br>
-            <input type="text" id="model-search" onkeyup="filterModels()" placeholder="Vehicle Model">
-            <div class="dropdown">
-                <button class="dropdown-btn">VVV</button>
-                <div class="dropdown-content" id="model-dropdown">
-                    
-                </div>
-            </div>
+            <label for="model">Model:<span class="required">*</span></label><br>
+            <select name="model" id="select-model" required>
+                <option value="" disabled selected>Select vehicle model</option>
+            </select><br><br>
         
-            <label for="enginePower">Engine power:</label><br>
+            <label for="enginePower">Engine power:<span class="required">*</span></label><br>
             <input type="number" name="enginePower" id="engine-power" placeholder="Engine Power" min="0" max="999" required>
             <select name="powerUnit" id="power-unit" required>
                 <option value="hp" selected>hp</option>
                 <option value="kW">kW</option>
             </select><br><br>
         
-            <label for="engineType">Engine type:</label><br>
-            <select name="engineType" required>
+            <label for="engineType">Engine type:<span class="required">*</span></label><br>
+            <select name="engineType" id="engine-type" required>
                 <option value="" disabled selected>Engine Type</option>
                 <option value="diesel">Diesel</option>
                 <option value="gasoline">Gasoline/Gas</option>
@@ -43,32 +39,33 @@
                 <option value="electric">EV</option>
             </select><br><br>
         
-            <label for="shifterType">Transmission:</label><br>
-            <select name="shifterType" required>
+            <label for="shifterType">Transmission:<span class="required">*</span></label><br>
+            <select name="shifterType" id="shifter-type" required>
                 <option value="" selected disabled>Shifter Type</option>
                 <option value="automatic">Automatic</option>
                 <option value="manual">Manual</option>
             </select><br><br>
         
-            <label for="kilometersTravelled">Odometer (km):</label><br>
-            <input type="number" name="kilometersTravelled" placeholder="Kilometerage" min="0" max="999999" required><br><br>
+            <label for="kilometersTravelled">Odometer (km):<span class="required">*</span></label><br>
+            <input type="number" name="kilometersTravelled" id="kms" placeholder="Kilometerage" min="0" max="999999" required><br><br>
         
-            <label for="manufactureYear">Manufacture year:</label><br>
-            <input type="number" name="manufactureYear" placeholder="Manufacture Year" min="1900" max="2100" required><br><br>
+            <label for="manufactureYear">Manufacture year:<span class="required">*</span></label><br>
+            <input type="number" name="manufactureYear" id="year" placeholder="Manufacture Year" min="1900" max="2100" required><br><br>
         
-            <label for="registrationUntil">Registered until:</label><br>
+            <label for="registrationUntil">Registered until:<span class="required">*</span></label><br>
             <input type="date" id="reg-date" name="registrationUntil" placeholder="Registration Date" min="2020-01-01" max="2099-12-31" required>
             <label for="unregistered">Vehicle is unregistered:</label>
             <input type="checkbox" id="reg-checkbox" name="unregistered" onchange="disableRegInput()"><br><br>
         
-            <label for="ownerNo">Owner:</label><br>
-            <select name="ownerNo" required>
+            <label for="ownerNo">Owner:<span class="required">*</span></label><br>
+            <select name="ownerNo" id="owner" required>
+                <option value="" selected disabled>Pick a number</option>
                 <option value="1">First</option>
                 <option value="2">Second</option>
                 <option value="3">Third or more</option>
             </select><br><br>
 
-            <label for="isUsed">Car condition:</label><br>
+            <label for="isUsed">Car condition:<span class="required">*</span></label><br>
             <div class="radio-group">
                 <input type="radio" id="is-used-new" name="isUsed" value="false">
                 <label for="is-used-new">New</label>
@@ -77,7 +74,7 @@
             </div><br><br>
 
 
-            <label for="location">Location:</label><br>
+            <label for="location">Location:<span class="required">*</span></label><br>
             <select name="location" id="select-county" required>
                 <option value="" disabled selected>Location</option>
             </select>
@@ -178,10 +175,12 @@
             <input type="hidden" name="extraFeatures" value="0">
         
             <input type="submit" class="submit_button">
+
+            <div id="error-msg"></div>
         </div>
 
         <button type="button" id="back-button" onclick="showPrevious()">Back</button>
-        <button type="button" id="next-button" onclick="showNext()">Next</button>
+        <button type="button" id="next-button" onclick="showNext('specs')">Next</button>
     </form>
 
     <script src="/javaScript/newListing.js"></script>

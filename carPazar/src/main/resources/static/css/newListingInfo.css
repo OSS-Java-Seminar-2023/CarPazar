@@ -33,6 +33,11 @@ label {
     margin-bottom: 5px;
 }
 
+.required{
+    font-weight: 700;
+    color: #ff0000;
+}
+
 input[type=number], input[type=date], input[type=text], select, button {
     width: 100%;
     padding: 10px;
@@ -95,4 +100,10 @@ input[type=submit] {
 
 .radio-group input[type="radio"] {
     margin-right: 5px;
+}
+
+#error-msg {
+    color: red;
+    font-weight: bold;
+    white-space: pre-line;
 }

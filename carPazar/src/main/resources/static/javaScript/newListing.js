@@ -1489,6 +1489,7 @@
         }
         else if(currentDiv == 1){
             backButton.style.display = "none";
+            document.getElementById("error-msg").innerText = "";
         }
 
         if (currentDiv > 0){
@@ -1496,6 +1497,8 @@
             currentDiv--;
             allFormDivs[currentDiv].style.display = "block";
         }
+
+        
     }
 
      function showPrevious2() {
@@ -1507,7 +1510,55 @@
      }
 
 
-    function showNext(){
+    function showNext(page){
+      if(page=="specs"){
+        let errorMsg = "";
+        
+        if(document.getElementById("select-brand").value == ""){
+          errorMsg += "No vehicle brand selected\n";
+        }
+
+        if(document.getElementById("select-model").value==""){
+          errorMsg += "No vehicle model selected\n";
+        }
+        
+        if(document.getElementById("engine-power").value==""){
+          errorMsg += "No engine power given\n";
+        }
+        
+        if(document.getElementById("engine-type").value==""){
+          errorMsg += "No engine type selected\n";
+        }
+        
+        if(document.getElementById("shifter-type").value==""){
+          errorMsg += "No shifter type selected\n";
+        }
+        
+        if(document.getElementById("kms").value==""){
+          errorMsg += "No kilometrage given\n";
+        }
+        
+        if(document.getElementById("year").value==""){
+          errorMsg += "No manufacture year given\n";
+        }
+        
+        if(document.getElementById("reg-date").value=="" && document.getElementById("reg-checkbox").checked == false){
+          errorMsg += "No registration date selected\n";
+        }
+        
+        if(document.getElementById("owner").value==""){
+          errorMsg += "No owner number selected\n";
+        }
+        
+        if(document.getElementById("select-county").value==""){
+          errorMsg += "No location selected\n";
+        }   
+        
+        if(errorMsg != ""){
+          document.getElementById("error-msg").innerText = errorMsg;
+        }
+
+
         if(currentDiv == allFormDivs.length - 2){ 
             nextButton.style.display = "none";
         }
@@ -1520,6 +1571,23 @@
             currentDiv++;
             allFormDivs[currentDiv].style.display = "block";
         }
+      }
+
+      else {
+
+        if(currentDiv == allFormDivs.length - 2){ 
+          nextButton.style.display = "none";
+        }
+        else if(currentDiv == 0){
+            backButton.style.display = "block";
+        }
+
+        if (currentDiv < allFormDivs.length - 1){
+            allFormDivs[currentDiv].style.display = "none";
+            currentDiv++;
+            allFormDivs[currentDiv].style.display = "block";
+        }
+      }
     }
 
     function hideSteps(){
@@ -1585,3 +1653,6 @@
         localStorage.removeItem("filters");
       }
     }
+
+
+   
