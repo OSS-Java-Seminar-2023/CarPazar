@@ -192,7 +192,7 @@ public class ListingController {
             System.out.println(listing.getTitle());
         //System.out.println(listingsWithSpecs.get(1).getTitle());
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(4);
 
 
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
@@ -201,10 +201,18 @@ public class ListingController {
 
         model.addAttribute("listingPage", listingPage);
         model.addAttribute("listingsWithSpecs", listingsWithSpecs);
+        int totalPages = listingPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
 
         return "allListings";
     }
+
 
 
 
