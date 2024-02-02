@@ -195,7 +195,7 @@ a {
 </div>
 
 <div class="filter-bar">
-    <form method="post" id="filter-form">
+    <form method="post" id="filter-form" onsubmit="saveFilterData()">
 
         <input type="hidden" name="size" value="5">
         <input type="hidden" name="page" value="1"> <!-- maknit? -->
@@ -210,7 +210,7 @@ a {
         </select><br><br>
 
         <label for="brand">Make:</label><br>
-        <select name="brand" id="select-brand" onchange="updateModels()">
+        <select name="brand" id="select-brand" onchange="updateModelsWithAny()">
             <option value="any" selected>Any</option>
         </select><br><br>
             
@@ -220,13 +220,13 @@ a {
         </select><br><br>
             
         <label for="enginePowerMin">Engine power:</label><br>
-        <input type="number" name="enginePowerMin" id="engine-power" placeholder="Engine Power" min="0" max="999">
+        <input type="number" name="enginePowerMin" id="engine-power-min" placeholder="Engine Power" min="0" max="999">
         <label for="enginePowerMax">to</label>
-        <input type="number" name="enginePowerMax" id="engine-power" placeholder="Engine Power" min="0" max="999"><br><br>
+        <input type="number" name="enginePowerMax" id="engine-power-max" placeholder="Engine Power" min="0" max="999"><br><br>
 
             
         <label for="engineType">Engine type:</label><br>
-        <select name="engineType">
+        <select name="engineType" id="engine-type">
             <option value="any" selected>Any</option>
             <option value="diesel">Diesel</option>
             <option value="gasoline">Gasoline/Gas</option>
@@ -235,24 +235,24 @@ a {
         </select><br><br>
             
         <label for="shifterType">Transmission:</label><br>
-        <select name="shifterType">
+        <select name="shifterType" id="shifter-type">
             <option value="any" selected >Any</option>
             <option value="automatic">Automatic</option>
             <option value="manual">Manual</option>
         </select><br><br>
 
         <label for="kilometersTravelledMin">Odometer (km):</label><br>
-        <input type="number" name="kilometersTravelledMin" placeholder="Kilometerage" min="0" max="999999">
+        <input type="number" name="kilometersTravelledMin" id="kms-min" placeholder="Kilometerage" min="0" max="999999">
         <label for="kilometersTravelledMax">Odometer (km):</label>
-        <input type="number" name="kilometersTravelledMax" placeholder="Kilometerage" min="0" max="999999"><br><br>
+        <input type="number" name="kilometersTravelledMax" id="kms-max" placeholder="Kilometerage" min="0" max="999999"><br><br>
             
         <label for="manufactureYearMin">Manufacture year:</label><br>
-        <input type="number" name="manufactureYearMin" placeholder="min" min="1900" max="2100">
+        <input type="number" name="manufactureYearMin" id="year-min" placeholder="min" min="1900" max="2100">
         <label for="manufactureYearMax">to</label>
-        <input type="number" name="manufactureYearMax" placeholder="max" min="1900" max="2100"><br><br>
+        <input type="number" name="manufactureYearMax" id="year-max" placeholder="max" min="1900" max="2100"><br><br>
 
         <label for="ownerNo">Owner:</label><br>
-        <select name="ownerNo">
+        <select name="ownerNo" id="owner">
             <option value="any" selected>Any</option>
             <option value="1">First</option>
             <option value="2">Second</option>
@@ -272,13 +272,13 @@ a {
         </select><br><br>
             
         <label for="doorCount">Door count:</label><br>
-        <input type="number" name="doorCount" placeholder="Door Count" min="1" max="9"><br><br>
+        <input type="number" name="doorCount" id="door-count" placeholder="Door Count" min="1" max="9"><br><br>
             
         <label for="gearCount">Gear count:</label><br>
-        <input type="number" name="gearCount" placeholder="Gear Count" min="1" max="19"><br><br>
+        <input type="number" name="gearCount" id="gear-count" placeholder="Gear Count" min="1" max="19"><br><br>
             
         <label for="bodyShape">Body shape:</label><br>
-        <select name="bodyShape">
+        <select name="bodyShape" id="body-shape">
             <option value="any" selected>Any</option>
             <option value="coupe">Coupe</option>
             <option value="limo">Limousine</option>
@@ -291,7 +291,7 @@ a {
         </select><br><br>
             
         <label for="driveType">Drive type:</label><br>
-        <select name="driveType">
+        <select name="driveType" id="drive-type">
             <option value="any" selected>Any</option>
             <option value="fwd">FWD</option>
             <option value="rwd">RWD</option>
@@ -299,12 +299,12 @@ a {
         </select><br><br>
             
         <label for="consumptionMin">Consumption (L/100km):</label><br>
-        <input type="number" step="any" name="consumptionMin" placeholder="Consumption" min="0" max="99.9">
+        <input type="number" step="any" name="consumptionMin" id="consumption-min" placeholder="Consumption" min="0" max="99.9">
         <label for="consumptionMax">to</label>
-        <input type="number" step="any" name="consumptionMax" placeholder="Consumption" min="0" max="99.9"><br><br>
+        <input type="number" step="any" name="consumptionMax" id="consumption-max" placeholder="Consumption" min="0" max="99.9"><br><br>
             
         <label for="acType">AC type:</label><br>
-        <select name="acType">
+        <select name="acType" id="ac-type">
             <option value="any" selected>Any</option>
             <option value="automatic">Automatic</option>
             <option value="dual">Dual</option>
@@ -312,7 +312,7 @@ a {
         </select><br><br>
             
         <label for="seatCount">Seat count:</label><br>
-        <input type="number" name="seatCount" placeholder="Seat Count" min="1" max="99"><br><br>
+        <input type="number" name="seatCount" id="seat-count" placeholder="Seat Count" min="1" max="99"><br><br>
 
         <input type="submit" value="Filter">
     </form>

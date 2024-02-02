@@ -19,9 +19,13 @@
             </select><br><br>
         
             <label for="model">Model:</label><br>
-            <select name="model" id="select-model" required>
-                <option value="" disabled selected>Select vehicle model</option>
-            </select><br><br>
+            <input type="text" id="model-search" onkeyup="filterModels()" placeholder="Vehicle Model">
+            <div class="dropdown">
+                <button class="dropdown-btn">VVV</button>
+                <div class="dropdown-content" id="model-dropdown">
+                    
+                </div>
+            </div>
         
             <label for="enginePower">Engine power:</label><br>
             <input type="number" name="enginePower" id="engine-power" placeholder="Engine Power" min="0" max="999" required>
