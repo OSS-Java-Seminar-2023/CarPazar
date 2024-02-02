@@ -58,7 +58,7 @@ public class Specification {
     @Column(name = "drive_type", length = 32)
     private String driveType;
 
-    @Column(name = "consumption", precision = 10, scale = 0)
+    @Column(name = "consumption", columnDefinition = "DECIMAL(10,1)")
     private Double consumption;
 
     @Column(name = "ac_type", length = 32)

@@ -45,7 +45,8 @@ public class SpecificationController {
         String listingid = httpSession.getAttribute("listing_id").toString();
 
         Specification specs = specificationService.createSpecificationFromDto(specificationDto, listingid);
-        specificationService.publishSpecification(specs);
+        System.out.println("specs prije publisha 1 korak: " + specs.getConsumption()); // ovdje je consumption 4.4
+        specificationService.publishSpecification(specs); // ovdje je sad u bazi 4
 
         return "redirect:/listingWithImages/" + listingid;
     }
