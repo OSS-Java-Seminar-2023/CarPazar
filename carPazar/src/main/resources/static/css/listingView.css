@@ -22,22 +22,20 @@ body {
     margin-top: 60px;
     z-index: 1;
     position: relative;
-    max-width: 1200px; /* Adjust width as needed */
+    max-width: 1200px;
     margin: auto;
 }
 
-/* Carousel Slide */
 .carousel_slide {
     width: 100%;
-    max-width: 600px; /* Adjust as needed */
+    max-width: 600px;
     margin-bottom: 20px;
 }
 
-/* Carousel Inner */
 .carousel-inner {
     position: relative;
     width: 100%;
-    height: auto; /* Adjust height as needed */
+    height: auto;
 }
 
 .image-container {
@@ -93,7 +91,7 @@ body {
 }
 
 .listing-specs table tr:nth-child(even) {
-    background-color: #d3d3d3; /* Grey background color for every second row */
+    background-color: #d3d3d3;
 }
 
 .listing-specs td {
