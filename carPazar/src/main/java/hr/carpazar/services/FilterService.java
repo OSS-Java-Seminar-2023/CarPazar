@@ -31,7 +31,6 @@ public class FilterService {
             filters.setPage(1);
         else
         {
-            parts = filterDto.getPage().split(",");
             filters.setPage(1);
         }
 

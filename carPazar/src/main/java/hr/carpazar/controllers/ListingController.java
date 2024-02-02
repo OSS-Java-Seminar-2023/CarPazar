@@ -72,6 +72,10 @@ public class ListingController {
 
         Listing listing = listingService.createListingFromDto(listingDto, userid);
 
+        User user = userService.findById(userid);
+        if(user.getIsPremium())
+            listing.setIsSponsored(Boolean.TRUE);
+
         listingService.publishListing(listing);
         String listingUUID = listing.getId();
         String directoryPath = listingService.getDirPath(listingUUID);
@@ -135,7 +139,7 @@ public class ListingController {
     }
 
     @GetMapping(path= "/listings")
-    public String openAllListingsForm(@RequestParam(name = "sort", defaultValue = "dateAsc") String sort,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,Model model, HttpSession httpSession)
+    public String openAllListingsForm(@RequestParam(name = "sort", defaultValue = "dateDesc") String sort,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,Model model, HttpSession httpSession)
     {
         String loggedInId = httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
         model.addAttribute("userID", loggedInId);
@@ -170,25 +174,26 @@ public class ListingController {
         Filter filters = filterService.setDefaults(filterDto);
         System.out.println("Filter:" + filters.getSort() + filters.getModel() + filters.getBrand());
         List<Specification> specs = filterService.findSpecificationByFilter(filters);
-        if(specs.isEmpty())
-            System.out.println("Specs je prazan");
-        else
-        {
-            for(Specification specification:specs)
-                System.out.println("Spec: " + specs.getFirst());
-        }
-        model.addAttribute("specs",specs);
+        for(Specification specification:specs)
+            System.out.println("spec: "+specification.getId());
         List<Listing> listingsWithSpecs = new ArrayList<>();
-        for(Specification specification:specs){
-            System.out.println(specification.getId());
-            if(listingService.findById(specification.getId()) != null) {
-                listingsWithSpecs.add(listingService.findById(specification.getId()));
-                System.out.println(listingsWithSpecs.getFirst().getTitle());
+        System.out.println("SORT: "+filters.getSort());
+        List<Listing> sortedListings = listingService.getSortedListings(filters.getSort());
+        for(Listing listing:sortedListings)
+            System.out.println("listing: "+listing.getId());
+        for (Listing listing : sortedListings) {
+            for (Specification specification : specs) {
+                if (listing.getId().equals(specification.getId())) {
+                    listingsWithSpecs.add(listing);
+                }
             }
         }
-
+        for (Listing listing : listingsWithSpecs)
+            System.out.println(listing.getTitle());
+        //System.out.println(listingsWithSpecs.get(1).getTitle());
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(4);
+        int pageSize = size.orElse(5);
+
 
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 

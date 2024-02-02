@@ -65,7 +65,6 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Full Name</th>
-                <th>Rating</th>
                 <th>Phone Number</th>
                 <th>Premium</th>
                 <th>Admin</th>
@@ -79,7 +78,6 @@
                 <td data-label="Username" th:text="${user.userName}"></td>
                 <td data-label="Email" th:text="${user.email}"></td>
                 <td data-label="Full Name" th:text="${user.fullName}"></td>
-                <td data-label="Rating" th:text="${user.userRating != null} ? ${user.userRating} : 'No rating yet'"></td>
                 <td data-label="Phone Number" th:text="${user.phoneNumber}"></td>
                 <td data-label="Premium">
                             <span th:text="${user.isPremium}"

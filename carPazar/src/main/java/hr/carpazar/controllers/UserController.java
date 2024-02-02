@@ -304,6 +304,13 @@ public class UserController {
         user.setIsAdmin(userDto.isAdmin());
         user.setIsPremium(userDto.isPremium());
 
+        if(user.getIsPremium()){
+            List<Listing> list = listingService.findByUserId(loggedInUsername);
+            for(Listing listing:list)
+                listing.setIsSponsored(Boolean.TRUE);
+        }
+
+
         userService.saveUser(user);
 
         return "redirect:/adminPanel";
