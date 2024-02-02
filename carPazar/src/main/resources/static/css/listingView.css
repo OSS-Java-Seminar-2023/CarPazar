@@ -1,33 +1,17 @@
 body {
+    font-family: 'Monaco', monospace;
+    color: #333;
+    line-height: 1.6;
     margin: 0;
-    padding: 0;
-    position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 50%;
-    background-image: url("../images/background-cars.png");
+    padding: 7vh;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url('../images/cartoon.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
-}
-
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    right: 0;
-    background-image: url("../images/background-cars.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .listing-details {
@@ -38,48 +22,55 @@ body::after {
     margin-top: 60px;
     z-index: 1;
     position: relative;
+    max-width: 1200px; /* Adjust width as needed */
+    margin: auto;
 }
 
-.listing-img {
+/* Carousel Slide */
+.carousel_slide {
     width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    margin-bottom: 20px;
+}
+
+/* Carousel Inner */
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    height: auto; /* Adjust height as needed */
+}
+
+.image-container {
+    background-color: #000;
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
     object-fit: cover;
 }
 
 .listing-desc {
     text-align: center;
-    width: 40%;
-    margin-top: 20px;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 10px;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .listing-desc p:last-child {
-    color:#168118;
-}
-
-.listing-desc h2 {
-    margin-bottom: 10px;
+    color: #168118;
 }
 
 .listing-specs {
     text-align: left;
-    margin-top: 20px;
-    width: 40%;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 10px;
-}
-
-.listing-specs h3 {
-    margin-bottom: 10px;
-}
-
-.listing-specs ul {
-    list-style: none;
-    padding: 0;
-}
-
-.listing-specs li {
-    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .listing-specs table {
@@ -88,7 +79,7 @@ body::after {
     margin-top: 10px;
 }
 
-.listing-specs td {
+.listing-specs th, .listing-specs td {
     border: 2px solid #000000;
     padding: 8px;
     text-align: left;
@@ -97,67 +88,16 @@ body::after {
 .listing-specs th {
     background-color: #f2f2f2;
 }
-
-.listing-desc p {
-    border: 2px solid #000000;
-    padding: 8px;
-    margin: 0;
-}
-
-.carousel-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.carousel-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
-}
-
-.number-box-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.number-box {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background-color: #ddd;
-    margin: 0 5px;
+.listing-specs h3 {
     text-align: center;
-    line-height: 30px;
-    cursor: pointer;
 }
 
-.active-number-box {
-    background-color: #007bff;
+.listing-specs table tr:nth-child(even) {
+    background-color: #d3d3d3; /* Grey background color for every second row */
 }
 
-.image-container {
-    background-color: #000;
-    width: 600px; 
-    max-width: 600px;
-    height: 450px;
-    max-height: 450px;
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
+.listing-specs td {
+    padding: 8px;
+    text-align: left;
+    border: 2px solid #000000;
 }
-
-.image-container img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain !important;
-}
-

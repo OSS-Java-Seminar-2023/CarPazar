@@ -8,15 +8,15 @@
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/listingView.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
     <title>Home</title>
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbarDiv"></div>
     <div class="listing-details">
         
-        <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="imageCarousel" class="carousel_slide" data-bs-ride="carousel">
 
             <div class="carousel-inner">
 
@@ -57,7 +57,9 @@
 
         <div class="listing-desc">
             <h2 th:text="${listing.title}"></h2>
+            <hr>
             <p th:text="${listing.description}"></p>
+            <hr>
             <p th:text="${listing.price}+' €'"></p>
         </div>
         <div class="listing-specs">
@@ -132,24 +134,24 @@
                     <td th:text="${specification.getOwnerNo()}"></td>
                 </tr>
                 <tr>
+                    <td>Car Location</td>
+                    <td th:text="${specification.getLocation()}"></td>
+                </tr>
+                <tr>
                     <td>Extra Features</td>
                     <td>
-                        <span th:each="feature : ${exFeat}">
-                            <span th:text="${feature}"></span><br>
+                        <span th:each="feature : ${exFeat}"> -
+                            <span th:text="${feature}"> - </span><br>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td>Additional Equipment</td>
                     <td>
-                        <span th:each="feature : ${addEquip}">
-                            <span th:text="${feature}"></span><br>
+                        <span th:each="feature : ${addEquip}"> -
+                            <span th:text="${feature}"> - </span><br>
                         </span>
                     </td>
-                </tr>
-                <tr>
-                    <td>Car Location</td>
-                    <td th:text="${specification.getLocation()}"></td>
                 </tr>
             </table>
         </div>
