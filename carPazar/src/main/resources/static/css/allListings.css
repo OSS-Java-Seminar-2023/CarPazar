@@ -1,17 +1,59 @@
 body {
+    font-family: 'Monaco', monospace;
+    color: #333;
+    line-height: 1.6;
     margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
+    padding: 7vh;
+    display: flex;
+    height: 100%;
+    background-image: url('../images/cartoon.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.filter-bar {
+    margin-top:30px;
+    width: 21%;
+    padding: 15px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 175vh;
+}
+
+.right_side {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    height: 175vh;
+
 }
 
 .listings_right_side {
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px;
-    width: 100%;
+    margin: 10px;
 }
+
+.premium_listing {
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.premium_listing_container, .listing_container {
+    width: 80%;
+    display: block !important;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 
 .listing_container {
     border: 1px solid #ccc;
@@ -54,15 +96,6 @@ ul {
 .intro-container {
     margin: 70px;
     text-align: center;
-}
-.premium_listing {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px;
-    width: 100%;
-
 }
 
 .premium_listing_container {
@@ -123,6 +156,8 @@ ul {
         justify-content: center;
         padding-left: 0;
         list-style: none;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
 .pagination .page-item {
@@ -187,4 +222,31 @@ a {
 }
 .button:hover {
     background-color: #1A53CF;
+}
+
+input[type="number"] {
+    width:40%;
+}
+
+select {
+    width: 50%;
+}
+
+input[type=submit], button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    flex: 1;
+}
+
+input[type=submit] {
+    background-color: #0056b3;
+    color: white;
+}
+
+input[type=submit]:hover {
+    background-color: #003d82;
 }

@@ -2,34 +2,10 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 50%;
-    background-image: url("../images/background-cars.png");
+    background-image: url('../images/cartoon.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
 }
-
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    right: 0;
-    background-image: url("../images/background-cars.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
 .listing-details {
     display: flex;
     flex-direction: column;
@@ -66,7 +42,6 @@ body::after {
     margin-top: 20px;
     width: 40%;
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 10px;
 }
 
 .listing-specs h3 {
@@ -96,12 +71,6 @@ body::after {
 
 .listing-specs th {
     background-color: #f2f2f2;
-}
-
-.listing-desc p {
-    border: 2px solid #000000;
-    padding: 8px;
-    margin: 0;
 }
 
 .carousel-inner {
@@ -155,6 +124,11 @@ body::after {
     z-index: 1;
 }
 
+.listing-specs h3 {
+    text-align: center;
+    background-color: #EEEEEE;
+}
+
 .image-container img {
     max-width: 100%;
     max-height: 100%;
@@ -162,5 +136,5 @@ body::after {
 }
 
 .listing-specs table tr:nth-child(even) {
-    background-color: #d3d3d3;
+    background-color: #EEEEEE;
 }

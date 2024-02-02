@@ -134,19 +134,26 @@
             <tr>
                 <td>Extra Features</td>
                 <td>
+                    <span th:unless="${exFeat.isEmpty()}">
                         <span th:each="feature : ${exFeat}">
-                            <span th:text="${feature}"></span><br>
+                            <span th:text="${feature}"> - </span><br>
                         </span>
+                    </span>
+                    <span th:if="${exFeat.isEmpty()}">/</span>
                 </td>
             </tr>
             <tr>
                 <td>Additional Equipment</td>
                 <td>
+                    <span th:unless="${addEquip.isEmpty()}">
                         <span th:each="feature : ${addEquip}">
-                            <span th:text="${feature}"></span><br>
+                            <span th:text="${feature}"> - </span><br>
                         </span>
+                    </span>
+                    <span th:if="${addEquip.isEmpty()}">/</span>
                 </td>
             </tr>
+
             <tr>
                 <td>Car Location</td>
                 <td th:text="${specification.getLocation()}"></td>
