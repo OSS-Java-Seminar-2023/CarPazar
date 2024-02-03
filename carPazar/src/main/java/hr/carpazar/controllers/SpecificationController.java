@@ -37,12 +37,12 @@ public class SpecificationController {
 
     @PostMapping(path = "/add-info")
     public String addListingSpecs(@ModelAttribute SpecificationDto specificationDto, HttpSession httpSession,Model model){
-        String userid = httpSession.getAttribute("user_id").toString();
+        String userid = (String) httpSession.getAttribute("user_id");
         if (userid == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
-        String listingid = httpSession.getAttribute("listing_id").toString();
+        String listingid = (String) httpSession.getAttribute("listing_id");
 
         Specification specs = specificationService.createSpecificationFromDto(specificationDto, listingid);
         System.out.println("specs prije publisha 1 korak: " + specs.getConsumption()); // ovdje je consumption 4.4

@@ -64,7 +64,7 @@ public class ListingController {
     // kod nece radit ako u sesiji ne postoji user (zabranit pokusaj stvaranja listinga triba ako nije logged in)
     @PostMapping(path="/add-listing")
     public String newListing(@ModelAttribute ListingDto listingDto, @RequestParam("images")List<MultipartFile> imageList, HttpSession httpSession, Model model){
-        String userid = httpSession.getAttribute("user_id").toString();
+        String userid = (String) httpSession.getAttribute("user_id");
         if (userid == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -220,7 +220,7 @@ public class ListingController {
     @Transactional
     @PostMapping("/deleteListing/{id}")
     public String deleteListing(@PathVariable String id, HttpSession session,Model model) {
-        String loggedInId = session.getAttribute("user_id").toString();
+        String loggedInId = (String) session.getAttribute("user_id");
         String loggedInUsername = (String) session.getAttribute("user_username");
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
@@ -249,7 +249,7 @@ public class ListingController {
 
     @GetMapping(path="/listing/{listingId}")
     public String viewListing(@PathVariable String listingId, Model model,HttpSession httpSession){
-        String userid = httpSession.getAttribute("user_id").toString();
+        String userid = (String) httpSession.getAttribute("user_id");
         if (userid == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";

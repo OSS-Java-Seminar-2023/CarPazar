@@ -153,7 +153,7 @@ public class UserController {
 
     @GetMapping("otherUser")
     public String openOtherUserPage(HttpSession session, Model model) {
-        String userid = session.getAttribute("user_id").toString();
+        String userid = (String) session.getAttribute("user_id");
         if (userid == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -163,7 +163,7 @@ public class UserController {
 
     @PostMapping(path = "/user/update")
     public String userUpdate(@ModelAttribute UserDto userDto, HttpSession session, Model model) throws ParseException {
-        String loggedInID = session.getAttribute("user_id").toString();
+        String loggedInID = (String) session.getAttribute("user_id");
         String loggedInUsername = (String) session.getAttribute("user_username");
         if (loggedInID == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
@@ -194,7 +194,7 @@ public class UserController {
                                      @RequestParam("new_pass2") String newPassword2,
                                      HttpSession session ,Model model)
     {
-        String loggedInUsername = session.getAttribute("user_id").toString();
+        String loggedInUsername = (String) session.getAttribute("user_id");
         if (loggedInUsername == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -287,7 +287,7 @@ public class UserController {
 
     @PostMapping("/editUser/update")
     public String updateUser(@ModelAttribute UserDto userDto,HttpSession session,Model model) throws ParseException {
-        String loggedInUsername = session.getAttribute("user_id").toString();
+        String loggedInUsername = (String) session.getAttribute("user_id");
         if (loggedInUsername == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -318,7 +318,7 @@ public class UserController {
     @RequestMapping("/deleteUser/{username}")
     @Transactional
     public String deleteUser(@PathVariable String username,Model model, HttpSession session) {
-        String loggedInUsername = session.getAttribute("user_id").toString();
+        String loggedInUsername = (String) session.getAttribute("user_id");
         User user=userService.findById(loggedInUsername);
         if (loggedInUsername == null || !user.getIsAdmin()) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
@@ -344,7 +344,7 @@ public class UserController {
     @GetMapping(path="/mylistings")
     public String viewListings(Model model, HttpSession httpSession,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size)
     {
-        String loggedInId = httpSession.getAttribute("user_id").toString();
+        String loggedInId = (String) httpSession.getAttribute("user_id");
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -352,7 +352,7 @@ public class UserController {
         List<Listing> listings = listingService.findByUserId(loggedInId);
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(1);
+        int pageSize = size.orElse(5);
 
         Page<Listing> listingPage=listingService.findPaginatedByUser(PageRequest.of(currentPage - 1, pageSize),loggedInId);
 
@@ -372,7 +372,7 @@ public class UserController {
     @GetMapping(path="/myMessages")
     public String viewMyMessages(Model model, HttpSession session)
     {
-        String loggedInId = session.getAttribute("user_id").toString();
+        String loggedInId = (String) session.getAttribute("user_id");
         String loggedInUsername = (String) session.getAttribute("user_username");
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
@@ -417,7 +417,7 @@ public class UserController {
 
     @PostMapping(path="/premiumRequest")
     public String premiumRequest(HttpSession session, Model model) {
-        String loggedInId = session.getAttribute("user_id").toString();
+        String loggedInId = (String) session.getAttribute("user_id");
         String loggedInUsername = (String) session.getAttribute("user_username");
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
