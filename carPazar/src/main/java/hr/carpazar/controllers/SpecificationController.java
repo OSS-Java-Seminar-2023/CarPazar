@@ -53,51 +53,27 @@ public class SpecificationController {
 
     @GetMapping(path="/editSpecification/{listingId}")
     public String editSpecification(@PathVariable String listingId, Model model,HttpSession httpSession){
-        String loggedInId = (httpSession.getAttribute("user_id") != null) ? httpSession.getAttribute("user_id").toString() : null;
+        String loggedInId = (httpSession.getAttribute("user_id") != null) ? (String) httpSession.getAttribute("user_id") : null;
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
+
         Optional<Specification> specificationOptional = Optional.ofNullable(specificationService.findByListingId(listingId));
+
         if (specificationOptional.isPresent()) {
             Specification specification=specificationOptional.get();
-            SpecificationDto specificationDto = new SpecificationDto();
-            specificationDto.setConsumption(specification.getConsumption());
-            specificationDto.setId(specification.getId());
-            specificationDto.setBrand(specification.getBrand());
-            specificationDto.setModel(specification.getModel());
-            specificationDto.setEngineType(specification.getEngineType());
-            specificationDto.setShifterType(specification.getShifterType());
-            specificationDto.setKilometersTravelled(specification.getKilometersTravelled());
-            specificationDto.setManufactureYear(specification.getManufactureYear());
-            specificationDto.setInTrafficSince(specification.getInTrafficSince());
-            specificationDto.setDoorCount(specification.getDoorCount());
-            specificationDto.setGearCount(specification.getGearCount());
-            specificationDto.setLocation(specification.getLocation());
-            specificationDto.setBodyShape(specification.getBodyShape());
-            specificationDto.setIsUsed(specification.getIsUsed());
-            specificationDto.setDriveType(specification.getDriveType());
-            specificationDto.setConsumption(specification.getConsumption());
-            specificationDto.setAcType(specification.getAcType());
-            specificationDto.setSeatCount(specification.getSeatCount());
-            LocalDate registrationUntil = specification.getRegistrationUntil();
-            if (registrationUntil != null) {
-                String formattedDate = registrationUntil.format(DateTimeFormatter.ISO_LOCAL_DATE);
-                specificationDto.setRegistrationUntil(LocalDate.parse(formattedDate));
-            }
-            specificationDto.setOwnerNo(specification.getOwnerNo());
-            specificationDto.setColor(specification.getColor());
-
-            model.addAttribute("specificationDto", specificationDto);
-        } else {
+            model.addAttribute("specification", specification);
+            return "editSpecification";
+        }
+        else {
             return "redirect:/notFound";
         }
-        return "editSpecification";
     }
 
     @PostMapping(path="/editSpecification/update")
-    public String updateListing(@ModelAttribute SpecificationDto specificationDto,HttpSession session,Model model) throws ParseException {
-        String loggedInId = (session.getAttribute("user_id") != null) ? session.getAttribute("user_id").toString() : null;
+    public String updateListing(@ModelAttribute SpecificationDto specificationDto,HttpSession session,Model model) {
+        String loggedInId = (session.getAttribute("user_id") != null) ? (String) session.getAttribute("user_id") : null;
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -105,38 +81,17 @@ public class SpecificationController {
 
         String specId=specificationDto.getId();
         Optional<Specification> specificationOptional = Optional.ofNullable(specificationService.findByListingId(specId));
+        
+        if (specificationOptional.isPresent()) {
+            Specification specs = specificationOptional.get();
+            specificationService.updateSpecificationFromDto(specificationDto, specs);
+            specificationService.publishSpecification(specs);
 
-
-        if (!specificationOptional.isPresent()) {
+            return "redirect:/mylistings";
+        }
+        else{
             return "redirect:/notFound";
         }
-
-        Specification specs = specificationOptional.get();
-        specs.setConsumption(specificationDto.getConsumption());
-        specs.setId(specificationDto.getId());
-        specs.setBrand(specificationDto.getBrand());
-        specs.setModel(specificationDto.getModel());
-        specs.setEngineType(specificationDto.getEngineType());
-        specs.setShifterType(specificationDto.getShifterType());
-        specs.setKilometersTravelled(specificationDto.getKilometersTravelled());
-        specs.setManufactureYear(specificationDto.getManufactureYear());
-        specs.setInTrafficSince(specificationDto.getInTrafficSince());
-        specs.setDoorCount(specificationDto.getDoorCount());
-        specs.setGearCount(specificationDto.getGearCount());
-        specs.setLocation(specificationDto.getLocation());
-        specs.setBodyShape(specificationDto.getBodyShape());
-        specs.setIsUsed(specificationDto.getIsUsed());
-        specs.setDriveType(specificationDto.getDriveType());
-        specs.setConsumption(specificationDto.getConsumption());
-        specs.setAcType(specificationDto.getAcType());
-        specs.setSeatCount(specificationDto.getSeatCount());
-        specs.setRegistrationUntil(specificationDto.getRegistrationUntil());
-        specs.setOwnerNo(specificationDto.getOwnerNo());
-        specs.setColor(specificationDto.getColor());
-
-        specificationService.publishSpecification(specs);
-
-        return "redirect:/mylistings";
     }
 
     @GetMapping(path="/editAdditionalEquipment/{listingId}")

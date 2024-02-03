@@ -1625,7 +1625,7 @@
 
     function populateFilterData(){
       let filters = localStorage.getItem("filters");
-      if (filters){
+      if (filters && document.getElementById("sort")){
         filters = JSON.parse(filters);
 
         document.getElementById("sort").value = filters.sort;

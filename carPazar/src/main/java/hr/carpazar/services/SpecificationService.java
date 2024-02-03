@@ -125,6 +125,30 @@ public class SpecificationService {
             specificationDto.setExtraFeatures(0);
     }
 
+    public void updateSpecificationFromDto(SpecificationDto specificationDto, Specification specs){
+        specs.setConsumption(specificationDto.getConsumption());
+        specs.setId(specificationDto.getId());
+        specs.setBrand(specificationDto.getBrand());
+        specs.setModel(specificationDto.getModel());
+        specs.setEngineType(specificationDto.getEngineType());
+        specs.setShifterType(specificationDto.getShifterType());
+        specs.setKilometersTravelled(specificationDto.getKilometersTravelled());
+        specs.setManufactureYear(specificationDto.getManufactureYear());
+        specs.setInTrafficSince(specificationDto.getInTrafficSince());
+        specs.setDoorCount(specificationDto.getDoorCount());
+        specs.setGearCount(specificationDto.getGearCount());
+        specs.setLocation(specificationDto.getLocation());
+        specs.setBodyShape(specificationDto.getBodyShape());
+        specs.setIsUsed(specificationDto.getIsUsed());
+        specs.setDriveType(specificationDto.getDriveType());
+        specs.setConsumption(specificationDto.getConsumption());
+        specs.setAcType(specificationDto.getAcType());
+        specs.setSeatCount(specificationDto.getSeatCount());
+        specs.setRegistrationUntil(specificationDto.getRegistrationUntil());
+        specs.setOwnerNo(specificationDto.getOwnerNo());
+        specs.setColor(specificationDto.getColor());
+    }
+
     public static ArrayList<String> checkboxToStringList(int dec, String inputName, Boolean textContent){
         ArrayList<String> extraFeaturesList = new ArrayList<>();
         ArrayList<String> additionalEquipmentList = new ArrayList<>();
