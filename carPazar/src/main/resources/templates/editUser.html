@@ -2,44 +2,67 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" th:href="@{/css/editUser.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
-    <title>Edit User</title>
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}"
+    />
+    <title>
+        Edit User
+    </title>
 </head>
 <body class="editUser_body">
-    <div class="user_right_side">
-        <form th:action="@{/editUser/update}" method="post" class="div1">
-            <div class="container">
-                <h1 class="ch_pass">User Information</h1>
-            </div>
-            <p>First name: <span th:text="${userDTO.firstName}"></span></p>
-
-            <p>Last name: <span th:text="${userDTO.surname}"></span></p>
-
-            <p>Date of birth: <span th:text="${userDTO.birthDate}"></span></p>
-
-            <p>E-mail: <span th:text="${userDTO.email}"></span></p>
-
-            <p>Username: <span th:text="${userDTO.username}"></span></p>
-            <input type="hidden" name="username" th:value="${userDTO.username}" />
-
-            <div class="checkbox-group">
-                <label for="premium">Premium User:</label>
-                <input type="checkbox" id="premium" name="premium" th:checked="${userDTO.isPremium}">
-
-                <label for="admin">Admin:</label>
-                <input type="checkbox" id="admin" name="admin" th:checked="${userDTO.isAdmin}">
-            </div>
-
-            <div class="container">
-                <button type="submit" class="submit1">Submit</button>
-            </div>
-        </form>
-
-    </div>
+<div class="user_right_side">
+    <form th:action="@{/editUser/update}" method="post" class="div1">
+        <div class="container">
+            <h1 class="ch_pass">
+                User Information
+            </h1>
+        </div>
+        <p>
+            First name:
+            <span th:text="${userDTO.firstName}">
+					</span>
+        </p>
+        <p>
+            Last name:
+            <span th:text="${userDTO.surname}">
+					</span>
+        </p>
+        <p>
+            Date of birth:
+            <span th:text="${userDTO.birthDate}">
+					</span>
+        </p>
+        <p>
+            E-mail:
+            <span th:text="${userDTO.email}">
+					</span>
+        </p>
+        <p>
+            Username:
+            <span th:text="${userDTO.username}">
+					</span>
+        </p>
+        <input type="hidden" name="username" th:value="${userDTO.username}" />
+        <div class="checkbox-group">
+            <label for="premium">
+                Premium User:
+            </label>
+            <input type="checkbox" id="premium" name="premium" th:checked="${userDTO.isPremium}">
+            <label for="admin">
+                Admin:
+            </label>
+            <input type="checkbox" id="admin" name="admin" th:checked="${userDTO.isAdmin}">
+        </div>
+        <div class="container">
+            <button type="submit" class="submit1">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
 </body>
+
 </html>

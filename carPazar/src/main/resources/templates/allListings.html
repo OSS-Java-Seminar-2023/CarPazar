@@ -2,172 +2,378 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" th:href="@{/css/allListings.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
-    <title>Listings</title>
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}"
+    />
+    <title>
+        Listings
+    </title>
 </head>
 <body onload="specsInit()">
-    <div th:replace="~{fragments/navbar :: navbarDiv}"></div>
-
+<div th:replace="~{fragments/navbar :: navbarDiv}">
+</div>
 <div class="filter-bar">
     <form method="post" id="filter-form" onsubmit="saveFilterData()">
         <input type="hidden" name="size" value="5">
-        <input type="hidden" name="page" value="1"> <!-- maknit? -->
-        <label for="sort">Sort by:</label>
+        <input type="hidden" name="page" value="1">
+        <!-- maknit? -->
+        <label for="sort">
+            Sort by:
+        </label>
         <select id="sort" name="sort">
-            <option value="any" selected>Choose the sorting</option>
-            <option value="dateAsc">Oldest</option>
-            <option value="dateDesc">Most Recent</option>
-            <option value="priceDesc">Most expensive</option>
-            <option value="priceAsc">Least expensive</option>
-        </select><hr>
-        <label for="brand">Make:</label><br>
+            <option value="any" selected>
+                Choose the sorting
+            </option>
+            <option value="dateAsc">
+                Oldest
+            </option>
+            <option value="dateDesc">
+                Most Recent
+            </option>
+            <option value="priceDesc">
+                Most expensive
+            </option>
+            <option value="priceAsc">
+                Least expensive
+            </option>
+        </select>
+        <hr>
+        <label for="brand">
+            Make:
+        </label>
+        <br>
         <select name="brand" id="select-brand" onchange="updateModelsWithAny()">
-            <option value="any" selected>Any</option>
-        </select><br><br>
-        <label for="model">Model:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="model">
+            Model:
+        </label>
+        <br>
         <select name="model" id="select-model">
-            <option value="any" selected>Any</option>
-        </select><br><br>
-        <label for="enginePowerMin">Engine power:</label><br>
-        <input type="number" name="enginePowerMin" id="engine-power-min" placeholder="Engine Power" min="0" max="999">
-        <label for="enginePowerMax">to</label>
-        <input type="number" name="enginePowerMax" id="engine-power-max" placeholder="Engine Power" min="0" max="999"><br><br>
-        <label for="engineType">Engine type:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="enginePowerMin">
+            Engine power:
+        </label>
+        <br>
+        <input type="number" name="enginePowerMin" id="engine-power-min" placeholder="Engine Power"
+               min="0" max="999">
+        <label for="enginePowerMax">
+            to
+        </label>
+        <input type="number" name="enginePowerMax" id="engine-power-max" placeholder="Engine Power"
+               min="0" max="999">
+        <br>
+        <br>
+        <label for="engineType">
+            Engine type:
+        </label>
+        <br>
         <select name="engineType" id="engine-type">
-            <option value="any" selected>Any</option>
-            <option value="diesel">Diesel</option>
-            <option value="gasoline">Gasoline/Gas</option>
-            <option value="hybrid">Hybrid</option>
-            <option value="electric">EV</option>
-        </select><br><br>
-        <label for="shifterType">Transmission:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+            <option value="diesel">
+                Diesel
+            </option>
+            <option value="gasoline">
+                Gasoline/Gas
+            </option>
+            <option value="hybrid">
+                Hybrid
+            </option>
+            <option value="electric">
+                EV
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="shifterType">
+            Transmission:
+        </label>
+        <br>
         <select name="shifterType" id="shifter-type">
-            <option value="any" selected >Any</option>
-            <option value="automatic">Automatic</option>
-            <option value="manual">Manual</option>
-        </select><br><br>
-        <label for="kilometersTravelledMin">Odometer (km):</label><br>
-        <input type="number" name="kilometersTravelledMin" id="kms-min" placeholder="Kilometerage" min="0" max="999999">
-        <label for="kilometersTravelledMax">to</label>
-        <input type="number" name="kilometersTravelledMax" id="kms-max" placeholder="Kilometerage" min="0" max="999999"><br><br>
-        <label for="manufactureYearMin">Manufacture year:</label><br>
-        <input type="number" name="manufactureYearMin" id="year-min" placeholder="min" min="1900" max="2100">
-        <label for="manufactureYearMax">to</label>
-        <input type="number" name="manufactureYearMax" id="year-max" placeholder="max" min="1900" max="2100"><br><br>
-        <label for="ownerNo">Owner:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+            <option value="automatic">
+                Automatic
+            </option>
+            <option value="manual">
+                Manual
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="kilometersTravelledMin">
+            Odometer (km):
+        </label>
+        <br>
+        <input type="number" name="kilometersTravelledMin" id="kms-min" placeholder="Kilometerage"
+               min="0" max="999999">
+        <label for="kilometersTravelledMax">
+            to
+        </label>
+        <input type="number" name="kilometersTravelledMax" id="kms-max" placeholder="Kilometerage"
+               min="0" max="999999">
+        <br>
+        <br>
+        <label for="manufactureYearMin">
+            Manufacture year:
+        </label>
+        <br>
+        <input type="number" name="manufactureYearMin" id="year-min" placeholder="min"
+               min="1900" max="2100">
+        <label for="manufactureYearMax">
+            to
+        </label>
+        <input type="number" name="manufactureYearMax" id="year-max" placeholder="max"
+               min="1900" max="2100">
+        <br>
+        <br>
+        <label for="ownerNo">
+            Owner:
+        </label>
+        <br>
         <select name="ownerNo" id="owner">
-            <option value="any" selected>Any</option>
-            <option value="1">First</option>
-            <option value="2">Second</option>
-            <option value="3">Third or more</option>
-        </select><br><br>
-        <label for="isUsed">Car condition:</label><br>
-            <input type="radio" id="is-used-new" name="isUsed" value="false">
-            <label for="is-used-new">New</label>
-            <input type="radio" id="is-used-old" name="isUsed" value="true">
-            <label for="is-used-old">Used</label>
-        <br><br>
-        <label for="location">Location:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+            <option value="1">
+                First
+            </option>
+            <option value="2">
+                Second
+            </option>
+            <option value="3">
+                Third or more
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="isUsed">
+            Car condition:
+        </label>
+        <br>
+        <input type="radio" id="is-used-new" name="isUsed" value="false">
+        <label for="is-used-new">
+            New
+        </label>
+        <input type="radio" id="is-used-old" name="isUsed" value="true">
+        <label for="is-used-old">
+            Used
+        </label>
+        <br>
+        <br>
+        <label for="location">
+            Location:
+        </label>
+        <br>
         <select name="location" id="select-county">
-            <option value="any" selected>Any</option>
-        </select><br><br>
-        <label for="doorCount">Door count:</label><br>
-        <input type="number" name="doorCount" id="door-count" placeholder="Door Count" min="1" max="9"><br><br>
-        <label for="gearCount">Gear count:</label><br>
-        <input type="number" name="gearCount" id="gear-count" placeholder="Gear Count" min="1" max="19"><br><br>
-        <label for="bodyShape">Body shape:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="doorCount">
+            Door count:
+        </label>
+        <br>
+        <input type="number" name="doorCount" id="door-count" placeholder="Door Count"
+               min="1" max="9">
+        <br>
+        <br>
+        <label for="gearCount">
+            Gear count:
+        </label>
+        <br>
+        <input type="number" name="gearCount" id="gear-count" placeholder="Gear Count"
+               min="1" max="19">
+        <br>
+        <br>
+        <label for="bodyShape">
+            Body shape:
+        </label>
+        <br>
         <select name="bodyShape" id="body-shape">
-            <option value="any" selected>Any</option>
-            <option value="coupe">Coupe</option>
-            <option value="limo">Limousine</option>
-            <option value="caravan">Caravan</option>
-            <option value="hatchback">Hatchback</option>
-            <option value="suv">SUV</option>
-            <option value="minivan">Minivan</option>
-            <option value="cabrio">Convertible</option>
-            <option value="van">Van</option>
-        </select><br><br>
-        <label for="driveType">Drive type:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+            <option value="coupe">
+                Coupe
+            </option>
+            <option value="limo">
+                Limousine
+            </option>
+            <option value="caravan">
+                Caravan
+            </option>
+            <option value="hatchback">
+                Hatchback
+            </option>
+            <option value="suv">
+                SUV
+            </option>
+            <option value="minivan">
+                Minivan
+            </option>
+            <option value="cabrio">
+                Convertible
+            </option>
+            <option value="van">
+                Van
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="driveType">
+            Drive type:
+        </label>
+        <br>
         <select name="driveType" id="drive-type">
-            <option value="any" selected>Any</option>
-            <option value="fwd">FWD</option>
-            <option value="rwd">RWD</option>
-            <option value="awd">AWD</option>
-        </select><br><br>
-        <label for="consumptionMin">Consumption (L/100km):</label><br>
-        <input type="number" step="any" name="consumptionMin" id="consumption-min" placeholder="Consumption" min="0" max="99.9">
-        <label for="consumptionMax">to</label>
-        <input type="number" step="any" name="consumptionMax" id="consumption-max" placeholder="Consumption" min="0" max="99.9"><br><br>
-        <label for="acType">AC type:</label><br>
+            <option value="any" selected>
+                Any
+            </option>
+            <option value="fwd">
+                FWD
+            </option>
+            <option value="rwd">
+                RWD
+            </option>
+            <option value="awd">
+                AWD
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="consumptionMin">
+            Consumption (L/100km):
+        </label>
+        <br>
+        <input type="number" step="any" name="consumptionMin" id="consumption-min"
+               placeholder="Consumption" min="0" max="99.9">
+        <label for="consumptionMax">
+            to
+        </label>
+        <input type="number" step="any" name="consumptionMax" id="consumption-max"
+               placeholder="Consumption" min="0" max="99.9">
+        <br>
+        <br>
+        <label for="acType">
+            AC type:
+        </label>
+        <br>
         <select name="acType" id="ac-type">
-            <option value="any" selected>Any</option>
-            <option value="automatic">Automatic</option>
-            <option value="dual">Dual</option>
-            <option value="manual">Manual</option>
-        </select><br><br>
-        <label for="seatCount">Seat count:</label><br>
-        <input type="number" name="seatCount" id="seat-count" placeholder="Seat Count" min="1" max="99"><br><hr>
+            <option value="any" selected>
+                Any
+            </option>
+            <option value="automatic">
+                Automatic
+            </option>
+            <option value="dual">
+                Dual
+            </option>
+            <option value="manual">
+                Manual
+            </option>
+        </select>
+        <br>
+        <br>
+        <label for="seatCount">
+            Seat count:
+        </label>
+        <br>
+        <input type="number" name="seatCount" id="seat-count" placeholder="Seat Count"
+               min="1" max="99">
+        <br>
+        <hr>
         <input type="submit" value="Filter">
     </form>
 </div>
-
 <div class="right_side">
-            <ul>
-                <li th:each="listing : ${listingPage.content} " th:if="${listing.isSponsored}">
-                    <div class="premium_listing_container">
-                        <div class="listing_details">
-                            <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
-                            <p th:text="${listing.description}"></p>
-                            <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
-                            <p>
-                                Owner: <a th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}"></a>
-                            </p>
-                            <div th:if="${userID != listing.userId}">
-                                <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
-                            </div>
-                        </div>
-                        <div class="listing_image">
-                            <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
-                        </div>
+    <ul>
+        <li th:each="listing : ${listingPage.content} " th:if="${listing.isSponsored}">
+            <div class="premium_listing_container">
+                <div class="listing_details">
+                    <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}">
+                    </a>
+                    <p th:text="${listing.description}">
+                    </p>
+                    <p th:text="'Price: ' + ${listing.price} + ' €'">
+                    </p>
+                    <p>
+                        Owner:
+                        <a th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}">
+                        </a>
+                    </p>
+                    <div th:if="${userID != listing.userId}">
+                        <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">
+                            Message seller
+                        </a>
                     </div>
-                </li>
-            </ul>
-            <ul>
-                <li th:each="listing : ${listingPage.content}" th:if="${!listing.isSponsored}">
-                    <div class="listing_container">
-                        <div class="listing_details">
-                            <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
-                            <p th:text="${listing.description}"></p>
-                            <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
-                            <p>
-                                Owner: <a th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}"></a>
-                            </p>
-
-
-                            <div th:if="${userID != null and userID != listing.userId.id}">
-                                <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
-                            </div>
-                        </div>
-                        <div class="listing_image">
-                            <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
-                        </div>
+                </div>
+                <div class="listing_image">
+                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}"
+                         alt="Listing Image">
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li th:each="listing : ${listingPage.content}" th:if="${!listing.isSponsored}">
+            <div class="listing_container">
+                <div class="listing_details">
+                    <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}">
+                    </a>
+                    <p th:text="${listing.description}">
+                    </p>
+                    <p th:text="'Price: ' + ${listing.price} + ' €'">
+                    </p>
+                    <p>
+                        Owner:
+                        <a th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}">
+                        </a>
+                    </p>
+                    <div th:if="${userID != null and userID != listing.userId.id}">
+                        <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">
+                            Message seller
+                        </a>
                     </div>
-                </li>
-            </ul>
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li th:each="pageNumber : ${pageNumbers}" class="page-item" th:classappend="${pageNumber == listingPage.number + 1} ? 'active'">
-                        <a class="page-link" th:href="@{/listings(size=${listingPage.size}, page=${pageNumber})}" th:text="${pageNumber}">Page Number</a>
-                    </li>
-                </ul>
-            </nav>
+                </div>
+                <div class="listing_image">
+                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}"
+                         alt="Listing Image">
+                </div>
+            </div>
+        </li>
+    </ul>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li th:each="pageNumber : ${pageNumbers}" class="page-item" th:classappend="${pageNumber == listingPage.number + 1} ? 'active'">
+                <a class="page-link" th:href="@{/listings(size=${listingPage.size}, page=${pageNumber})}"
+                   th:text="${pageNumber}">
+                    Page Number
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
-<script th:src="@{/javaScript/sort.js}" defer="defer"></script>
-<script th:src="@{/javaScript/newListing.js}" defer="defer"></script>
+<script th:src="@{/javaScript/sort.js}" defer="defer">
+</script>
+<script th:src="@{/javaScript/newListing.js}" defer="defer">
+</script>
 </body>
+
 </html>

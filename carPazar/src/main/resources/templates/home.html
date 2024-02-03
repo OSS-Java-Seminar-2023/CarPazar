@@ -2,19 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
-    <title>Home</title>
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}"
+    />
+    <title>
+        Home
+    </title>
 </head>
 <body>
-    <div th:replace="~{fragments/navbar :: navbarDiv}"></div>
+<div th:replace="~{fragments/navbar :: navbarDiv}">
+</div>
 <div class="div1">
-    <h1>Welcome to CarPazar!</h1>
-    <p>Your one-stop destination for all car listings!</p>
+    <h1>
+        Welcome to CarPazar!
+    </h1>
+    <p>
+        Your one-stop destination for all car listings!
+    </p>
 </div>
 <div class="search-container">
     <form action="/search" method="GET" class="search-bar">
@@ -23,29 +30,44 @@
             <img th:src="@{images/search.png}" alt="Search icon">
         </button>
     </form>
-    <a href="../add-listing"><button class="post-button">Post a listing</button></a>
+    <a href="../add-listing">
+        <button class="post-button">
+            Post a listing
+        </button>
+    </a>
 </div>
 <div class="a">
     <ul>
         <li th:each="listing : ${listings}">
             <div class="b">
                 <div class="c">
-                    <a class="title" th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
-                    <p th:text="${listing.description}"></p>
-                    <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
+                    <a class="title" th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}">
+                    </a>
+                    <p th:text="${listing.description}">
+                    </p>
+                    <p th:text="'Price: ' + ${listing.price} + ' €'">
+                    </p>
                     <p>
-                        Owner: <a class="title" th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}"></a>
+                        Owner:
+                        <a class="title" th:href="@{/user/{userId}(userId=${listing.userId.userName})}"
+                           th:text="${listing.userId.userName}">
+                        </a>
                     </p>
                     <div th:if="${userID != null and userID != listing.userId.id}">
-                        <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
+                        <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">
+                            Message seller
+                        </a>
                     </div>
                 </div>
                 <div class="listing_image">
-                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
+                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}"
+                         alt="Listing Image">
                 </div>
             </div>
         </li>
     </ul>
 </div>
-</body>>
+</body>
+>
+
 </html>

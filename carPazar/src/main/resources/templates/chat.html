@@ -2,13 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" th:href="@{/css/chat.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
-    <title>Chat</title>
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}"
+    />
+    <title>
+        Chat
+    </title>
     <script>
         function scrollToBottom() {
             var chatContainer = document.querySelector('.chat-messages');
@@ -17,47 +19,59 @@
     </script>
 </head>
 <body class="chat_body" onload="scrollToBottom()">
-    <div th:replace="~{fragments/navbar :: navbarDiv}"></div>
+<div th:replace="~{fragments/navbar :: navbarDiv}">
+</div>
 <div class="chat-container">
     <div class="chat-header">
-        <h2>Chat with
-            <a class="yellow-text no-underline" th:href="@{/user/{username}(username=${listing.userId.userName})}" th:text="${listing.userId.userName}">User</a>
+        <h2>
+            Chat with
+            <a class="yellow-text no-underline" th:href="@{/user/{username}(username=${listing.userId.userName})}"
+               th:text="${listing.userId.userName}">
+                User
+            </a>
             about
-            <a class="yellow-text no-underline" th:href="@{/listingWithImages/{id}(id=${listing.id})}" th:text="${listing.title}">Listing Title</a>
+            <a class="yellow-text no-underline" th:href="@{/listingWithImages/{id}(id=${listing.id})}"
+               th:text="${listing.title}">
+                Listing Title
+            </a>
         </h2>
     </div>
-
-
     <div class="chat-messages">
         <ul>
             <li th:each="messageEntry : ${messages}">
-                <div th:if="${messageEntry.value != null and messageEntry.value.startsWith(user_right)}" class="message message-right">
-                    <span th:text="${messageEntry.value.substring(36)}"></span>
+                <div th:if="${messageEntry.value != null and messageEntry.value.startsWith(user_right)}"
+                     class="message message-right">
+							<span th:text="${messageEntry.value.substring(36)}">
+							</span>
                     <hr>
-                    <span class="timestampR" th:text="${#temporals.format(messageEntry.key, 'dd-MM-yyyy HH:mm:ss')}"></span>
-
+                    <span class="timestampR" th:text="${#temporals.format(messageEntry.key, 'dd-MM-yyyy HH:mm:ss')}">
+							</span>
                 </div>
-                <div th:if="${messageEntry.value != null and messageEntry.value.startsWith(user_left)}" class="message message-left">
-                    <span th:text="${messageEntry.value.substring(36)}"></span>
+                <div th:if="${messageEntry.value != null and messageEntry.value.startsWith(user_left)}"
+                     class="message message-left">
+							<span th:text="${messageEntry.value.substring(36)}">
+							</span>
                     <hr>
-                    <span class="timestampL" th:text="${#temporals.format(messageEntry.key, 'dd-MM-yyyy HH:mm:ss')}"></span>
+                    <span class="timestampL" th:text="${#temporals.format(messageEntry.key, 'dd-MM-yyyy HH:mm:ss')}">
+							</span>
                 </div>
             </li>
-            <li th:if="${messages.isEmpty()}">No messages yet.</li>
+            <li th:if="${messages.isEmpty()}">
+                No messages yet.
+            </li>
         </ul>
     </div>
-
-
-
     <div class="chat-input">
         <form th:action="@{/sendMessage}" method="post" onsubmit="scrollToBottom()">
             <input type="text" name="message" placeholder="Type a message..." required>
             <input type="hidden" name="chatId" th:value="${chat.id}">
             <input type="hidden" name="sender" th:value="${user_right}">
-            <button type="submit">Send</button>
+            <button type="submit">
+                Send
+            </button>
         </form>
     </div>
-
 </div>
 </body>
+
 </html>
