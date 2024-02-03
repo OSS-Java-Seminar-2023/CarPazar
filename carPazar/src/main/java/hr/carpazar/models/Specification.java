@@ -2,8 +2,6 @@ package hr.carpazar.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
-
 import java.time.Year;
 import java.time.LocalDate;
 

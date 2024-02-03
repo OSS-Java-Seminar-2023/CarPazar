@@ -1,8 +1,6 @@
 package hr.carpazar.repositories;
 
 import hr.carpazar.models.Specification;
-
-import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
 import java.util.UUID;

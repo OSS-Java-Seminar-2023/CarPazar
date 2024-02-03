@@ -2,8 +2,6 @@ package hr.carpazar.models;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 import java.time.Year;
 
 @Getter

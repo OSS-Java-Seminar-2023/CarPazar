@@ -1,37 +1,30 @@
 package hr.carpazar.controllers;
 
+import static hr.carpazar.services.SpecificationService.checkboxToStringList;
+
 import hr.carpazar.dtos.FilterDto;
 import hr.carpazar.dtos.ListingDto;
-import hr.carpazar.dtos.UserDto;
 import hr.carpazar.models.*;
 import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
-import org.springframework.context.MessageSource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import static hr.carpazar.services.SpecificationService.checkboxToStringList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ListingController {
@@ -48,9 +41,8 @@ public class ListingController {
     @Autowired
     private FilterService filterService;
 
-
-    @GetMapping(path="/add-listing")
-    public String openListingForm(HttpSession httpSession,Model model){
+    @GetMapping(path = "/add-listing")
+    public String openListingForm(HttpSession httpSession, Model model) {
         String userid = (String) httpSession.getAttribute("user_id");
         if (userid == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
@@ -60,10 +52,9 @@ public class ListingController {
         return "new_listing";
     }
 
-
-    // kod nece radit ako u sesiji ne postoji user (zabranit pokusaj stvaranja listinga triba ako nije logged in)
-    @PostMapping(path="/add-listing")
-    public String newListing(@ModelAttribute ListingDto listingDto, @RequestParam("images")List<MultipartFile> imageList, HttpSession httpSession, Model model){
+    @PostMapping(path = "/add-listing")
+    public String newListing(@ModelAttribute ListingDto listingDto,
+                             @RequestParam("images") List<MultipartFile> imageList, HttpSession httpSession, Model model) {
         String userid = (String) httpSession.getAttribute("user_id");
         if (userid == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
@@ -73,7 +64,7 @@ public class ListingController {
         Listing listing = listingService.createListingFromDto(listingDto, userid);
 
         User user = userService.findById(userid);
-        if(user.getIsPremium())
+        if (user.getIsPremium())
             listing.setIsSponsored(Boolean.TRUE);
 
         listingService.publishListing(listing);
@@ -89,13 +80,10 @@ public class ListingController {
         return "redirect:/add-info";
     }
     @GetMapping(path = "/imagesListing/{listingId}")
-    public ResponseEntity<byte[]> getListingImage(@PathVariable String listingId,Model model) throws IOException {
+    public ResponseEntity<byte[]> getListingImage(@PathVariable String listingId, Model model) throws IOException {
         Path imgPath = Paths.get(listingService.getDirPath(listingId) + "/img_1.png");
         byte[] imgBytes = Files.readAllBytes(imgPath);
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .body(imgBytes);
-
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imgBytes);
     }
     @GetMapping(path = "/listingWithImages/{listingId}")
     public String getListingWithImages(@PathVariable String listingId, Model model) {
@@ -105,21 +93,21 @@ public class ListingController {
         model.addAttribute("listing", listing);
         model.addAttribute("fileNames", fileNames);
         model.addAttribute("specification", specification);
-        ArrayList<String> exFeat = checkboxToStringList(specification.getExtraFeatures(),"extraFeatures", true);
-        model.addAttribute("exFeat",exFeat);
-        ArrayList<String> addEquip = checkboxToStringList(specification.getAdditionalEquipment(),"additionalEquipment", true);
-        model.addAttribute("addEquip",addEquip);
+        ArrayList<String> exFeat = checkboxToStringList(specification.getExtraFeatures(), "extraFeatures", true);
+        model.addAttribute("exFeat", exFeat);
+        ArrayList<String> addEquip =
+                checkboxToStringList(specification.getAdditionalEquipment(), "additionalEquipment", true);
+        model.addAttribute("addEquip", addEquip);
         return "listingView";
     }
 
     @GetMapping(path = "/imagesListing/{listingId}/{imageIndex}")
-    public ResponseEntity<byte[]> getListingImage(@PathVariable String listingId, @PathVariable String imageIndex) throws IOException {
+    public ResponseEntity<byte[]> getListingImage(@PathVariable String listingId, @PathVariable String imageIndex)
+            throws IOException {
         Path imgPath = Paths.get("C:/CarPazar/listings/" + listingId + "/" + imageIndex);
         if (Files.exists(imgPath)) {
             byte[] imgBytes = Files.readAllBytes(imgPath);
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_PNG)
-                    .body(imgBytes);
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imgBytes);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -127,7 +115,8 @@ public class ListingController {
 
     @GetMapping("/search")
     public String search(@RequestParam("query") String query, Model model, HttpSession httpSession) {
-        String loggedInId = httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
+        String loggedInId =
+                httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
@@ -138,30 +127,28 @@ public class ListingController {
         return "/search";
     }
 
-    @GetMapping(path= "/listings")
-    public String openAllListingsForm(@RequestParam(name = "sort", defaultValue = "dateDesc") String sort,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,Model model, HttpSession httpSession)
-    {
-        String loggedInId = httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
+    @GetMapping(path = "/listings")
+    public String openAllListingsForm(@RequestParam(name = "sort", defaultValue = "dateDesc") String sort,
+                                      @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Model model,
+                                      HttpSession httpSession) {
+        String loggedInId =
+                httpSession.getAttribute("user_id") != null ? httpSession.getAttribute("user_id").toString() : null;
         model.addAttribute("userID", loggedInId);
 
-        
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 
         List<Listing> sortedListings = listingService.getSortedListings(sort);
-        Page<Listing> listingPage=listingService.findPaginated(sortedListings,pageable);
+        Page<Listing> listingPage = listingService.findPaginated(sortedListings, pageable);
 
-
-        model.addAttribute("sortedListings",sortedListings);
+        model.addAttribute("sortedListings", sortedListings);
         model.addAttribute("listingPage", listingPage);
 
         int totalPages = listingPage.getTotalPages();
         if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
@@ -169,18 +156,17 @@ public class ListingController {
     }
 
     @PostMapping(path = "/listings")
-    public String openFilteredListings(@ModelAttribute FilterDto filterDto,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Model model, HttpSession httpSession){
-
+    public String openFilteredListings(@ModelAttribute FilterDto filterDto,
+                                       @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Model model,
+                                       HttpSession httpSession) {
         Filter filters = filterService.setDefaults(filterDto);
         System.out.println("Filter:" + filters.getSort() + filters.getModel() + filters.getBrand());
         List<Specification> specs = filterService.findSpecificationByFilter(filters);
-        for(Specification specification:specs)
-            System.out.println("spec: "+specification.getId());
+        for (Specification specification : specs) System.out.println("spec: " + specification.getId());
         List<Listing> listingsWithSpecs = new ArrayList<>();
-        System.out.println("SORT: "+filters.getSort());
+        System.out.println("SORT: " + filters.getSort());
         List<Listing> sortedListings = listingService.getSortedListings(filters.getSort());
-        for(Listing listing:sortedListings)
-            System.out.println("listing: "+listing.getId());
+        for (Listing listing : sortedListings) System.out.println("listing: " + listing.getId());
         for (Listing listing : sortedListings) {
             for (Specification specification : specs) {
                 if (listing.getId().equals(specification.getId())) {
@@ -188,38 +174,29 @@ public class ListingController {
                 }
             }
         }
-        for (Listing listing : listingsWithSpecs)
-            System.out.println(listing.getTitle());
-        //System.out.println(listingsWithSpecs.get(1).getTitle());
+        for (Listing listing : listingsWithSpecs) System.out.println(listing.getTitle());
+        // System.out.println(listingsWithSpecs.get(1).getTitle());
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(4);
 
-
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 
-        Page<Listing> listingPage=listingService.findPaginated(listingsWithSpecs,pageable);
+        Page<Listing> listingPage = listingService.findPaginated(listingsWithSpecs, pageable);
 
         model.addAttribute("listingPage", listingPage);
         model.addAttribute("listingsWithSpecs", listingsWithSpecs);
         int totalPages = listingPage.getTotalPages();
         if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-
 
         return "allListings";
     }
 
-
-
-
-
     @Transactional
     @PostMapping("/deleteListing/{id}")
-    public String deleteListing(@PathVariable String id, HttpSession session,Model model) {
+    public String deleteListing(@PathVariable String id, HttpSession session, Model model) {
         String loggedInId = (String) session.getAttribute("user_id");
         String loggedInUsername = (String) session.getAttribute("user_username");
         if (loggedInId == null) {
@@ -230,7 +207,7 @@ public class ListingController {
 
         Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(id));
 
-        if(!user.getIsAdmin() && !listingOptional.get().getUserId().equals(user)){
+        if (!user.getIsAdmin() && !listingOptional.get().getUserId().equals(user)) {
             return "redirect:/notFound";
         }
 
@@ -247,8 +224,8 @@ public class ListingController {
         return "redirect:/adminPanel";
     }
 
-    @GetMapping(path="/listing/{listingId}")
-    public String viewListing(@PathVariable String listingId, Model model,HttpSession httpSession){
+    @GetMapping(path = "/listing/{listingId}")
+    public String viewListing(@PathVariable String listingId, Model model, HttpSession httpSession) {
         String userid = (String) httpSession.getAttribute("user_id");
         if (userid == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
@@ -256,21 +233,22 @@ public class ListingController {
         }
         Listing listing = listingService.findById(listingId);
         Specification specification = specificationService.findByListingId(listingId);
-        model.addAttribute("listing",listing);
-        model.addAttribute("specification",specification);
+        model.addAttribute("listing", listing);
+        model.addAttribute("specification", specification);
         return "listingView";
     }
 
-    @GetMapping(path="/editListing/{listingId}")
-    public String editListing(@PathVariable String listingId, Model model,HttpSession httpSession){
-        String loggedInId = (httpSession.getAttribute("user_id") != null) ? httpSession.getAttribute("user_id").toString() : null;
+    @GetMapping(path = "/editListing/{listingId}")
+    public String editListing(@PathVariable String listingId, Model model, HttpSession httpSession) {
+        String loggedInId =
+                (httpSession.getAttribute("user_id") != null) ? httpSession.getAttribute("user_id").toString() : null;
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
         Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(listingId));
         if (listingOptional.isPresent()) {
-            Listing listing=listingOptional.get();
+            Listing listing = listingOptional.get();
             ListingDto listingDTO = new ListingDto();
             listingDTO.setPrice(listing.getPrice());
             listingDTO.setDescription(listing.getDescription());
@@ -284,22 +262,24 @@ public class ListingController {
         return "editListing";
     }
 
-    @PostMapping(path="/editListing/update")
-    public String updateListing(@ModelAttribute ListingDto listingDTO,HttpSession session,Model model) throws ParseException {
-        String loggedInId = (session.getAttribute("user_id") != null) ? session.getAttribute("user_id").toString() : null;
+    @PostMapping(path = "/editListing/update")
+    public String updateListing(@ModelAttribute ListingDto listingDTO, HttpSession session, Model model)
+            throws ParseException {
+        String loggedInId =
+                (session.getAttribute("user_id") != null) ? session.getAttribute("user_id").toString() : null;
         if (loggedInId == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
 
-        String listingID=listingDTO.getId();
-        Optional<Listing> listingOptional= Optional.ofNullable(listingService.findById(listingID));
+        String listingID = listingDTO.getId();
+        Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(listingID));
 
         if (!listingOptional.isPresent()) {
             return "redirect:/notFound";
         }
 
-        Listing listing=listingOptional.get();
+        Listing listing = listingOptional.get();
         listing.setTitle(listingDTO.getTitle());
         listing.setDescription(listingDTO.getDescription());
         listing.setPrice(listingDTO.getPrice());

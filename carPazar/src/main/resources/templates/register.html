@@ -15,6 +15,11 @@
 
     <div th:replace="~{fragments/navbarNotLoggedIn :: navbarDiv}"></div>
     <div id="form-div">
+
+        <div th:if="${exists == true}">
+            <h4 class="requiredField">Username/E-mail already registered!</h4>
+        </div>
+
         <form id="registerForm" action="../register" method="POST" onsubmit="return checkPass()">
             <div class="step" id="step1">
                 <label for="firstName">First name<span class="required">*</span>:</label>

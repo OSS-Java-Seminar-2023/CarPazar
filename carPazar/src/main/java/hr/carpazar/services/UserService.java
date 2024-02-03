@@ -3,25 +3,22 @@ package hr.carpazar.services;
 import hr.carpazar.dtos.UserDto;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.UserRepository;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import java.sql.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.sql.Date;
 import java.util.Optional;
-
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @Service
 public class UserService {
-
     @Autowired
     private UserRepository userRepository;
 
-    public static User createUser(Map<String, String> userData){
+    public static User createUser(Map<String, String> userData) {
         User user = new User();
         user.setFullName(userData.get("firstName") + " " + userData.get("surname"));
         user.setBirthDate(Date.valueOf(userData.get("birthDate")));
@@ -60,16 +57,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void registerUser(User user){
+    public void registerUser(User user) {
         userRepository.save(user);
     }
 
-    public Boolean isExistingCheck(User user){
-        return !(userRepository.countByUserName(user.getUserName()) == 0 &&
-                userRepository.countByEmail(user.getEmail()) == 0 &&
-                userRepository.countById(user.getId()) == 0);
+    public Boolean isExistingCheck(User user) {
+        return !(userRepository.countByUserName(user.getUserName()) == 0
+                && userRepository.countByEmail(user.getEmail()) == 0 && userRepository.countById(user.getId()) == 0);
     }
-    public User findByUserName(String username){
+    public User findByUserName(String username) {
         return userRepository.findByUserName(username).get(0);
     }
 
@@ -86,15 +82,16 @@ public class UserService {
         } else {
             dbUser = userRepository.findByUserName(username).stream().findFirst();
         }
-        return dbUser.map(user -> {
-            if (HashService.comparePasswords(password, dbHashedPassword)) {
-                return user;
-            } else {
-                throw new RuntimeException("Wrong password!");
-            }
-        }).orElseThrow(() -> new RuntimeException("User not found!"));
+        return dbUser
+                .map(user -> {
+                    if (HashService.comparePasswords(password, dbHashedPassword)) {
+                        return user;
+                    } else {
+                        throw new RuntimeException("Wrong password!");
+                    }
+                })
+                .orElseThrow(() -> new RuntimeException("User not found!"));
     }
-
 
     public String preparePasswordComparing(String usernameFieldText, String passwordFieldText) {
         User dbUser;
@@ -111,15 +108,15 @@ public class UserService {
         }
     }
 
-    public User findByEmail(String email){
+    public User findByEmail(String email) {
         return userRepository.findByEmail(email).get(0);
     }
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 
-    public void deleteUser(User user){
+    public void deleteUser(User user) {
         userRepository.delete(user);
     }
 }

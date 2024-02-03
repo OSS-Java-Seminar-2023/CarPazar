@@ -9,8 +9,11 @@ import hr.carpazar.services.ListingService;
 import hr.carpazar.services.MessageService;
 import hr.carpazar.services.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.stereotype.Controller;
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.time.LocalDateTime;
 @Controller
 public class ChatController {
     @Autowired
@@ -38,19 +37,20 @@ public class ChatController {
     }
 
     @GetMapping("/start-chat/{listingId}")
-    public String startChatWithSeller(@PathVariable(name = "listingId", required = true) String listingId, HttpSession session, RedirectAttributes redirectAttributes,Model model) {
+    public String startChatWithSeller(@PathVariable(name = "listingId", required = true) String listingId,
+                                      HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         String loggedInUser = (String) session.getAttribute("user_id");
         if (loggedInUser == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
 
-        User seller=listingService.findSellerByListingID(listingId);
+        User seller = listingService.findSellerByListingID(listingId);
         if (seller.getId() == null || seller.getId().equals(loggedInUser)) {
             return "redirect:/notFound";
         }
-        User user=userService.findById(loggedInUser);
-        Listing listing=listingService.findById(listingId);
+        User user = userService.findById(loggedInUser);
+        Listing listing = listingService.findById(listingId);
         Optional<Chat> existingChat = chatService.findExistingChat(user, listing);
         if (existingChat.isPresent()) {
             String existingChatId = existingChat.get().getId();
@@ -69,47 +69,44 @@ public class ChatController {
         return "redirect:/chat/{chatid}";
     }
 
-    @GetMapping(path="/chat/{chatid}")
-    public String openChat(@PathVariable("chatid") String chatid, Model model, HttpSession session)
-    {
+    @GetMapping(path = "/chat/{chatid}")
+    public String openChat(@PathVariable("chatid") String chatid, Model model, HttpSession session) {
         String loggedInUser = (String) session.getAttribute("user_id");
         if (loggedInUser == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
-        Optional<Chat> chatOptional=chatService.findByID(chatid);
+        Optional<Chat> chatOptional = chatService.findByID(chatid);
 
         if (chatOptional.isPresent()) {
             Chat chat = chatOptional.get();
             String listingID = String.valueOf(chat.getListingId().getId());
             String buyerID = String.valueOf(chat.getBuyerId().getId());
             System.out.println(listingID);
-            User buyer=userService.findById(buyerID);
-            User seller=listingService.findSellerByListingID(listingID);
-            Listing listing=listingService.findById(listingID);
+            User buyer = userService.findById(buyerID);
+            User seller = listingService.findSellerByListingID(listingID);
+            Listing listing = listingService.findById(listingID);
 
             Map<LocalDateTime, String> messages = messageService.findByChatID(chatid);
 
             model.addAttribute("chat", chat);
             model.addAttribute("messages", messages);
 
-            if(loggedInUser.equals(buyerID)){
-                model.addAttribute("user_right",buyer.getId());
-                model.addAttribute("user_right_username",buyer.getUserName());
-                model.addAttribute("user_left",seller.getId());
-                model.addAttribute("user_left_username",seller.getUserName());
-                model.addAttribute("listing",listing);
+            if (loggedInUser.equals(buyerID)) {
+                model.addAttribute("user_right", buyer.getId());
+                model.addAttribute("user_right_username", buyer.getUserName());
+                model.addAttribute("user_left", seller.getId());
+                model.addAttribute("user_left_username", seller.getUserName());
+                model.addAttribute("listing", listing);
                 return "chat";
-            }
-            else if(loggedInUser.equals(seller.getId())){
-                model.addAttribute("user_right",seller.getId());
-                model.addAttribute("user_right_username",seller.getUserName());
-                model.addAttribute("user_left",buyer.getId());
-                model.addAttribute("user_left_username",buyer.getUserName());
-                model.addAttribute("listing",listing);
+            } else if (loggedInUser.equals(seller.getId())) {
+                model.addAttribute("user_right", seller.getId());
+                model.addAttribute("user_right_username", seller.getUserName());
+                model.addAttribute("user_left", buyer.getId());
+                model.addAttribute("user_left_username", buyer.getUserName());
+                model.addAttribute("listing", listing);
                 return "chat";
-            }
-            else{
+            } else {
                 return "redirect:/notFound";
             }
         }
@@ -117,14 +114,16 @@ public class ChatController {
     }
 
     @PostMapping("/sendMessage")
-    public String sendMessage(@RequestParam("message") String messageText, @RequestParam("chatId") String chatId, @RequestParam("sender") String senderID, Model model,HttpSession session, RedirectAttributes redirectAttributes) {
+    public String sendMessage(@RequestParam("message") String messageText, @RequestParam("chatId") String chatId,
+                              @RequestParam("sender") String senderID, Model model, HttpSession session,
+                              RedirectAttributes redirectAttributes) {
         String loggedInUser = (String) session.getAttribute("user_id");
         if (loggedInUser == null) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
-        Optional<Chat> chat= chatService.findByID(chatId);
-        if(!chat.isPresent()){
+        Optional<Chat> chat = chatService.findByID(chatId);
+        if (!chat.isPresent()) {
             return "redirect:/notFound";
         }
         String fullMessage = loggedInUser + messageText;

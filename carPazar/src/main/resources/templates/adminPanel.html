@@ -1,146 +1,191 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/adminPanel.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
-    <title>Admin Panel</title>
-    <script>
-        function AopenConfirmationDialog(id) {
-            var confirmDialog = document.createElement("div");
-            confirmDialog.id = "confirmDialog";
-            confirmDialog.className = "modal";
-            confirmDialog.innerHTML = `
-                <div class="modal-content">
-                    <p>Are you sure you want to delete listing: ${id}?</p>
-                    <button class="delete-button" onclick="deleteListing('${id}')">Yes</button>
-                    <button class="close-button" onclick="closeConfirmationDialog2()">No</button>
-                </div>
-            `;
-
-            document.body.appendChild(confirmDialog);
-        }
-
-
-        function closeConfirmationDialog2() {
-            var dialog = document.getElementById("confirmDialog");
-            if (dialog) {
-                dialog.parentNode.removeChild(dialog);
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" th:href="@{/css/adminPanel.css}" type="text/css">
+		<link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+		<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}"
+		/>
+		<title>
+			Admin Panel
+		</title>
+		<script>
+			function AopenConfirmationDialog(id) {
+                var confirmDialog = document.createElement("div");
+                confirmDialog.id = "confirmDialog";
+                confirmDialog.className = "modal";
+                confirmDialog.innerHTML = ` < div class = "modal-content" > <p > Are you sure you want to delete listing: $ {
+                    id
+                } ? </p>
+                                <button class="delete-button" onclick="deleteListing('${id}')">Yes</button > <button class = "close-button"onclick = "closeConfirmationDialog2()" > No < /button>
+                            </div > `;
+            
+                document.body.appendChild(confirmDialog);
             }
-        }
-
-        async function deleteListing(id) {
-            const response = await fetch(`/deleteListing/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+            
+            function closeConfirmationDialog2() {
+                var dialog = document.getElementById("confirmDialog");
+                if (dialog) {
+                    dialog.parentNode.removeChild(dialog);
                 }
-            });
-
-            if (response.ok) {
-                window.location.href = '/adminPanel';
-            } else {
-                console.error('Deletion failed');
-                window.location.href = '/notFound';
             }
-        }
-    </script>
-</head>
-<body class="admin_body" onload="hideUserInfo(); change2();">
-    <div th:replace="~{fragments/navbar :: navbarDiv}"></div>
+            
+            async function deleteListing(id) {
+                const response = await fetch(` / deleteListing / $ {
+                    id
+                }`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                });
+            
+                if (response.ok) {
+                    window.location.href = '/adminPanel';
+                } else {
+                    console.error('Deletion failed');
+                    window.location.href = '/notFound';
+                }
+            }
+		</script>
+	</head>
+	<body class="admin_body" onload="hideUserInfo(); change2();">
+		<div th:replace="~{fragments/navbar :: navbarDiv}">
+		</div>
+		<button id="button1" onclick="hideUserInfo(); change2();" class="pass_btn">
+			All Listings
+		</button>
+		<button id="button2" onclick="hidePassChange(); change1();" class="pass_btn1">
+			All Users
+		</button>
+		<div class="div1">
+			<h2>
+				All Users:
+			</h2>
+			<table class="users-table">
+				<thead>
+					<tr>
+						<th>
+							ID
+						</th>
+						<th>
+							Username
+						</th>
+						<th>
+							Email
+						</th>
+						<th>
+							Full Name
+						</th>
+						<th>
+							Phone Number
+						</th>
+						<th>
+							Premium
+						</th>
+						<th>
+							Admin
+						</th>
+						<th>
+						</th>
+						<th>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${users}">
+						<td data-label="ID" th:text="${user.id}">
+						</td>
+						<td data-label="Username" th:text="${user.userName}">
+						</td>
+						<td data-label="Email" th:text="${user.email}">
+						</td>
+						<td data-label="Full Name" th:text="${user.fullName}">
+						</td>
+						<td data-label="Phone Number" th:text="${user.phoneNumber}">
+						</td>
+						<td data-label="Premium">
+							<span th:text="${user.isPremium}" th:class="${user.isPremium} ? 'text-green' : 'text-red'">
+							</span>
+						</td>
+						<td data-label="Admin">
+							<span th:text="${user.isAdmin}" th:class="${user.isAdmin} ? 'text-green' : 'text-red'">
+							</span>
+						</td>
+						<td data-label="Edit User">
+							<a th:href="@{/editUser/{username}(username=${user.userName})}" class="edit-button">
+								Edit
+							</a>
+						</td>
+						<td data-label="Delete User">
+							<a href="javascript:void(0);" th:data-username="${user.userName}" onclick="openConfirmationDialog(this.getAttribute('data-username'))"
+							class="delete-button">
+								Delete
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="div2">
+			<h2>
+				All Listings:
+			</h2>
+			<table class="users-table">
+				<thead>
+					<tr>
+						<th>
+							Listing ID
+						</th>
+						<th>
+							Owner Username
+						</th>
+						<th>
+							Owner Full Name
+						</th>
+						<th>
+							Listing Creation Time
+						</th>
+						<th>
+							Title
+						</th>
+						<th>
+							Sponsored
+						</th>
+						<th>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="listing : ${listings}">
+						<td data-label="Listing ID" th:text="${listing.id}">
+						</td>
+						<td data-label="Owner Username" th:text="${listing.userId.userName}">
+						</td>
+						<td data-label="Owner Full Name" th:text="${listing.userId.fullName}">
+						</td>
+						<td data-label="Listing Creation Time" th:text="${#temporals.format(listing.listingDatetime, 'yyyy-MM-dd')}">
+						</td>
+						<td data-label="Title" th:text="${listing.title}">
+						</td>
+						<td data-label="Sponsored">
+							<span th:text="${listing.isSponsored}" th:class="${listing.isSponsored} ? 'text-green' : 'text-red'">
+							</span>
+						</td>
+						<td data-label="Delete User">
+							<a href="javascript:void(0);" th:data-username="${listing.id}" onclick="AopenConfirmationDialog(this.getAttribute('data-username'))"
+							class="delete-button">
+								Delete
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script src="../javaScript/adminPanel.js">
+		</script>
+	</body>
 
-    <button id="button1" onclick="hideUserInfo(); change2();" class="pass_btn">All Listings</button>
-    <button id="button2" onclick="hidePassChange(); change1();" class="pass_btn1">All Users</button>
-
-    <div class="div1">
-        <h2>All Users:</h2>
-        <table class="users-table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Full Name</th>
-                <th>Phone Number</th>
-                <th>Premium</th>
-                <th>Admin</th>
-                <th> </th>
-                <th> </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${users}">
-                <td data-label="ID" th:text="${user.id}"></td>
-                <td data-label="Username" th:text="${user.userName}"></td>
-                <td data-label="Email" th:text="${user.email}"></td>
-                <td data-label="Full Name" th:text="${user.fullName}"></td>
-                <td data-label="Phone Number" th:text="${user.phoneNumber}"></td>
-                <td data-label="Premium">
-                            <span th:text="${user.isPremium}"
-                                  th:class="${user.isPremium} ? 'text-green' : 'text-red'">
-                            </span>
-                </td>
-                <td data-label="Admin">
-                            <span th:text="${user.isAdmin}"
-                                  th:class="${user.isAdmin} ? 'text-green' : 'text-red'">
-                            </span>
-                </td>
-                <td data-label="Edit User">
-                    <a th:href="@{/editUser/{username}(username=${user.userName})}" class="edit-button">Edit</a>
-                </td>
-                <td data-label="Delete User">
-                    <a href="javascript:void(0);"
-                       th:data-username="${user.userName}"
-                       onclick="openConfirmationDialog(this.getAttribute('data-username'))"
-                       class="delete-button">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="div2">
-        <h2>All Listings:</h2>
-        <table class="users-table">
-            <thead>
-            <tr>
-                <th>Listing ID</th>
-                <th>Owner Username</th>
-                <th>Owner Full Name</th>
-                <th>Listing Creation Time</th>
-                <th>Title</th>
-                <th>Sponsored</th>
-                <th> </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="listing : ${listings}">
-                <td data-label="Listing ID" th:text="${listing.id}"></td>
-                <td data-label="Owner Username" th:text="${listing.userId.userName}"></td>
-                <td data-label="Owner Full Name" th:text="${listing.userId.fullName}"></td>
-                <td data-label="Listing Creation Time" th:text="${#temporals.format(listing.listingDatetime, 'yyyy-MM-dd')}"></td>
-                <td data-label="Title" th:text="${listing.title}"></td>
-                <td data-label="Sponsored">
-                            <span th:text="${listing.isSponsored}"
-                                  th:class="${listing.isSponsored} ? 'text-green' : 'text-red'">
-                            </span>
-                </td>
-                <td data-label="Delete User">
-                    <a href="javascript:void(0);"
-                       th:data-username="${listing.id}"
-                       onclick="AopenConfirmationDialog(this.getAttribute('data-username'))"
-                       class="delete-button">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <script src="../javaScript/adminPanel.js"></script>
-
-</body>
 </html>

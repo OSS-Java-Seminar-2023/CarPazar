@@ -4,17 +4,13 @@ import hr.carpazar.models.Chat;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
 import hr.carpazar.repositories.ChatRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ChatService {
-
     @Autowired
     private ChatRepository chatRepository;
 
@@ -34,16 +30,17 @@ public class ChatService {
         return chatRepository.findByListingId(listing);
     }
 
-    public List<Chat> findAllChatsByListing(Listing listing){
+    public List<Chat> findAllChatsByListing(Listing listing) {
         return chatRepository.findAllByListingId(listing);
     }
-    public Chat saveChat(Chat chat){
+    public Chat saveChat(Chat chat) {
         chatRepository.save(chat);
         return chat;
     }
 
-    public void deleteByBuyerId(User buyerId){chatRepository.deleteByBuyerId(buyerId);}
-
+    public void deleteByBuyerId(User buyerId) {
+        chatRepository.deleteByBuyerId(buyerId);
+    }
 
     public void deleteByListingId(Listing listing) {
         List<Chat> chats = chatRepository.findAllByListingId(listing);
@@ -52,7 +49,7 @@ public class ChatService {
         }
     }
 
-
-    public List<Chat> getAll(){return chatRepository.findAll();}
-
+    public List<Chat> getAll() {
+        return chatRepository.findAll();
+    }
 }

@@ -2,23 +2,19 @@ package hr.carpazar.services;
 
 import hr.carpazar.dtos.FilterDto;
 import hr.carpazar.models.Filter;
-import hr.carpazar.models.Listing;
 import hr.carpazar.models.Specification;
 import hr.carpazar.repositories.SpecificationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Field;
-import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
 import java.util.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FilterService {
     @Autowired
-    public SpecificationRepository specificationRepository;
-    public Filter setDefaults(FilterDto filterDto){
+    private SpecificationRepository specificationRepository;
+    public Filter setDefaults(FilterDto filterDto) {
         Filter filters = new Filter();
         String[] parts;
 
@@ -29,8 +25,7 @@ public class FilterService {
 
         if (filterDto.getPage().isEmpty())
             filters.setPage(1);
-        else
-        {
+        else {
             filters.setPage(1);
         }
 
@@ -49,10 +44,9 @@ public class FilterService {
         else
             filters.setEnginePowerMax(Integer.parseInt(filterDto.getEnginePowerMax()));
 
-        if (filterDto.getKilometersTravelledMin().isEmpty()){
-            System.out.println("ulazim u empty");
-            filters.setKilometersTravelledMin(0);}
-        else
+        if (filterDto.getKilometersTravelledMin().isEmpty()) {
+            filters.setKilometersTravelledMin(0);
+        } else
             filters.setKilometersTravelledMin(Integer.parseInt(filterDto.getKilometersTravelledMin()));
 
         if (filterDto.getKilometersTravelledMax().isEmpty())
@@ -71,17 +65,17 @@ public class FilterService {
             filters.setManufactureYearMax(Year.parse(filterDto.getManufactureYearMax()));
 
         if (filterDto.getIsUsed() == null)
-            filters.setIsUsed(null);  // boolean null -> any
+            filters.setIsUsed(null);
         else
             filters.setIsUsed(Boolean.parseBoolean(filterDto.getIsUsed()));
 
         if (filterDto.getDoorCount().isEmpty())
-            filters.setDoorCount(333); // if 333 u filterima -> any
+            filters.setDoorCount(333);
         else
             filters.setDoorCount(Integer.parseInt(filterDto.getDoorCount()));
 
         if (filterDto.getGearCount().isEmpty())
-            filters.setGearCount(333); // if 333 u filterima -> any
+            filters.setGearCount(333);
         else
             filters.setDoorCount(Integer.parseInt(filterDto.getDoorCount()));
 
@@ -96,16 +90,15 @@ public class FilterService {
             filters.setConsumptionMax(Double.parseDouble(filterDto.getConsumptionMax()));
 
         if (filterDto.getSeatCount().isEmpty())
-            filters.setSeatCount(333); // 333 -> any
+            filters.setSeatCount(333);
         else
             filters.setSeatCount(Integer.parseInt(filterDto.getSeatCount()));
 
         if (filterDto.getOwnerNo().equals("any"))
-            filters.setOwnerNo(333); // 333 -> any
+            filters.setOwnerNo(333);
         else
             filters.setOwnerNo(Integer.parseInt(filterDto.getOwnerNo()));
 
-        // non-empty fields
         filters.setBrand(filterDto.getBrand());
         filters.setModel(filterDto.getModel());
         filters.setSort(filterDto.getSort());
@@ -119,7 +112,7 @@ public class FilterService {
         return filters;
     }
 
-    public List<Specification> findSpecificationByFilter(Filter filter){
+    public List<Specification> findSpecificationByFilter(Filter filter) {
         String brand = filter.getBrand();
         String model = filter.getModel();
         int enginePowerMin = filter.getEnginePowerMin();
@@ -141,9 +134,10 @@ public class FilterService {
         Double consumptionMax = filter.getConsumptionMax();
         String acType = filter.getAcType();
         int seatCount = filter.getSeatCount();
-        System.out.println(" Brand:"+brand+" model:"+model+" hpMin:"+enginePowerMin+" hpMax:"+enginePowerMax+" engtype::"+engineType+" shifter:"+shifterType+" kmMin:"+kilometersTravelledMin+" kmMax:"+kilometersTravelledMax+" ManYearMin:"+manufactureYearMin+" ManYearMax:"+manufactureYearMax+" ownerNo:"+ownerNo+" isUsed:"+isUsed+" location:"+location+" door:"+doorCount+" gear:"+gearCount+" body:"+bodyShape+" Drive:"+driveType+" ConsumptionMin:"+consumptionMin+" ConsumptionMax:"+consumptionMax+" ac:"+acType+" Seats:"+seatCount);
-        return specificationRepository.findByArguments(brand,model,enginePowerMin,enginePowerMax,engineType,shifterType,
-                kilometersTravelledMin,kilometersTravelledMax,manufactureYearMin,manufactureYearMax,ownerNo, isUsed,
-                location,doorCount,gearCount,bodyShape,driveType,consumptionMin,consumptionMax,acType,seatCount);
+
+        return specificationRepository.findByArguments(brand, model, enginePowerMin, enginePowerMax, engineType,
+                shifterType, kilometersTravelledMin, kilometersTravelledMax, manufactureYearMin, manufactureYearMax,
+                ownerNo, isUsed, location, doorCount, gearCount, bodyShape, driveType, consumptionMin, consumptionMax,
+                acType, seatCount);
     }
 }

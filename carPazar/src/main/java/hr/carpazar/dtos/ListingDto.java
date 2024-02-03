@@ -2,7 +2,6 @@ package hr.carpazar.dtos;
 
 import hr.carpazar.models.Specification;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data

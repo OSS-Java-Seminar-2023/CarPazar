@@ -1,11 +1,12 @@
 package hr.carpazar.services;
+
 import hr.carpazar.models.User;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
@@ -40,7 +41,8 @@ public class EmailService {
         String[] name = user.getFullName().split(" ");
         String userEmail = user.getEmail();
         String emailText = "Hey,\n\n"
-                + "A new request for a Premium Profile has been submitted by " + name[0] + " " + name[1] + " (" + userEmail + ").\n\n"
+                + "A new request for a Premium Profile has been submitted by " + name[0] + " " + name[1] + " (" + userEmail
+                + ").\n\n"
                 + "Please review the request and take the necessary actions to process it. You can access the user's profile details and request information in the admin panel.\n\n"
                 + "Best regards,\n\n"
                 + "CarPazar System Notification";
@@ -63,8 +65,4 @@ public class EmailService {
         message.setText(emailText);
         mailSender.send(message);
     }
-
-
-
-
 }

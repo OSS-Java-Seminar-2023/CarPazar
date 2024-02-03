@@ -2,7 +2,6 @@ package hr.carpazar.dtos;
 
 import lombok.Data;
 
-
 @Data
 public class UserDto {
     private String firstName;
