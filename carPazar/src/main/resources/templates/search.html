@@ -10,7 +10,7 @@
     <title>Search Results</title>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbarDiv"></div>
+    <div th:replace="~{fragments/navbar :: navbarDiv}"></div>
 <div class="listings_right_side">
     <ul>
         <li th:each="listing : ${searchResults}">

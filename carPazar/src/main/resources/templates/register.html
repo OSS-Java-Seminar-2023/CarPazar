@@ -13,7 +13,7 @@
 </head>
 <body onload="hideStep2()" class="logreg_body">
 
-    <div th:replace="fragments/navbarNotLoggedIn :: navbarDiv"></div>
+    <div th:replace="~{fragments/navbarNotLoggedIn :: navbarDiv}"></div>
     <div id="form-div">
         <form id="registerForm" action="../register" method="POST" onsubmit="return checkPass()">
             <div class="step" id="step1">

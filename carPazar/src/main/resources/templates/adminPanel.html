@@ -51,7 +51,7 @@
     </script>
 </head>
 <body class="admin_body" onload="hideUserInfo(); change2();">
-    <div th:replace="fragments/navbar :: navbarDiv"></div>
+    <div th:replace="~{fragments/navbar :: navbarDiv}"></div>
 
     <button id="button1" onclick="hideUserInfo(); change2();" class="pass_btn">All Listings</button>
     <button id="button2" onclick="hidePassChange(); change1();" class="pass_btn1">All Users</button>

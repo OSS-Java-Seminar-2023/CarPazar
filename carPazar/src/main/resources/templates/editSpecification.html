@@ -11,7 +11,7 @@
     <title>Edit Specification</title>
 </head>
 <body onload="specsInit()">
-<div th:replace="fragments/navbar :: navbarDiv"></div>
+<div th:replace="~{fragments/navbar :: navbarDiv}"></div>
 <form th:action="@{/editSpecification/update}" th:object="${specificationDto}" method="post">
     <hr>
     <hr>
