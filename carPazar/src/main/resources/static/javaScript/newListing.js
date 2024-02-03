@@ -1424,6 +1424,7 @@
         });
 
         populateFilterData();
+        populateSelectFields();
 
         backButton.style.display = "none";
         
@@ -1654,5 +1655,20 @@
       }
     }
 
+    function populateSelectFields(){
+      let brandSelect = document.getElementById("select-brand");
+      let modelSelect = document.getElementById("select-model");
+      let countySelect = document.getElementById("select-county");
 
+      let brandVal = document.getElementById("populate-brand");
+      let modelVal = document.getElementById("populate-model");
+      let countyVal = document.getElementById("populate-location");
+
+      if(brandSelect && modelSelect && countySelect && brandVal && modelVal && countyVal){
+          brandSelect.value = brandVal.value;
+          updateModels();
+          modelSelect.value = modelVal.value;
+          countySelect.value = countyVal.value;
+      }
+    }
    

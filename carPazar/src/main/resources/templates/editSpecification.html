@@ -17,6 +17,9 @@
     <hr>
     <hr>
     <input type="hidden" name="id" th:value="${specificationDto.id}">
+    <input type="hidden" id="populate-brand" th:value="${specificationDto.brand}">
+    <input type="hidden" id="populate-model" th:value="${specificationDto.model}">
+    <input type="hidden" id="populate-location" th:value="${specificationDto.location}">
     <div id="additional-mandatory">
         <label for="brand">Make:</label><br>
         <select name="brand" th:field="*{brand}" id="select-brand" onchange="updateModels()" required>
