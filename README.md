@@ -32,10 +32,6 @@ Premium profiles enjoy increased exposure for their car listings, leading to fas
 Are you in a hurry to sell a car but don't have a Premium Profile? Don't worry! Our Premium Car Listing feature is here to the rescue. It provides a one-time advertisement that will undoubtedly skyrocket your car's exposure and visibility within the CarPazar community. With a Premium Car Listing, your car will be front and center, catching the eye of potential buyers instantly.
 
 
-### Ratings
-
-Each seller has a rating ranging between 1.0 and 5.0. We highly recommend leaving a review on the seller's profile after a car purchase to help create a safer and more trustworthy trading environment. Good ratings will give you trust within CarPazar community.
-
 ### Listings
 
 Listings are divided into a variety of categories and subcategories, all of which users can individually browse. Some of the (sub)categories have additional filters to help users find exactly what they are looking for.
