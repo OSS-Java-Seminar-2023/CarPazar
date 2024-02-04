@@ -45,6 +45,14 @@ public class UserController {
 
     @GetMapping({"/", "/home"})
     public String home(HttpSession httpSession, Model model) {
+        String loggedInId = (String) httpSession.getAttribute("user_id");
+        if(loggedInId==null)
+            model.addAttribute("userid", "fragments/navbarNotLoggedIn");
+        else
+            model.addAttribute("userid", "fragments/navbar");
+
+
+
         List<Listing> listings = listingService.getAll();
         List<Listing> listingsFiltered =
                 listings.stream()

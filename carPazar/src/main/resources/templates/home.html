@@ -13,8 +13,8 @@
     </title>
 </head>
 <body>
-<div th:replace="~{fragments/navbar :: navbarDiv}">
-</div>
+<nav th:replace="~{${userid} :: navbarDiv}"></nav>
+
 <div class="div1">
     <h1>
         Welcome to CarPazar!

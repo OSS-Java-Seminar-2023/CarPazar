@@ -48,7 +48,7 @@
 
 
     <div class="user_right_side">
-        <form action="/user/update" method="post" class="div1">
+        <form action="/user/update" method="post" id="div1" class="div1">
             <div class="container">
                 <h1 class="ch_pass">User Information</h1>
             </div>
@@ -79,7 +79,7 @@
         </form>
 
 
-        <form action="/user/passwordChange" method="post" class="div2" onsubmit="return checkPass()">
+        <form action="/user/passwordChange" method="post" id='div2' class="div2" onsubmit="return checkPass()">
             <div class="container">
                 <h1 class="ch_pass">Change Your Password</h1>
             </div>
@@ -104,6 +104,6 @@
         </form>
 
     </div>
-    <script src="/javaScript/user.js"></script>
+    <script th:src="@{/javaScript/user.js}"></script>
 </body>
 </html>
