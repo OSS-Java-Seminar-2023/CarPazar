@@ -29,15 +29,6 @@
                 </div>
             </div>
         </div>
-        <div class="number-boxes">
-            <div class="number-box-container">
-						<span th:each="imageIndex : ${#numbers.sequence(1, fileNames.size())}"
-                              class="number-box">
-							<span th:text="${imageIndex}">
-							</span>
-						</span>
-            </div>
-        </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel"
                 data-bs-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true">

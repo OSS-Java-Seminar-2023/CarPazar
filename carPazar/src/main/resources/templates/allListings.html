@@ -18,13 +18,13 @@
 <div class="filter-bar">
     <form method="post" id="filter-form" onsubmit="saveFilterData()">
         <input type="hidden" name="size" value="5">
-        <input type="hidden" name="page" value="1">
+        <input type="hidden" name="page" id="filter-page" value="1">
         <!-- maknit? -->
         <label for="sort">
             Sort by:
         </label>
         <select id="sort" name="sort">
-            <option value="any" selected>
+            <option value="dateDesc" selected>
                 Choose the sorting
             </option>
             <option value="dateAsc">
@@ -302,14 +302,18 @@
         <input type="submit" value="Filter">
     </form>
 </div>
+
 <div class="right_side">
+    <div class="div1" th:if="${listingPage.content.size() == 0}">
+        <h1>There are no results found</h1>
+    </div>
     <ul>
         <li th:each="listing : ${listingPage.content} " th:if="${listing.isSponsored}">
             <div class="premium_listing_container">
                 <div class="listing_details">
                     <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}">
                     </a>
-                    <p th:text="${listing.description}">
+                    <p th:text="${listing.specifications.kilometersTravelled}+ ' km'">
                     </p>
                     <p th:text="'Price: ' + ${listing.price} + ' €'">
                     </p>
@@ -318,7 +322,7 @@
                         <a th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}">
                         </a>
                     </p>
-                    <div th:if="${userID != listing.userId}">
+                    <div th:if="${userID != null and userID != listing.userId.id}">
                         <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">
                             Message seller
                         </a>
@@ -337,7 +341,7 @@
                 <div class="listing_details">
                     <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}">
                     </a>
-                    <p th:text="${listing.description}">
+                    <p th:text="${listing.specifications.kilometersTravelled + ' km'}">
                     </p>
                     <p th:text="'Price: ' + ${listing.price} + ' €'">
                     </p>
@@ -362,10 +366,12 @@
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li th:each="pageNumber : ${pageNumbers}" class="page-item" th:classappend="${pageNumber == listingPage.number + 1} ? 'active'">
-                <a class="page-link" th:href="@{/listings(size=${listingPage.size}, page=${pageNumber})}"
+                <button class="paging-btn" th:attr="page-number=${pageNumber}" onclick="submitWithPages(this.getAttribute('page-number'))">
+                    <span class="page-link"
                    th:text="${pageNumber}">
                     Page Number
-                </a>
+                    </span>
+                </button>
             </li>
         </ul>
     </nav>

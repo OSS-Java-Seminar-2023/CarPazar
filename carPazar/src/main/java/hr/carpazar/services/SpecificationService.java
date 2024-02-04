@@ -42,7 +42,6 @@ public class SpecificationService {
         postParams.put("color", specificationDto.getColor());
         postParams.put("additionalEquipment", specificationDto.getAdditionalEquipment().toString());
         postParams.put("extraFeatures", specificationDto.getExtraFeatures().toString());
-        System.out.println("consumption u dto:" + specificationDto.getConsumption());
         return createSpecification(postParams);
     }
 
@@ -77,8 +76,6 @@ public class SpecificationService {
         specs.setColor(specsData.get("color"));
         specs.setAdditionalEquipment(Integer.parseInt(specsData.get("additionalEquipment")));
         specs.setExtraFeatures(Integer.parseInt(specsData.get("extraFeatures")));
-        System.out.println("consumption u hashtabli:" + specsData.get("consumption"));
-        System.out.println("consumption u specs klasi:" + specs.getConsumption());
         return specs;
     }
 

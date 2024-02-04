@@ -20,15 +20,14 @@ body {
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    height: 175vh;
+    height: 192vh;
 }
 
 .right_side {
-    margin-top:50px;
-    padding:50px;
+    margin-top:20px !important;
+    padding-top:20px !important;
     flex-grow: 1;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
     border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -58,12 +57,13 @@ body {
 
 
 .listing_container {
-    border: 1px solid #ccc;
+    border: 2px solid #000000;
     padding: 10px;
     margin: 10px auto;
     display: flex;
     align-items: center;
-    width: 35%;
+    width: 700px;
+    max-width: 700px;
     box-sizing: border-box;
     height: 170 px;
     max-height: 170 px;
@@ -101,27 +101,32 @@ ul {
 }
 
 .premium_listing_container {
-    border: 2px solid #FFD700;
+    border: 5px solid #FFD700;
     padding: 10px;
     margin: 10px auto;
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 700px;
+    max-width: 700px;
     box-sizing: border-box;
     height: 170 px;
     max-height: 170 px;
     overflow: hidden;
+    background-color:#fefae2;
 }
 
 .listing_details {
     padding-right: 20px;
+    width: 280px;
+    max-width: 280px;
+    float:left;
     flex: 1;
     overflow: hidden;
 }
 
 .listing_image {
-    width: 400px;
-    max-width: 400px;
+    width: 360px;
+    max-width: 360px;
     height: 150px;
     max-height: 150px;
     position: relative;
@@ -133,6 +138,7 @@ ul {
     z-index: 1;
     margin-left: 10px;
     flex-shrink: 0;
+    float:right;
 }
 
 .listing_image_img {
@@ -249,4 +255,33 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #003d82;
+}
+
+.page-item {
+    width: 48px;
+
+}
+
+.paging-btn {
+    background-color: transparent;
+}
+
+.div1 {
+	background-color:white;
+	margin:auto;
+	margin-top:100px;
+	padding:20px;
+	width:60%;
+	box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
+	border-radius:10px;
+	align-items:center;
+	align-text:center;
+	display:flex;
+	justify-content:center;
+
+}
+.div1 h1 {
+	font-size:2em;
+	color:#333;
+	align-text:center;
 }

@@ -84,8 +84,6 @@ public class ListingService {
             } catch (IOException ioException) {
                 System.out.println(ioException.getMessage());
             }
-        } else {
-            System.out.println("Already exists.");
         }
     }
 
@@ -104,9 +102,6 @@ public class ListingService {
                     filenames.add(file.getName());
                 }
             }
-        }
-        for (String name : filenames) {
-            System.out.println(name);
         }
         return filenames;
     }
@@ -220,6 +215,24 @@ public class ListingService {
             case "dateAsc" -> getAllByDateAsc();
             default -> getAll();
         };
+    }
+
+    public List<Listing> isolatePremiumListings(List<Listing> sortedListings){
+        List<Listing> sortedPremiumList = new ArrayList<>();
+
+        for(Listing listing: sortedListings){
+            if(listing.getIsSponsored()) {
+                sortedPremiumList.add(listing);
+            }
+        }
+
+        for(Listing listing: sortedListings){
+            if(!listing.getIsSponsored()) {
+                sortedPremiumList.add(listing);
+            }
+        }
+
+        return sortedPremiumList;
     }
 
 }

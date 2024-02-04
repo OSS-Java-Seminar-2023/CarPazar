@@ -141,7 +141,8 @@ public class ListingController {
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 
         List<Listing> sortedListings = listingService.getSortedListings(sort);
-        Page<Listing> listingPage = listingService.findPaginated(sortedListings, pageable);
+        List<Listing> allListings = listingService.isolatePremiumListings(sortedListings);
+        Page<Listing> listingPage = listingService.findPaginated(allListings, pageable);
 
         model.addAttribute("sortedListings", sortedListings);
         model.addAttribute("listingPage", listingPage);
@@ -160,24 +161,22 @@ public class ListingController {
                                        @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Model model,
                                        HttpSession httpSession) {
         Filter filters = filterService.setDefaults(filterDto);
-        System.out.println("Filter:" + filters.getSort() + filters.getModel() + filters.getBrand());
         List<Specification> specs = filterService.findSpecificationByFilter(filters);
-        for (Specification specification : specs) System.out.println("spec: " + specification.getId());
         List<Listing> listingsWithSpecs = new ArrayList<>();
-        System.out.println("SORT: " + filters.getSort());
+
         List<Listing> sortedListings = listingService.getSortedListings(filters.getSort());
-        for (Listing listing : sortedListings) System.out.println("listing: " + listing.getId());
-        for (Listing listing : sortedListings) {
+
+        List<Listing> allListings = listingService.isolatePremiumListings(sortedListings);
+
+        for (Listing listing : allListings) {
             for (Specification specification : specs) {
                 if (listing.getId().equals(specification.getId())) {
                     listingsWithSpecs.add(listing);
                 }
             }
         }
-        for (Listing listing : listingsWithSpecs) System.out.println(listing.getTitle());
-        // System.out.println(listingsWithSpecs.get(1).getTitle());
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(4);
+        int pageSize = size.orElse(5);
 
         PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
 

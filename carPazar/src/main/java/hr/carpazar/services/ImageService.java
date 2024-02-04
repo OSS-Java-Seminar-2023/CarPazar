@@ -24,7 +24,6 @@ public class ImageService {
                 fileCount = 0;
         } else {
             fileCount = 0;
-            System.out.println("nemoguc ispis :D");
         }
 
         AtomicInteger counter = new AtomicInteger(fileCount + 1);

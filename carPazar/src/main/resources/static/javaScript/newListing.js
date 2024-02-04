@@ -1661,3 +1661,10 @@ function populateSelectFields() {
 		countySelect.value = countyVal.value;
 	}
 }
+
+function submitWithPages(pageNumber){
+    let form = document.getElementById("filter-form");
+    let page = document.getElementById("filter-page");
+    page.value = pageNumber;
+    form.submit();
+}

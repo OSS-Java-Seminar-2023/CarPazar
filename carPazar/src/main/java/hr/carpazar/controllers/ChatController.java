@@ -82,7 +82,6 @@ public class ChatController {
             Chat chat = chatOptional.get();
             String listingID = String.valueOf(chat.getListingId().getId());
             String buyerID = String.valueOf(chat.getBuyerId().getId());
-            System.out.println(listingID);
             User buyer = userService.findById(buyerID);
             User seller = listingService.findSellerByListingID(listingID);
             Listing listing = listingService.findById(listingID);
@@ -127,7 +126,6 @@ public class ChatController {
             return "redirect:/notFound";
         }
         String fullMessage = loggedInUser + messageText;
-        System.out.println(fullMessage);
 
         Message newMessage = new Message();
         newMessage.setMessageContent(fullMessage);
