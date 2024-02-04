@@ -18,12 +18,10 @@ public class Chat {
 
     @ManyToOne
     @JoinColumn(name = "listing_id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Listing listingId;
 
     @ManyToOne
     @JoinColumn(name = "buyer_id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User buyerId;
 
 }

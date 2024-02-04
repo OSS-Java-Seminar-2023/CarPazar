@@ -2,6 +2,7 @@ package hr.carpazar.controllers;
 
 import hr.carpazar.dtos.*;
 import hr.carpazar.models.*;
+import hr.carpazar.repositories.MessageRepository;
 import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +33,10 @@ public class UserController {
 
     @Autowired
     private final EmailService emailService;
+
+    @Autowired
+    private MessageService messageService;
+
 
     @GetMapping(path = "/{string}")
     public String nothing(String string) {
@@ -310,8 +315,8 @@ public class UserController {
     @Transactional
     public String deleteUser(@PathVariable String username, Model model, HttpSession session) {
         String loggedInUsername = (String) session.getAttribute("user_id");
-        User user = userService.findById(loggedInUsername);
-        if (loggedInUsername == null || !user.getIsAdmin()) {
+        User admin = userService.findById(loggedInUsername);
+        if (loggedInUsername == null || !admin.getIsAdmin()) {
             model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
             return "notFound";
         }
@@ -319,14 +324,18 @@ public class UserController {
         if (!userOptional.isPresent()) {
             return "redirect:/notFound";
         }
+        User user=userOptional.get();
         List<Listing> listings = listingService.findByUserId(user.getId());
-        List<Chat> chats = chatService.findByUserID(user);
-        chatService.deleteByBuyerId(user);
-        // Specification specs;
+
         for (Listing listing : listings) {
+            List<Chat> chats = chatService.findAllChatsByListing(listing);
+
+            for(Chat chat:chats)
+            {
+                messageService.deleteByChatId(chat);
+                chatService.deleteById(chat.getId());
+            }
             listingService.deleteListing(listing);
-            // specs = specificationService.findByListingId(listing.getId());
-            // specificationService.deleteSpec(specs);
         }
         userService.deleteUser(user);
         return "redirect:/adminPanel";

@@ -23,17 +23,14 @@ public class MessageService {
                 (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
+    public List<Message> findAllByChatId(Chat chat){
+        return messageRepository.findAllByChatId(chat);
+    }
     public void saveMessage(Message message) {
         messageRepository.save(message);
     }
 
-    public void deleteByChatId(Chat chat) {
-        List<Message> messages = messageRepository.findAllByChatId(chat);
-        for (Message msg : messages) {
-            messageRepository.deleteByChatId(chat);
-        }
-    }
-
+    public void deleteByChatId(Chat id){messageRepository.deleteByChatId(id);}
     public List<Message> getAll() {
         return messageRepository.findAll();
     }

@@ -5,6 +5,7 @@ import static hr.carpazar.services.SpecificationService.checkboxToStringList;
 import hr.carpazar.dtos.FilterDto;
 import hr.carpazar.dtos.ListingDto;
 import hr.carpazar.models.*;
+import hr.carpazar.repositories.MessageRepository;
 import hr.carpazar.services.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -40,6 +41,8 @@ public class ListingController {
     private UserService userService;
     @Autowired
     private FilterService filterService;
+
+    private MessageRepository messageRepository;
 
     @GetMapping(path = "/add-listing")
     public String openListingForm(HttpSession httpSession, Model model) {
@@ -213,11 +216,12 @@ public class ListingController {
         Listing listing = listingOptional.get();
 
         List<Chat> chats = chatService.findAllChatsByListing(listing);
+
         for (Chat chat : chats) {
             messageService.deleteByChatId(chat);
+            chatService.deleteById(chat.getId());
         }
 
-        chatService.deleteByListingId(listing);
         listingService.deleteListing(listing);
 
         return "redirect:/adminPanel";

@@ -32,10 +32,6 @@ public class ChatController {
     @Autowired
     private MessageService messageService;
 
-    public ChatController(ChatService chatService) {
-        this.chatService = chatService;
-    }
-
     @GetMapping("/start-chat/{listingId}")
     public String startChatWithSeller(@PathVariable(name = "listingId", required = true) String listingId,
                                       HttpSession session, RedirectAttributes redirectAttributes, Model model) {

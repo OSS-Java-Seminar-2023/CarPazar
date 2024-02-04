@@ -52,4 +52,5 @@ public class ChatService {
     public List<Chat> getAll() {
         return chatRepository.findAll();
     }
+    public void deleteById(String id){chatRepository.deleteById(id);}
 }
