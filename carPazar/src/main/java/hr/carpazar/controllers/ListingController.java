@@ -42,7 +42,6 @@ public class ListingController {
     @Autowired
     private FilterService filterService;
 
-    private MessageRepository messageRepository;
 
     @GetMapping(path = "/add-listing")
     public String openListingForm(HttpSession httpSession, Model model) {
@@ -261,12 +260,44 @@ public class ListingController {
             listingDTO.setDescription(listing.getDescription());
             listingDTO.setTitle(listing.getTitle());
             listingDTO.setId(listing.getId());
+            listingDTO.setIsSold(listing.getIsSold());
+
+            User user = userService.findById(loggedInId);
+            if (!user.getIsAdmin() && !(listing.getUserId() == user)) {
+                return "redirect:/notFound";
+            }
 
             model.addAttribute("listingDTO", listingDTO);
         } else {
             return "redirect:/notFound";
         }
         return "editListing";
+    }
+
+    @GetMapping(path = "/markAsSold/{listingId}")
+    public String soldSwitch(@PathVariable String listingId, Model model, HttpSession httpSession) {
+        String loggedInId =
+                (httpSession.getAttribute("user_id") != null) ? httpSession.getAttribute("user_id").toString() : null;
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
+        Optional<Listing> listingOptional = Optional.ofNullable(listingService.findById(listingId));
+        if (listingOptional.isPresent()) {
+            User user = userService.findById(loggedInId);
+            Listing listing = listingOptional.get();
+
+            if (!user.getIsAdmin() && !(listing.getUserId() == user)) {
+                return "redirect:/notFound";
+            }
+            else{
+                listingService.soldSwitch(listing);
+                return "redirect:/home";
+            }
+        }
+        else
+            return "redirect:/notFound";
+
     }
 
     @PostMapping(path = "/editListing/update")
@@ -290,6 +321,11 @@ public class ListingController {
         listing.setTitle(listingDTO.getTitle());
         listing.setDescription(listingDTO.getDescription());
         listing.setPrice(listingDTO.getPrice());
+
+        User user = userService.findById(loggedInId);
+        if (!user.getIsAdmin() && !(listing.getUserId() == user)) {
+            return "redirect:/notFound";
+        }
 
         listingService.saveListing(listing);
 

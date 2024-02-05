@@ -52,6 +52,14 @@
            class="edit-button">
             Edit Additional Equipment
         </a>
+        <a th:if="${not listingDTO.isSold}" th:href="@{/markAsSold/{listingId}(listingId=${listingDTO.id})}"
+           class="sell-button">
+            Mark as sold
+        </a>
+        <a th:if="${listingDTO.isSold}" th:href="@{/markAsSold/{listingId}(listingId=${listingDTO.id})}"
+           class="sell-button">
+            Mark as not sold
+        </a>
     </div>
 </form>
 <script src="/javaScript/newListing.js">

@@ -18,6 +18,9 @@
 <body>
 <div th:replace="~{fragments/navbar :: navbarDiv}">
 </div>
+<div th:if="${listing.isSold}" class="sold">
+    <h1>This vehicle has been sold.</h1>
+</div>
 <div class="listing-details">
     <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">

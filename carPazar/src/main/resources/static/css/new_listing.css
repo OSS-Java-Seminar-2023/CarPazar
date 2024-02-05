@@ -85,8 +85,22 @@ input[type=submit]:hover {
 	margin:4px 2px;
 	transition-duration:0.4s;
 }
-.edit-button:hover {
-	background-color:#248D1B;
+.sell-button {
+	background-color:red;
+	color:white;
+	padding:10px 15px;
+	border:none;
+	border-radius:5px;
+	cursor:pointer;
+	text-align:center;
+	text-decoration:none;
+	display:inline-block;
+	font-size:16px;
+	margin:4px 2px;
+	transition-duration:0.4s;
+}
+.sell-button:hover {
+	background-color:darkred;
 }
 #next-button {
 	background-color:#007bff;

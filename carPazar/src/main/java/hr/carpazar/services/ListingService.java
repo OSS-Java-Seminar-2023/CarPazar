@@ -75,6 +75,15 @@ public class ListingService {
         listingRepository.delete(listing);
     }
 
+
+    public void soldSwitch(Listing listing){
+        if(listing.getIsSold())
+            listing.setIsSold(false);
+        else
+            listing.setIsSold(true);
+
+        publishListing(listing);
+    }
     public static void createDirectory(String directory) {
         Path path = Paths.get(directory);
 
