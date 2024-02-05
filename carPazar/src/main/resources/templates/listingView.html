@@ -53,6 +53,16 @@
         </p>
         <p th:text="${listing.price}+' €'">
         </p>
+        <p>
+            Owner:
+            <a class="title bold-link" th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}">
+            </a>
+        </p>
+        <div th:if="${userID != null and userID != listing.userId.id}">
+            <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">
+                Message seller
+            </a>
+        </div>
     </div>
     <div class="listing-specs">
         <h3>

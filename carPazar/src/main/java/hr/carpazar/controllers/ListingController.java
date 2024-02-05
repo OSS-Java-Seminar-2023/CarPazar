@@ -89,7 +89,13 @@ public class ListingController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imgBytes);
     }
     @GetMapping(path = "/listingWithImages/{listingId}")
-    public String getListingWithImages(@PathVariable String listingId, Model model) {
+    public String getListingWithImages(@PathVariable String listingId, Model model,HttpSession session) {
+        String loggedInId = session.getAttribute("user_id") != null ? session.getAttribute("user_id").toString() : null;
+        if (loggedInId == null) {
+            model.addAttribute("not_logged_in", "You have to log in in order to access this site!");
+            return "notFound";
+        }
+        model.addAttribute("userID", loggedInId);
         List<String> fileNames = listingService.getImageFilenames(listingId);
         Listing listing = listingService.findById(listingId);
         Specification specification = specificationService.findByListingId(listingId);
