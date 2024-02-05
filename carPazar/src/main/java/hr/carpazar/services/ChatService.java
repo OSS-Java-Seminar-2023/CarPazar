@@ -44,9 +44,7 @@ public class ChatService {
 
     public void deleteByListingId(Listing listing) {
         List<Chat> chats = chatRepository.findAllByListingId(listing);
-        for (Chat chat : chats) {
-            chatRepository.deleteByListingId(listing);
-        }
+        chats.forEach(chat -> chatRepository.deleteByListingId(listing));
     }
 
     public List<Chat> getAll() {

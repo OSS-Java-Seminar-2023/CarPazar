@@ -4,29 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/allListings.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/messages.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap}" />
     <title>Search Results</title>
 </head>
 <body>
     <div th:replace="~{fragments/navbar :: navbarDiv}"></div>
-<div class="listings_right_side">
-    <ul>
-        <li th:each="listing : ${searchResults}">
-            <div class="listing_container">
-                <div class="listing_details">
-                    <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
-                    <p th:text="${listing.description}"></p>
-                    <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
-                    <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
+    <div class="a" th:if="${!searchResults.isEmpty()}">
+        <ul>
+            <li th:each="listing : ${searchResults}">
+                <div class="b">
+                    <div class="c">
+                        <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
+                        <p th:text="${listing.specifications.kilometersTravelled + ' km'}">
+                        <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
+                        <p>
+                            Owner:
+                            <a th:href="@{/user/{userId}(userId=${listing.userId.userName})}" th:text="${listing.userId.userName}">
+                            </a>
+                        </p>
+                        <div th:if="${userID != null and userID != listing.userId.id}">
+                            <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">
+                                Message seller
+                            </a>
+                        </div>
+                    </div>
+                    <div class="listing_image">
+                        <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
+                    </div>
                 </div>
-                <div class="listing_image">
-                    <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+            </li>
+        </ul>
+    </div>
+    <div class="div1" th:if="${searchResults.isEmpty()}">
+        <h1>You have not posted any listings yet!</h1>
+    </div>
 </body>
 </html>

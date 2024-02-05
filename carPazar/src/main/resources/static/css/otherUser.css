@@ -13,7 +13,7 @@
 .user_left_side {
 	width:15%;
 	padding:20px;
-	height:100vh;
+	height:20vh;
 	background-color:rgba(255,255,255,0.9);
 	box-shadow:0 2px 5px rgba(0,0,0,0.1);
 	margin-right:20px;
@@ -21,7 +21,7 @@
 .user_right_side {
 	flex-grow:1;
 	padding:20px;
-	background-color:rgba(255,255,255,0.9);
+	background-color:rgba(255,255,255,0.0);
 	box-shadow:0 2px 5px rgba(0,0,0,0.1);
 	overflow-y:auto;
 }
@@ -142,4 +142,19 @@ li {
 .listing_image_img {
 	width:100%;
 	height:auto;
+}
+.div1 {
+	background-color:white;
+	margin:auto;
+	margin-top:100px;
+	padding:20px;
+	text-align:center;
+	width:60%;
+	box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
+	border-radius:10px;
+}
+h1 {
+	font-size:2em;
+	text-align:center;
+	color:#333;
 }

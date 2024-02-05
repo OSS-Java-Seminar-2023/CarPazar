@@ -24,16 +24,15 @@
     </div>
 
     <div class="user_right_side">
-        <h3>User's Listings</h3>
         <div class="a" th:if="${!listings.isEmpty()}">
             <ul>
                 <li th:each="listing : ${listings}">
                     <div class="b">
                         <div class="c">
                             <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
-                            <p th:text="${listing.description}"></p>
+                            <p th:text="${listing.specifications.kilometersTravelled + ' km'}">
                             <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
-                            <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller for this listing</a>
+                            <a class="button" th:href="@{/start-chat/{id}(id=${listing.id})}">Message seller</a>
                         </div>
                         <div class="listing_image">
                             <img class="listing_image_img" th:src="@{'/imagesListing/'+${listing.id}}" alt="Listing Image">
@@ -41,6 +40,9 @@
                     </div>
                 </li>
             </ul>
+        </div>
+        <div class="div1" th:if="${listings.isEmpty()}">
+            <h1>User has not posted any listings yet!</h1>
         </div>
     </div>
 </div>

@@ -110,10 +110,13 @@ public class UserController {
         if (usernameOptional.isPresent()) {
             String username = usernameOptional.get();
 
-            User user = userService.findByUserName(username);
-            if (user == null) {
+            Optional<User> userOptional = Optional.ofNullable(userService.findByUserName(username));
+
+            if (!userOptional.isPresent()) {
                 return "redirect:/notFound";
             }
+
+            User user = userOptional.get();
 
             if (!username.equals(loggedInUsername)) {
                 model.addAttribute("username", user.getUserName());
@@ -335,16 +338,17 @@ public class UserController {
         User user=userOptional.get();
         List<Listing> listings = listingService.findByUserId(user.getId());
 
-        for (Listing listing : listings) {
+        listings.forEach(listing -> {
             List<Chat> chats = chatService.findAllChatsByListing(listing);
 
-            for(Chat chat:chats)
-            {
+            chats.forEach(chat -> {
                 messageService.deleteByChatId(chat);
                 chatService.deleteById(chat.getId());
-            }
+            });
+
             listingService.deleteListing(listing);
-        }
+        });
+
         userService.deleteUser(user);
         return "redirect:/adminPanel";
     }

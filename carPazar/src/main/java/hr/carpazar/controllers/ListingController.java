@@ -127,6 +127,7 @@ public class ListingController {
         String[] keywords = query.trim().split("\\s+");
         List<Listing> searchResults = listingService.search(keywords);
         model.addAttribute("searchResults", searchResults);
+        model.addAttribute("userID", loggedInId);
         return "/search";
     }
 
@@ -165,19 +166,16 @@ public class ListingController {
                                        HttpSession httpSession) {
         Filter filters = filterService.setDefaults(filterDto);
         List<Specification> specs = filterService.findSpecificationByFilter(filters);
-        List<Listing> listingsWithSpecs = new ArrayList<>();
 
         List<Listing> sortedListings = listingService.getSortedListings(filters.getSort());
 
         List<Listing> allListings = listingService.isolatePremiumListings(sortedListings);
 
-        for (Listing listing : allListings) {
-            for (Specification specification : specs) {
-                if (listing.getId().equals(specification.getId())) {
-                    listingsWithSpecs.add(listing);
-                }
-            }
-        }
+        List<Listing> listingsWithSpecs = allListings.stream()
+                .filter(listing -> specs.stream()
+                        .anyMatch(specification -> specification.getId().equals(listing.getId())))
+                .collect(Collectors.toList());
+
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
@@ -217,10 +215,10 @@ public class ListingController {
 
         List<Chat> chats = chatService.findAllChatsByListing(listing);
 
-        for (Chat chat : chats) {
+        chats.forEach(chat -> {
             messageService.deleteByChatId(chat);
             chatService.deleteById(chat.getId());
-        }
+        });
 
         listingService.deleteListing(listing);
 

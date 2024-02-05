@@ -18,8 +18,8 @@ public class MessageService {
     public Map<LocalDateTime, String> findByChatID(String chatID) {
         List<Message> messages = messageRepository.findByChatId_IdOrderByMessageDatetime(chatID);
 
-        return messages.stream().collect(Collectors.toMap(Message::getMessageDatetime, // kljuc
-                Message::getMessageContent, // vrijednost
+        return messages.stream().collect(Collectors.toMap(Message::getMessageDatetime,
+                Message::getMessageContent,
                 (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 

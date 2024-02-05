@@ -19,7 +19,7 @@
                 <div class="b">
                     <div class="c">
                         <a th:text="${listing.title}" th:href="@{'/listingWithImages/'+${listing.id}}"></a>
-                        <p th:text="${listing.description}"></p>
+                        <p th:text="${listing.specifications.kilometersTravelled + ' km'}">
                         <p th:text="'Price: ' + ${listing.price} + ' €'"></p>
                     </div>
                     <div class="listing_image">

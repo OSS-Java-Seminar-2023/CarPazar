@@ -107,17 +107,15 @@ public class ListingService {
     }
 
     public List<Listing> search(String[] keywords) {
-        Map<Listing, Integer> listingMatches = new HashMap<>();
         List<Listing> allListings = listingRepository.findAll();
 
-        for (Listing listing : allListings) {
-            listingMatches.put(listing, 0);
-            for (String word : keywords) {
-                if (listing.getTitle().toLowerCase().contains(word.toLowerCase())) {
-                    listingMatches.put(listing, listingMatches.get(listing) + 1);
-                }
-            }
-        }
+        Map<Listing, Integer> listingMatches = allListings.stream()
+                .collect(Collectors.toMap(
+                        listing -> listing,
+                        listing -> (int) Arrays.stream(keywords)
+                                .filter(word -> listing.getTitle().toLowerCase().contains(word.toLowerCase()))
+                                .count()
+                ));
 
         List<Listing> searchResults;
         searchResults = listingMatches.entrySet()
@@ -126,19 +124,6 @@ public class ListingService {
                 .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
-
-        if (searchResults.isEmpty()) {
-            String keyword = keywords[0];
-            searchResults = allListings.stream()
-                    .filter(listing -> listing.getTitle().toLowerCase().startsWith(keyword.toLowerCase()))
-                    .collect(Collectors.toList());
-
-            if (searchResults.isEmpty()) {
-                searchResults = allListings.stream()
-                        .filter(listing -> listing.getTitle().toLowerCase().contains(keyword.toLowerCase()))
-                        .collect(Collectors.toList());
-            }
-        }
 
         return searchResults;
     }

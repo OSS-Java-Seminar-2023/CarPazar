@@ -10,6 +10,8 @@ import hr.carpazar.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,15 +42,12 @@ public class MessageController {
         }
         User user = userService.findByUserName(loggedInUsername);
         List<Chat> chats = chatService.findByUserID(user);
-        List<Chat> chatOwner = new ArrayList<>();
         List<Listing> listings = listingService.findByUserId(user.getId());
 
-        for (Listing listing : listings) {
-            Chat chat = chatService.findExistingChatByListings(listing);
-            if (chat != null) {
-                chatOwner.add(chat);
-            }
-        }
+        List<Chat> chatOwner = listings.stream()
+                .map(listing -> chatService.findExistingChatByListings(listing))
+                .filter(chat -> chat != null)
+                .collect(Collectors.toList());
 
         model.addAttribute("chats", chats);
         model.addAttribute("chatOwner", chatOwner);
