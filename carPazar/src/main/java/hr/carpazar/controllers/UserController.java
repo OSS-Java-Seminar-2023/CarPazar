@@ -349,6 +349,12 @@ public class UserController {
             listingService.deleteListing(listing);
         });
 
+        List<Chat> chats = chatService.findAllChatsByBuyerId(user);
+        for(Chat chat:chats) {
+            messageService.deleteByChatId(chat);
+            chatService.deleteById(chat.getId());
+        }
+
         userService.deleteUser(user);
         return "redirect:/adminPanel";
     }

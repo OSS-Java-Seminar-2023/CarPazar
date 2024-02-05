@@ -33,6 +33,10 @@ public class ChatService {
     public List<Chat> findAllChatsByListing(Listing listing) {
         return chatRepository.findAllByListingId(listing);
     }
+
+    public List<Chat> findAllChatsByBuyerId(User buyerId) {
+        return chatRepository.findAllByBuyerId(buyerId);
+    }
     public Chat saveChat(Chat chat) {
         chatRepository.save(chat);
         return chat;
