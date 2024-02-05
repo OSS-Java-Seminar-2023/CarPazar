@@ -25,8 +25,14 @@
     <div class="chat-header">
         <h2>
             Chat with
-            <a class="yellow-text no-underline" th:href="@{/user/{username}(username=${listing.userId.userName})}"
+            <a class="yellow-text no-underline" th:if="${loggedInUser != listing.userId.id}"
+               th:href="@{/user/{username}(username=${listing.userId.userName})}"
                th:text="${listing.userId.userName}">
+                User
+            </a>
+            <a class="yellow-text no-underline" th:if="${loggedInUser == listing.userId.id}"
+               th:href="@{/user/{username}(username=${chat.buyerId.userName})}"
+               th:text="${chat.buyerId.userName}">
                 User
             </a>
             about

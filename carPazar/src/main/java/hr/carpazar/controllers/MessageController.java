@@ -43,11 +43,14 @@ public class MessageController {
         User user = userService.findByUserName(loggedInUsername);
         List<Chat> chats = chatService.findByUserID(user);
         List<Listing> listings = listingService.findByUserId(user.getId());
+        List<Chat> chatOwner = new ArrayList<>();
 
-        List<Chat> chatOwner = listings.stream()
-                .map(listing -> chatService.findExistingChatByListings(listing))
-                .filter(chat -> chat != null)
-                .collect(Collectors.toList());
+        for (Listing listing : listings) {
+            List<Chat> allChats = chatService.findExistingChatsByListings(listing);
+            for (Chat chat : allChats) {
+                chatOwner.add(chat);
+            }
+        }
 
         model.addAttribute("chats", chats);
         model.addAttribute("chatOwner", chatOwner);

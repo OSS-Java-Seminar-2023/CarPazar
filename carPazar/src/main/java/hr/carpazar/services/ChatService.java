@@ -29,6 +29,10 @@ public class ChatService {
     public Chat findExistingChatByListings(Listing listing) {
         return chatRepository.findByListingId(listing);
     }
+    public List<Chat> findExistingChatsByListings(Listing listing) {
+        return chatRepository.findAllByListingId(listing);
+    }
+
 
     public List<Chat> findAllChatsByListing(Listing listing) {
         return chatRepository.findAllByListingId(listing);

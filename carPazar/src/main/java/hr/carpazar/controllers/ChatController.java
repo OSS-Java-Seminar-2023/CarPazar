@@ -86,6 +86,7 @@ public class ChatController {
 
             model.addAttribute("chat", chat);
             model.addAttribute("messages", messages);
+            model.addAttribute("loggedInUser", loggedInUser);
 
             if (loggedInUser.equals(buyerID)) {
                 model.addAttribute("user_right", buyer.getId());

@@ -17,4 +17,5 @@ public interface ChatRepository extends JpaRepository<Chat, String> {
     void deleteByBuyerId(User buyer);
     void deleteByListingId(Listing listingId);
     void deleteById(String id);
+
 }
