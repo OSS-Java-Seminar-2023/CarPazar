@@ -4,7 +4,6 @@ import hr.carpazar.controllers.UserController;
 import hr.carpazar.models.Listing;
 import hr.carpazar.models.User;
 import hr.carpazar.services.ListingService;
-import hr.carpazar.services.SpecificationService;
 import hr.carpazar.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class UserTests {
+public class UserTest {
     @Mock
     private UserService userService;
     @Mock
