@@ -96,7 +96,7 @@
                 <td>
                     Gear Count
                 </td>
-                <td th:text="${specification.getGearCount()}">
+                <td th:if="${specification.getGearCount()!=0}" th:text="${specification.getGearCount()}">
                 </td>
             </tr>
             <tr>
@@ -173,7 +173,7 @@
                 <td>
                     Seat Count
                 </td>
-                <td th:text="${specification.getSeatCount()}">
+                <td th:if="${specification.getSeatCount()!=0}" th:text="${specification.getSeatCount()}">
                 </td>
             </tr>
             <tr>

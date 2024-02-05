@@ -56,11 +56,11 @@ public class UserController {
         List<Listing> listings = listingService.getAll();
         List<Listing> listingsFiltered =
                 listings.stream()
-                        .filter(listing -> !listing.getIsSponsored())
+                        .filter(listing -> listing.getIsSponsored())
                         .sorted((listing1, listing2)
                                 -> listing2.getListingDatetime().compareTo(
                                 listing1.getListingDatetime()))
-                        .limit(3)
+                        .limit(4)
                         .collect(Collectors.toList());
 
         if (listingsFiltered.isEmpty()) {
@@ -313,10 +313,6 @@ public class UserController {
         user.setIsAdmin(userDto.isAdmin());
         user.setIsPremium(userDto.isPremium());
 
-        if (user.getIsPremium()) {
-            List<Listing> list = listingService.findByUserId(loggedInUsername);
-            for (Listing listing : list) listing.setIsSponsored(Boolean.TRUE);
-        }
 
         userService.saveUser(user);
 
